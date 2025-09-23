@@ -67,7 +67,7 @@ GO
 ------------------------------
 CREATE TABLE socio (
   id_socio int,
-  contacto_emergencia varchar(16),
+  contacto_emergencia int,
   observaciones varchar(650),
 
   --CLAVES PRIMARIAS
