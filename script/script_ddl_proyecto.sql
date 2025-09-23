@@ -17,8 +17,8 @@ CREATE TABLE persona (
   id_persona int PRIMARY KEY IDENTITY(1, 1),
   nombre varchar(255),
   apellido varchar(255),
-  dni varchar(255),
-  telefono varchar(255),
+  dni int,
+  telefono int,
   email varchar(200),
   fecha_alta date,
   estado BIT
