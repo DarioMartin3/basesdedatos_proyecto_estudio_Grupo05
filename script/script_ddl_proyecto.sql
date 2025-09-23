@@ -30,7 +30,6 @@ CREATE TABLE persona (
   CONSTRAINT UQ_dni UNIQUE (dni),
   CONSTRAINT UQ_email UNIQUE (email),
   CONSTRAINT UQ_telefono UNIQUE (telefono),
-  CONSTRAINT UQ_email UNIQUE (email),
 
   --RESTRICCIONES CHECK
   CONSTRAINT CK_dni CHECK (LEN(dni) = 8),
