@@ -1,41 +1,99 @@
-CREATE TABLE [rol] (
-  [id_rol] int PRIMARY KEY IDENTITY(1, 1),
-  [nombre] nvarchar(255)
+------------------------------
+-- TABLA ROL
+------------------------------
+CREATE TABLE rol (
+  id_rol int PRIMARY KEY IDENTITY(1, 1),
+  nombre varchar(255),
+
+  --CLAVES PRIMARIAS
+  CONSTRAINT PK_rol PRIMARY KEY (id_rol)
 )
 GO
 
-CREATE TABLE [persona] (
-  [id_persona] int PRIMARY KEY IDENTITY(1, 1),
-  [nombre] nvarchar(255),
-  [apellido] nvarchar(255),
-  [dni] nvarchar(255),
-  [telefono] nvarchar(255),
-  [email] varchar(200),
-  [fecha_alta] date,
-  [estado] boolean
+------------------------------
+-- TABLA PERSONA
+------------------------------
+CREATE TABLE persona (
+  id_persona int PRIMARY KEY IDENTITY(1, 1),
+  nombre varchar(255),
+  apellido varchar(255),
+  dni varchar(255),
+  telefono varchar(255),
+  email varchar(200),
+  fecha_alta date,
+  estado BIT
+
+  --CLAVES PRIMARIAS
+  CONSTRAINT PK_persona PRIMARY KEY (id_persona),
+
+  --RESTRICCIONES UNIQUE
+  CONSTRAINT UQ_dni UNIQUE (dni),
+  CONSTRAINT UQ_email UNIQUE (email),
+  CONSTRAINT UQ_telefono UNIQUE (telefono),
+  CONSTRAINT UQ_email UNIQUE (email),
+
+  --RESTRICCIONES CHECK
+  CONSTRAINT CK_dni CHECK (LEN(dni) = 8),
+  CONSTRAINT CK_fecha_alta CHECK (fecha_alta <= GETDATE()),
+
+  --RESTRICCIONES DEFAULT
+  CONSTRAINT DF_fecha_alta DEFAULT GETDATE(),
+  CONSTRAINT DF_estado DEFAULT 1
 )
 GO
 
-CREATE TABLE [usuario] (
-  [id_usuario] int PRIMARY KEY,
-  [username] nvarchar(255),
-  [password] nvarchar(255),
-  [rol_id] int
+------------------------------
+-- TABLA USUARIO
+------------------------------
+CREATE TABLE usuario (
+  id_usuario int ,
+  username varchar(50),
+  password varchar(255),
+  rol_id int,
+
+  --CLAVES PRIMARIAS
+  CONSTRAINT PK_usuario PRIMARY KEY (id_usuario),
+
+  --CLAVES FORANEAS
+  CONSTRAINT FK_persona FOREIGN KEY (id_usuario) REFERENCES persona(id_persona),
+  CONSTRAINT FK_rol FOREIGN KEY (rol_id) REFERENCES rol(id_rol),
+
+  --RESTRICCIONES UNIQUE
+  CONSTRAINT UQ_username UNIQUE (username)
 )
 GO
 
-CREATE TABLE [socio] (
-  [id_socio] int PRIMARY KEY,
-  [contacto_emergencia] nvarchar(255),
-  [observaciones] nvarchar(255)
+------------------------------
+-- TABLA SOCIO
+------------------------------
+CREATE TABLE socio (
+  id_socio int,
+  contacto_emergencia varchar(16),
+  observaciones varchar(650),
+
+  --CLAVES PRIMARIAS
+  CONSTRAINT PK_socio PRIMARY KEY (id_socio),
+
+  --CLAVES FORANEAS
+  CONSTRAINT FK_socio_persona FOREIGN KEY (id_socio) REFERENCES persona(id_persona)
 )
 GO
 
-CREATE TABLE [membresia_tipo] (
-  [id_tipo] int PRIMARY KEY IDENTITY(1, 1),
-  [nombre] nvarchar(255),
-  [duracion_dias] int,
-  [precio] decimal
+------------------------------
+-- TABLA MEMBRESIA_TIPO
+------------------------------
+CREATE TABLE membresia_tipo (
+  id_tipo int,
+  nombre varchar(255),
+  duracion_dias int,
+  precio decimal
+
+  --CLAVES PRIMARIAS
+  CONSTRAINT PK_membresia_tipo PRIMARY KEY (id_tipo),
+
+  --RESTRICCIONES CHECK
+  CONSTRAINT CK_duracion_dias CHECK (duracion_dias > 0),
+  CONSTRAINT CK_precio CHECK (precio > 0)
 )
 GO
 
