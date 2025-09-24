@@ -102,38 +102,63 @@ CREATE TABLE membresia_tipo (
   CONSTRAINT CK_precio CHECK (precio > 0)
 )
 
+------------------------------
+-- tabla membresia
+------------------------------
 
-CREATE TABLE [membresia] (
-  [id_membresia] int PRIMARY KEY IDENTITY(1, 1),
-  [usuario_id] int,
-  [tipo_id] int,
-  [socio_id] int,
-  [fecha_inicio] date,
-  [fecha_fin] date,
-  [estado] boolean
+CREATE TABLE membresia (
+  id_membresia int PRIMARY KEY IDENTITY(1, 1),
+  usuario_id int,
+  tipo_id int,
+  socio_id int,
+  fecha_inicio date,
+  fecha_fin date,
+  estado boolean
+
+  --CLAVES FORANEAS
+  CONSTRAINT FK_membresia_usuario FOREIGN KEY (usuario_id) REFERENCES usuario(id_usuario),
+  CONSTRAINT FK_membresia_tipo FOREIGN KEY (tipo_id) REFERENCES membresia_tipo(id_tipo),
+  CONSTRAINT FK_membresia_socio FOREIGN KEY (socio_id) REFERENCES socio(id_socio)
 )
 
+-------------------------------
+-- TABLA PAGO
+-------------------------------
 
-CREATE TABLE [pago] (
-  [id_pago] int PRIMARY KEY IDENTITY(1, 1),
-  [membresia_id] int,
-  [fecha] date,
-  [monto] decimal,
-  [medio_pago] nvarchar(255)
+CREATE TABLE pago (
+  id_pago int PRIMARY KEY IDENTITY(1, 1),
+  membresia_id int,
+  fecha date,
+  monto decimal,
+  medio_pago nvarchar(255),
+
+  --CLAVES FORANEAS
+  CONSTRAINT FK_pago_membresia FOREIGN KEY (membresia_id) REFERENCES membresia(id_membresia)
 )
 
+------------------------------
+-- TABLA ACTIVIDAD
+------------------------------
 
-CREATE TABLE [actividad] (
-  [id_actividad] int PRIMARY KEY IDENTITY(1, 1),
-  [nombre] nvarchar(255)
+CREATE TABLE actividad (
+  id_actividad int PRIMARY KEY IDENTITY(1, 1),
+  nombre nvarchar(255)
 )
 
+------------------------------
+-- TABLA CLASE
+------------------------------
 
-CREATE TABLE [clase] (
-  [id_clase] int PRIMARY KEY IDENTITY(1, 1),
-  [actividad_id] int,
-  [usuario_id] int,
-  [cupo] int
+CREATE TABLE clase (
+  id_clase int PRIMARY KEY IDENTITY(1, 1),
+  actividad_id int,
+  usuario_id int,
+  cupo int
+  --CLAVES FORANEAS
+  CONSTRAINT FK_clase_actividad FOREIGN KEY (actividad_id) REFERENCES actividad(id_actividad),
+  CONSTRAINT FK_clase_usuario FOREIGN KEY (usuario_id) REFERENCES usuario(id_usuario),
+  --RESTRICCIONES CHECK
+  CONSTRAINT CK_cupo CHECK (cupo > 0)
 )
 
 ------------------------------
