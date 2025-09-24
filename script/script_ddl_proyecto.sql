@@ -206,7 +206,8 @@ CREATE TABLE orden_compra_item (
   CONSTRAINT FK_orden_compra_item_inventario FOREIGN KEY (inventario_id) REFERENCES inventario(id_inventario),
   --RESTRICCIONES CHECK
   CONSTRAINT CK_cantidad CHECK (cantidad > 0),
-  CONSTRAINT CK_precio_compra CHECK (precio_compra > 0)  
+  CONSTRAINT CK_precio_compra CHECK (precio_compra > 0),
+  CONSTRAINT UQ_inventario_orden UNIQUE (inventario_id, orden_id)
 )
 
 ------------------------------

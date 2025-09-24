@@ -6,15 +6,13 @@ Este espacio propone presentar la información para organizar el desarrollo del 
 
     basesdedatos_proyecto_estudio_Grupo05
     ->doc (carpeta con documentos e imágenes asociados al contenido principal)
-    ->script (capeta de código del proyecto)
-	<!--
+    ->script (capeta de código del proyecto)	
     ---->tema_01 (sub-carpeta específica del tema)
 		  tema01_script01.sql
 		  tema01_script02.sql
 		  tema_nombre.md (descripción completa del procedimiento para implementar el tema técnico de estudio)
 	---->tema_2
-	----> ...
-    -->
+	----> ...    
     ->proyecto_gymanagerpro.md 
     
 **Estructura del documento principal:**
