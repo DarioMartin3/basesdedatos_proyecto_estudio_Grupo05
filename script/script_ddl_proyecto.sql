@@ -56,7 +56,7 @@ CREATE TABLE persona (
 CREATE TABLE usuario (
   id_usuario int IDENTITY(1, 1),
   username varchar(50),
-  password varchar(255),
+  [password] varchar(255),
   rol_id int,
 
   -- CLAVES PRIMARIAS
