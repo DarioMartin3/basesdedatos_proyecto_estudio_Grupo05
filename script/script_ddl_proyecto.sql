@@ -276,6 +276,9 @@ CREATE TABLE inventario (
 
   -- CLAVES FORANEAS
   CONSTRAINT FK_inventario_categoria FOREIGN KEY (categoria_id) REFERENCES inventario_categoria(id_categoria)
+
+  --RESTRICCIONES CHECK
+  CONSTRAINT CK_cantidad CHECK (cantidad >= 0),
 )
 
 ------------------------------
