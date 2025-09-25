@@ -308,7 +308,7 @@ CREATE TABLE orden_compra_item (
 CREATE TABLE inventario_movimiento (
   id_movimiento int IDENTITY(1, 1),
   inventario_id int,
-  fecha date,
+  fecha date DEFAULT GETDATE(),
   tipo nvarchar(255),
   cantidad int,
   compra_id int,
@@ -319,6 +319,9 @@ CREATE TABLE inventario_movimiento (
   -- CLAVES FORANEAS
   CONSTRAINT FK_inventario_movimiento_inventario FOREIGN KEY (inventario_id) REFERENCES inventario(id_inventario),
   CONSTRAINT FK_inventario_movimiento_compra FOREIGN KEY (compra_id) REFERENCES orden_compra(id_orden)
+
+  --RESTRICCIONES CHECK
+  CONSTRAINT CK_inventario_movimiento_cantidad CHECK (cantidad > 0)
 )
 
 ------------------------------
