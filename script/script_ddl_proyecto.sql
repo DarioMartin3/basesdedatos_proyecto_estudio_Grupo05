@@ -30,11 +30,11 @@ CREATE TABLE persona (
   dni int,
   telefono int,
   email varchar(200),
-  fecha_alta date,
-  estado BIT,
+  fecha_alta date CONSTRAINT DF_persona_fecha_alta DEFAULT GETDATE(),
+  estado BIT CONSTRAINT DF_persona_estado DEFAULT (1),
 
   -- CLAVES PRIMARIAS
-  CONSTRAINT PK_persona PRIMARY KEY (id_persona)
+  CONSTRAINT PK_persona PRIMARY KEY (id_persona),
 
   --RESTRICCIONES UNIQUE
   CONSTRAINT UQ_persona_dni UNIQUE (dni),
@@ -45,9 +45,6 @@ CREATE TABLE persona (
   CONSTRAINT CK_persona_dni CHECK (dni BETWEEN 10000000 AND 99999999),
   CONSTRAINT CK_persona_fecha_alta CHECK (fecha_alta <= GETDATE()),
 
-  --RESTRICCIONES DEFAULT
-  CONSTRAINT DF_persona_fecha_alta DEFAULT GETDATE() FOR fecha_alta,
-  CONSTRAINT DF_persona_estado DEFAULT 1 FOR estado
 )
 
 ------------------------------
