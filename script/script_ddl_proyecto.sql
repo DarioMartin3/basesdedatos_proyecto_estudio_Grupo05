@@ -1,4 +1,4 @@
-------------------------------
+﻿------------------------------
 -- CREACION DE BASE DE DATOS
 ------------------------------
 CREATE DATABASE gimnasio_db;
@@ -56,7 +56,7 @@ CREATE TABLE persona (
 CREATE TABLE usuario (
   id_usuario int IDENTITY(1, 1),
   username varchar(50),
-  [password] varchar(255),
+  password varchar(255),
   rol_id int,
 
   -- CLAVES PRIMARIAS
@@ -275,7 +275,7 @@ CREATE TABLE inventario (
   CONSTRAINT PK_inventario PRIMARY KEY (id_inventario),
 
   -- CLAVES FORANEAS
-  CONSTRAINT FK_inventario_categoria FOREIGN KEY (categoria_id) REFERENCES inventario_categoria(id_categoria)
+  CONSTRAINT FK_inventario_inventario_categoria FOREIGN KEY (categoria_id) REFERENCES inventario_categoria(id_categoria)
 
   --RESTRICCIONES CHECK
   CONSTRAINT CK_cantidad CHECK (cantidad >= 0),
