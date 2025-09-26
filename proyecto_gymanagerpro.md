@@ -39,3 +39,12 @@ Diseñar y construir una base de datos relacional en SQL Server para la gestión
 5. **Optimizar consultas operativas** mediante claves y relaciones que habiliten reportes de: vencimientos de membresías, recaudación por período, ocupación de clases, inscriptos por actividad, stock disponible y trazabilidad de compras.
 6. **Documentar** el esquema con diccionario de datos, diagrama entidad-relación y justificación de decisiones de diseño.
 7. **Validar** el diseño con casos de uso: alta de socio, venta de membresía, registro de pago, programación de clase y horarios, inscripción, compra a proveedor, ingreso/egreso de inventario.
+
+## CAPÍTULO IV: DESARROLLO DEL TEMA / PRESENTACIÓN DE RESULTADOS
+
+### Diagrama relacional
+![der](https://github.com/DarioMartin3/basesdedatos_proyecto_estudio_Grupo05/blob/main/doc/diagrama_ER.png)
+
+### Diccionario de datos
+
+Acceso al documento [PDF](https://github.com/DarioMartin3/basesdedatos_proyecto_estudio_Grupo05/blob/main/doc/diccionario_datos.pdf) del diccionario de datos.
