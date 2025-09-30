@@ -337,3 +337,170 @@ CREATE TABLE clase_inscripcion (
   CONSTRAINT FK_clase_inscripcion_clase FOREIGN KEY (clase_id) REFERENCES clase(id_clase)
 )
 
+------------------------------
+-- INSERTS PARA TABLA ROL
+------------------------------
+INSERT INTO rol (nombre) VALUES 
+('ADMINISTRADOR'),
+('COACH'),
+('RECEPCIONISTA');
+
+------------------------------
+-- INSERTS PARA TABLA PERSONA
+------------------------------
+INSERT INTO persona (nombre, apellido, dni, telefono, email) VALUES 
+('Juan', 'Pérez', 30123456, 1156789012, 'juan.perez@gmail.com'),
+('María', 'Gómez', 32123456, 1156789013, 'maria.gomez@gmail.com'),
+('Carlos', 'López', 34123456, 1156789014, 'carlos.lopez@gmail.com'),
+('Ana', 'Martínez', 36123456, 1156789015, 'ana.martinez@gmail.com'),
+('Pedro', 'Rodríguez', 38123456, 1156789016, 'pedro.rodriguez@gmail.com'),
+('Laura', 'García', 40123456, 1156789017, 'laura.garcia@gmail.com'),
+('Diego', 'Fernández', 42123456, 1156789018, 'diego.fernandez@gmail.com'),
+('Sofía', 'Díaz', 44123456, 1156789019, 'sofia.diaz@gmail.com');
+
+------------------------------
+-- INSERTS PARA TABLA USUARIO
+------------------------------
+INSERT INTO usuario (id_usuario, username, password, rol_id) VALUES 
+(1, 'juan.admin', 'admin123', 1),  -- ADMINISTRADOR
+(2, 'maria.coach', 'coach123', 2),  -- COACH
+(3, 'carlos.recep', 'recep123', 3), -- RECEPCIONISTA
+(4, 'ana.coach', 'coach456', 2);    -- COACH
+
+------------------------------
+-- INSERTS PARA TABLA SOCIO
+------------------------------
+INSERT INTO socio (id_socio, contacto_emergencia, observaciones) VALUES 
+(5, 1156789020, 'Sin observaciones'),
+(6, 1156789021, 'Alérgico a frutos secos'),
+(7, 1156789022, 'Lesión leve en rodilla izquierda'),
+(8, 1156789023, 'Sin observaciones');
+
+------------------------------
+-- INSERTS PARA TABLA MEMBRESIA_TIPO
+------------------------------
+INSERT INTO membresia_tipo (nombre, duracion_dias, precio) VALUES 
+('Mensual', 30, 15000.00),
+('Semanal', 7, 9000.00),
+('Diaria', 1, 1000.00);
+
+
+------------------------------
+-- INSERTS PARA TABLA MEMBRESIA
+------------------------------
+INSERT INTO membresia (usuario_id, tipo_id, socio_id, fecha_inicio, fecha_fin, estado) VALUES 
+(3, 1, 1, '2024-01-01', '2024-01-31', 1),
+(3, 2, 2, '2024-01-01', '2024-01-31', 1),
+(3, 3, 3, '2024-01-01', '2024-03-31', 1),
+
+
+------------------------------
+-- INSERTS PARA TABLA PAGO
+------------------------------
+INSERT INTO pago (membresia_id, fecha, monto, medio_pago) VALUES 
+(1, '2024-01-01', 15000.00, 'EFECTIVO'),
+(2, '2024-01-01', 25000.00, 'TARJETA CRÉDITO'),
+(3, '2024-01-01', 40000.00, 'TRANSFERENCIA'),
+(4, '2024-01-01', 120000.00, 'TARJETA DÉBITO');
+
+------------------------------
+-- INSERTS PARA TABLA ACTIVIDAD
+------------------------------
+INSERT INTO actividad (nombre) VALUES 
+('CrossFit'),
+('Yoga'),
+('Spinning'),
+('Boxeo'),
+('Musculación');
+
+------------------------------
+-- INSERTS PARA TABLA CLASE
+------------------------------
+INSERT INTO clase (actividad_id, usuario_id, cupo) VALUES 
+(1, 2, 20),  -- CrossFit con María
+(2, 4, 15),  -- Yoga con Ana
+(3, 2, 25),  -- Spinning con María
+(4, 4, 10);  -- Boxeo con Ana
+
+------------------------------
+-- INSERTS PARA TABLA DIAS
+------------------------------
+INSERT INTO dias (dias, hora_desde, hora_hasta) VALUES 
+(1, '08:00', '09:00'),  -- Lunes
+(2, '10:00', '11:00'),  -- Martes
+(3, '18:00', '19:00'),  -- Miércoles
+(4, '19:00', '20:00');  -- Jueves
+
+------------------------------
+-- INSERTS PARA TABLA CLASE_DIA
+------------------------------
+INSERT INTO clase_dia (clase_id, dias_id) VALUES 
+(1, 1),  -- CrossFit los Lunes
+(1, 3),  -- CrossFit los Miércoles
+(2, 2),  -- Yoga los Martes
+(3, 4),  -- Spinning los Jueves
+(4, 1);  -- Boxeo los Lunes
+
+------------------------------
+-- INSERTS PARA TABLA PROVEEDOR
+------------------------------
+INSERT INTO proveedor (nombre, cuit, email, telefono) VALUES 
+('Proveedor Deportes SA', 30123456789, 'ventas@deportessa.com', 1145678901),
+('Equipamiento Gym SL', 30234567890, 'info@gymequipment.com', 1145678902);
+
+------------------------------
+-- INSERTS PARA TABLA ESTADO_COMPRA
+------------------------------
+INSERT INTO estado_compra (nombre) VALUES 
+('PENDIENTE'),
+('APROBADA'),
+('RECIBIDA'),
+('CANCELADA');
+
+------------------------------
+-- INSERTS PARA TABLA ORDEN_COMPRA
+------------------------------
+INSERT INTO orden_compra (proveedor_id, usuario_id, estado_id, fecha) VALUES 
+(1, 1, 2, '2024-01-01'),
+(2, 1, 1, '2024-01-02');
+
+------------------------------
+-- INSERTS PARA TABLA INVENTARIO_CATEGORIA
+------------------------------
+INSERT INTO inventario_categoria (nombre) VALUES 
+('Equipamiento Cardio'),
+('Pesas y Mancuernas'),
+('Barras');
+
+------------------------------
+-- INSERTS PARA TABLA INVENTARIO
+------------------------------
+INSERT INTO inventario (categoria_id, nombre, cantidad, fecha_ingreso, estado) VALUES 
+(1, 'Cinta de Correr', 5, '2024-01-01', 1),
+(1, 'Bicicleta Spinning', 10, '2024-01-01', 1),
+(2, 'Mancuernas 5kg', 20, '2024-01-01', 1),;
+
+------------------------------
+-- INSERTS PARA TABLA ORDEN_COMPRA_ITEM
+------------------------------
+INSERT INTO orden_compra_item (orden_id, inventario_id, cantidad, precio_compra) VALUES 
+(1, 1, 2, 500000.00),
+(1, 2, 5, 300000.00),
+(2, 3, 10, 15000.00);
+
+------------------------------
+-- INSERTS PARA TABLA INVENTARIO_MOVIMIENTO
+------------------------------
+INSERT INTO inventario_movimiento (inventario_id, tipo, cantidad, compra_id) VALUES 
+(1, 'ENTRADA', 2, 1),
+(2, 'ENTRADA', 5, 1),
+(3, 'ENTRADA', 10, 2);
+
+------------------------------
+-- INSERTS PARA TABLA CLASE_INSCRIPCION
+------------------------------
+INSERT INTO clase_inscripcion (socio_id, clase_id) VALUES 
+(1, 1),  -- Socio 1 en CrossFit
+(2, 2),  -- Socio 2 en Yoga
+(3, 3),  -- Socio 3 en Spinning
+(4, 4);  -- Socio 4 en Boxeo
