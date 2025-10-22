@@ -83,6 +83,42 @@ CREATE TABLE socio (
 )
 
 ------------------------------
+-- TABLA ACTIVIDAD
+------------------------------
+
+CREATE TABLE actividad (
+  id_actividad int IDENTITY(1, 1),
+  nombre nvarchar(255),
+
+  --CLAVES PRIMARIAS
+  CONSTRAINT PK_actividad PRIMARY KEY (id_actividad)
+)
+
+------------------------------
+-- TABLA CLASE
+------------------------------
+
+CREATE TABLE clase (
+  id_clase int IDENTITY(1, 1),
+  actividad_id int,
+  usuario_id int,
+  precio decimal(10,2),
+  hora_desde date,
+  hora_hasta date,
+  cupo int,
+
+  --CLAVES PRIMARIAS
+  CONSTRAINT PK_clase PRIMARY KEY (id_clase),
+
+  --CLAVES FORANEAS
+  CONSTRAINT FK_clase_actividad FOREIGN KEY (actividad_id) REFERENCES actividad(id_actividad),
+  CONSTRAINT FK_clase_usuario FOREIGN KEY (usuario_id) REFERENCES usuario(id_usuario),
+
+  --RESTRICCIONES CHECK
+  CONSTRAINT CK_clase_cupo CHECK (cupo > 0)
+)
+
+------------------------------
 -- TABLA MEMBRESIA_TIPO
 ------------------------------
 CREATE TABLE membresia_tipo (
@@ -135,24 +171,6 @@ CREATE TABLE membresia_clase (
 )
 
 -------------------------------
--- TABLA PAGO_DETALLE
--------------------------------
-CREATE TABLE pago_detalle (
-  id_detalle int IDENTITY(1, 1),
-  pago_id int,
-  membresia_id int,
-  clase_id int,
-
-  -- CLAVES PRIMARIAS
-  CONSTRAINT PK_pago_detalle PRIMARY KEY (id_detalle),
-
-  --CLAVES FORANEAS
-  CONSTRAINT FK_pago_detalle_pago FOREIGN KEY (pago_id) REFERENCES pago(id_pago),
-  CONSTRAINT FK_pago_detalle_membresia FOREIGN KEY (membresia_id) REFERENCES membresia(id_membresia),
-  CONSTRAINT FK_pago_detalle_clase FOREIGN KEY (clase_id) REFERENCES clase(id_clase)
-)
-
--------------------------------
 -- TABLA TIPO_PAGO
 -------------------------------
 CREATE TABLE tipo_pago (
@@ -180,45 +198,26 @@ CREATE TABLE pago (
   CONSTRAINT PK_pago PRIMARY KEY (id_pago),
 
   --CLAVES FORANEAS
-  CONSTRAINT FK_pago_membresia FOREIGN KEY (membresia_id) REFERENCES membresia(id_membresia),
   CONSTRAINT FK_pago_socio FOREIGN KEY (socio_id) REFERENCES socio(id_socio),
   CONSTRAINT FK_pago_tipo_pago FOREIGN KEY (tipo_pago_id) REFERENCES tipo_pago(id_tipo_pago)
 )
 
-------------------------------
--- TABLA ACTIVIDAD
-------------------------------
+-------------------------------
+-- TABLA PAGO_DETALLE
+-------------------------------
+CREATE TABLE pago_detalle (
+  id_detalle int IDENTITY(1, 1),
+  pago_id int,
+  membresia_id int,
+  clase_id int,
 
-CREATE TABLE actividad (
-  id_actividad int IDENTITY(1, 1),
-  nombre nvarchar(255),
-
-  --CLAVES PRIMARIAS
-  CONSTRAINT PK_actividad PRIMARY KEY (id_actividad)
-)
-
-------------------------------
--- TABLA CLASE
-------------------------------
-
-CREATE TABLE clase (
-  id_clase int IDENTITY(1, 1),
-  actividad_id int,
-  usuario_id int,
-  precio decimal(10,2),
-  hora_desde date,
-  hora_hasta date,
-  cupo int,
-
-  --CLAVES PRIMARIAS
-  CONSTRAINT PK_clase PRIMARY KEY (id_clase),
+  -- CLAVES PRIMARIAS
+  CONSTRAINT PK_pago_detalle PRIMARY KEY (id_detalle),
 
   --CLAVES FORANEAS
-  CONSTRAINT FK_clase_actividad FOREIGN KEY (actividad_id) REFERENCES actividad(id_actividad),
-  CONSTRAINT FK_clase_usuario FOREIGN KEY (usuario_id) REFERENCES usuario(id_usuario),
-
-  --RESTRICCIONES CHECK
-  CONSTRAINT CK_clase_cupo CHECK (cupo > 0)
+  CONSTRAINT FK_pago_detalle_pago FOREIGN KEY (pago_id) REFERENCES pago(id_pago),
+  CONSTRAINT FK_pago_detalle_membresia FOREIGN KEY (membresia_id) REFERENCES membresia(id_membresia),
+  CONSTRAINT FK_pago_detalle_clase FOREIGN KEY (clase_id) REFERENCES clase(id_clase)
 )
 
 ------------------------------
@@ -368,7 +367,7 @@ CREATE TABLE inventario_movimiento (
 
   -- CLAVES FORANEAS
   CONSTRAINT FK_inventario_movimiento_inventario FOREIGN KEY (inventario_id) REFERENCES inventario(id_inventario),
-  CONSTRAINT FK_inventario_movimiento_compra FOREIGN KEY (compra_id) REFERENCES orden_compra(id_orden)
+  CONSTRAINT FK_inventario_movimiento_compra FOREIGN KEY (compra_id) REFERENCES orden_compra(id_orden),
 
   --RESTRICCIONES CHECK
   CONSTRAINT CK_inventario_movimiento_cantidad CHECK (cantidad > 0)
