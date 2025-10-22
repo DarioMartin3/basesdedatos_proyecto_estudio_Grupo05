@@ -13,7 +13,7 @@ GO
 -- TABLA ROL
 ------------------------------
 CREATE TABLE rol (
-  id_rol int IDENTITY(1, 1),
+  id_rol int,
   nombre varchar(255),
 
   --CLAVES PRIMARIAS
@@ -51,9 +51,9 @@ CREATE TABLE persona (
 -- TABLA USUARIO
 ------------------------------
 CREATE TABLE usuario (
-  id_usuario int IDENTITY(1, 1),
+  id_usuario int,
   username varchar(50),
-  password varchar(255),
+  contraseña varchar(255),
   rol_id int,
 
   -- CLAVES PRIMARIAS
@@ -89,14 +89,13 @@ CREATE TABLE membresia_tipo (
   id_tipo int IDENTITY(1, 1),
   nombre varchar(255),
   duracion_dias int,
-  precio decimal,
 
   -- CLAVES PRIMARIAS
   CONSTRAINT PK_membresia_tipo PRIMARY KEY (id_tipo),
 
   --RESTRICCIONES CHECK
   CONSTRAINT CK_membresia_tipo_duracion_dias CHECK (duracion_dias > 0),
-  CONSTRAINT CK_membresia_tipo_precio CHECK (precio > 0)
+
 )
 
 ------------------------------
@@ -109,7 +108,6 @@ CREATE TABLE membresia (
   tipo_id int,
   socio_id int,
   fecha_inicio date,
-  fecha_fin date,
   estado BIT,
 
   -- CLAVES PRIMARIAS
@@ -122,21 +120,69 @@ CREATE TABLE membresia (
 )
 
 -------------------------------
+-- TABLA MEMBRESIA_CLASE
+-------------------------------
+CREATE TABLE membresia_clase (
+  membresia_id int,
+  clase_id int,
+
+  -- CLAVES PRIMARIAS
+  CONSTRAINT PK_membresia_clase PRIMARY KEY (membresia_id, clase_id),
+
+  --CLAVES FORANEAS
+  CONSTRAINT FK_membresia_clase_membresia FOREIGN KEY (membresia_id) REFERENCES membresia(id_membresia),
+  CONSTRAINT FK_membresia_clase_clase FOREIGN KEY (clase_id) REFERENCES clase(id_clase)
+)
+
+-------------------------------
+-- TABLA PAGO_DETALLE
+-------------------------------
+CREATE TABLE pago_detalle (
+  id_detalle int IDENTITY(1, 1),
+  pago_id int,
+  membresia_id int,
+  clase_id int,
+
+  -- CLAVES PRIMARIAS
+  CONSTRAINT PK_pago_detalle PRIMARY KEY (id_detalle),
+
+  --CLAVES FORANEAS
+  CONSTRAINT FK_pago_detalle_pago FOREIGN KEY (pago_id) REFERENCES pago(id_pago),
+  CONSTRAINT FK_pago_detalle_membresia FOREIGN KEY (membresia_id) REFERENCES membresia(id_membresia),
+  CONSTRAINT FK_pago_detalle_clase FOREIGN KEY (clase_id) REFERENCES clase(id_clase)
+)
+
+-------------------------------
+-- TABLA TIPO_PAGO
+-------------------------------
+CREATE TABLE tipo_pago (
+  id_tipo_pago int,
+  nombre nvarchar(255),
+
+  --CLAVES PRIMARIAS
+  CONSTRAINT PK_tipo_pago PRIMARY KEY (id_tipo_pago)
+)
+
+
+-------------------------------
 -- TABLA PAGO
 -------------------------------
 
 CREATE TABLE pago (
   id_pago int IDENTITY(1, 1),
-  membresia_id int,
+  socio_id int,
+  tipo_pago_id int,
   fecha date,
-  monto decimal,
-  medio_pago nvarchar(255),
+  total decimal,
+  estado BIT DEFAULT 1,
 
   -- CLAVES PRIMARIAS
   CONSTRAINT PK_pago PRIMARY KEY (id_pago),
 
   --CLAVES FORANEAS
-  CONSTRAINT FK_pago_membresia FOREIGN KEY (membresia_id) REFERENCES membresia(id_membresia)
+  CONSTRAINT FK_pago_membresia FOREIGN KEY (membresia_id) REFERENCES membresia(id_membresia),
+  CONSTRAINT FK_pago_socio FOREIGN KEY (socio_id) REFERENCES socio(id_socio),
+  CONSTRAINT FK_pago_tipo_pago FOREIGN KEY (tipo_pago_id) REFERENCES tipo_pago(id_tipo_pago)
 )
 
 ------------------------------
@@ -159,6 +205,9 @@ CREATE TABLE clase (
   id_clase int IDENTITY(1, 1),
   actividad_id int,
   usuario_id int,
+  precio decimal(10,2),
+  hora_desde date,
+  hora_hasta date,
   cupo int,
 
   --CLAVES PRIMARIAS
@@ -167,21 +216,20 @@ CREATE TABLE clase (
   --CLAVES FORANEAS
   CONSTRAINT FK_clase_actividad FOREIGN KEY (actividad_id) REFERENCES actividad(id_actividad),
   CONSTRAINT FK_clase_usuario FOREIGN KEY (usuario_id) REFERENCES usuario(id_usuario),
+
   --RESTRICCIONES CHECK
   CONSTRAINT CK_clase_cupo CHECK (cupo > 0)
 )
 
 ------------------------------
--- TABLA DIAS
+-- TABLA DIA
 ------------------------------
-CREATE TABLE dias (
-  id_dias int IDENTITY(1, 1),
-  dias tinyint,
-  hora_desde time,
-  hora_hasta time,
+CREATE TABLE dia (
+  id_dia int,
+  nombre varchar(50),
 
   -- CLAVES PRIMARIAS
-  CONSTRAINT PK_dias PRIMARY KEY (id_dias)
+  CONSTRAINT PK_dia PRIMARY KEY (id_dia)
 )
 
 ------------------------------
@@ -189,12 +237,14 @@ CREATE TABLE dias (
 ------------------------------
 CREATE TABLE clase_dia (
   clase_id int IDENTITY(1, 1),
-  dias_id int,
+  dia_id int,
+  
   --CLAVES PRIMARIAS
-  CONSTRAINT PK_clase_dia PRIMARY KEY (clase_id, dias_id),
+  CONSTRAINT PK_clase_dia PRIMARY KEY (clase_id, dia_id),
+
   --CLAVES FORANEAS
   CONSTRAINT FK_clase_dia_clase FOREIGN KEY (clase_id) REFERENCES clase(id_clase),
-  CONSTRAINT FK_clase_dia_dias FOREIGN KEY (dias_id) REFERENCES dias(id_dias)
+  CONSTRAINT FK_clase_dia_dia FOREIGN KEY (dia_id) REFERENCES dia(id_dia)
 )
 
 ------------------------------
@@ -206,6 +256,7 @@ CREATE TABLE proveedor (
   cuit bigint NOT NULL,
   email varchar(200) NOT NULL,
   telefono int NOT NULL,
+  estado BIT DEFAULT 1,
 
   -- CLAVES PRIMARIAS
   CONSTRAINT PK_proveedor PRIMARY KEY (id_proveedor),
@@ -267,12 +318,14 @@ CREATE TABLE inventario (
   cantidad int,
   fecha_ingreso date,
   estado BIT,
+  proveedor_id int,
 
   -- CLAVES PRIMARIAS
   CONSTRAINT PK_inventario PRIMARY KEY (id_inventario),
 
   -- CLAVES FORANEAS
-  CONSTRAINT FK_inventario_inventario_categoria FOREIGN KEY (categoria_id) REFERENCES inventario_categoria(id_categoria)
+  CONSTRAINT FK_inventario_inventario_categoria FOREIGN KEY (categoria_id) REFERENCES inventario_categoria(id_categoria),
+  CONSTRAINT FK_inventario_proveedor FOREIGN KEY (proveedor_id) REFERENCES proveedor(id_proveedor),
 
   --RESTRICCIONES CHECK
   CONSTRAINT CK_cantidad CHECK (cantidad >= 0),
