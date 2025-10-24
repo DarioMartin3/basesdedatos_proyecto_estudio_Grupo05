@@ -246,19 +246,5 @@ CREATE TABLE clase_dia (
   CONSTRAINT FK_clase_dia_dia FOREIGN KEY (dia_id) REFERENCES dia(id_dia)
 )
 
-------------------------------
--- TABLA INSCRIPCION A CLASE
-------------------------------
-CREATE TABLE clase_inscripcion (
-  id_inscripcion int IDENTITY(1, 1),
-  socio_id int,
-  clase_id int,
 
-  -- CLAVES PRIMARIAS
-  CONSTRAINT PK_clase_inscripcion PRIMARY KEY (id_inscripcion),
-
-  -- CLAVES FORANEAS
-  CONSTRAINT FK_clase_inscripcion_socio FOREIGN KEY (socio_id) REFERENCES socio(id_socio),
-  CONSTRAINT FK_clase_inscripcion_clase FOREIGN KEY (clase_id) REFERENCES clase(id_clase)
-)
 
