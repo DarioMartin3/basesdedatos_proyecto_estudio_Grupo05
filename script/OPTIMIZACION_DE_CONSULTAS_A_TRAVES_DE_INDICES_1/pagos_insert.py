@@ -17,7 +17,7 @@ if not socios or not tipos:
     raise RuntimeError("Faltan filas en socio o tipo_pago.")
 
 START = datetime.date(2017,1,1)
-DAYS  = 2920  # ~8 años
+DAYS  = 2920
 TOTAL_ROWS = 1_000_000
 BATCH = 50_000
 
