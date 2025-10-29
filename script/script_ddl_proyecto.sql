@@ -27,8 +27,8 @@ CREATE TABLE persona (
   id_persona int IDENTITY(1, 1),
   nombre varchar(255),
   apellido varchar(255),
-  dni int,
-  telefono int,
+  dni bigint,
+  telefono bigint,
   email varchar(200),
   fecha_alta date CONSTRAINT DF_persona_fecha_alta DEFAULT GETDATE(),
   estado BIT CONSTRAINT DF_persona_estado DEFAULT (1),
@@ -72,7 +72,7 @@ CREATE TABLE usuario (
 ------------------------------
 CREATE TABLE socio (
   id_socio int,
-  contacto_emergencia int,
+  contacto_emergencia bigint,
   observaciones varchar(650),
 
   -- CLAVES PRIMARIAS
