@@ -71,7 +71,7 @@ CREATE TABLE usuario (
 -- TABLA SOCIO
 ------------------------------
 CREATE TABLE socio (
-  id_socio int IDENTITY(1, 1),
+  id_socio int,
   contacto_emergencia int,
   observaciones varchar(650),
 
