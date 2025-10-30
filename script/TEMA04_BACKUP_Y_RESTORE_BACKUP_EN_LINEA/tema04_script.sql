@@ -5,7 +5,7 @@ USE gimnasio_db
 ----------------------------------------------
 --  TAREAS
 
---1) Verificar que el modelo de recuperaciÛn de la base de datos estÈ en el modo adecuado para realizar backup en lÌnea
+--1) Verificar que el modelo de recuperaci√≥n de la base de datos est√© en el modo adecuado para realizar backup en l√≠nea
 SELECT name, recovery_model_desc
 FROM sys.databases
 WHERE name = 'gimnasio_db';
@@ -33,12 +33,12 @@ WITH NAME = 'Backup full gimnasio_db'
 --3) Generar 10 inserts sobre una tabla de referencia.
 -- Inserto 10 nuevas personas
 
--- Declaramos la variable tabla para guardar los IDs generados, para hacer el insert de manera dinamica
+-- Declaramos la variable para guardar los IDs generados, para hacer el insert de manera dinamica
 -- y no tener problemas con el ingreso del lote luego
 DECLARE @NuevosIDs TABLE (id INT);
 
 INSERT INTO persona (nombre, apellido, dni, telefono, email) 
-OUTPUT inserted.id_persona INTO @NuevosIDs --Capturo los IDs generados por los nuevos socios
+OUTPUT inserted.id_persona INTO @NuevosIDs --Capturo los IDs generados por las nuevas personas para los socios
 VALUES
 ('Juan', 'Perez', 30123456, 111111, 'juan.perez@email.com'),
 ('Ana', 'Gomez', 31123457, 222222, 'ana.gomez@email.com'),
@@ -51,13 +51,13 @@ VALUES
 ('Diego', 'Diaz', 38123454, 999999, 'diego.diaz@email.com'),
 ('Valeria', 'Moreno', 39123455, 101010, 'valeria.moreno@email.com');
 
--- Como id_socio es clave for·nea de persona, inserto los socios correspondientes.
+-- Como id_socio es clave for√°nea de persona, inserto los socios correspondientes.
 -- Inserto los 10 socios de una sola vez, usando los IDs que capture en la variable.
 INSERT INTO socio (id_socio, contacto_emergencia, observaciones)
 SELECT
-    id,                         -- El id din·mico de la variable
+    id,                         -- El id din√°mico de la variable
     123456789,                  -- El contacto de emergencia
-    'Sin observaciones'         -- Una observaciÛn genÈrica para todos
+    'Sin observaciones'         -- Una observaci√≥n gen√©rica para todos
 FROM @NuevosIDs;
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -78,7 +78,7 @@ SELECT GETDATE() AS HoraBackupLog1;
 DECLARE @NuevosIDs2 TABLE (id INT);
 
 INSERT INTO persona (nombre, apellido, dni, telefono, email) 
-OUTPUT inserted.id_persona INTO @NuevosIDs2 --Capturo los IDs generados por los nuevos socios
+OUTPUT inserted.id_persona INTO @NuevosIDs2 --Capturo los IDs generados por las nuevas personas para los socios
 VALUES
 ('Jorge', 'Ramirez', 40123456, 111112, 'jorge.ramirez@email.com'),
 ('Lucia', 'Acosta', 41123457, 222223, 'lucia.acosta@email.com'),
@@ -94,14 +94,14 @@ VALUES
 -- Inserto los 10 socios correspondientes de manera dinamica
 INSERT INTO socio (id_socio, contacto_emergencia, observaciones)
 SELECT
-    id,                         -- El id din·mico de la variable
+    id,                         -- El id din√°mico de la variable
     123456789,                  -- El contacto de emergencia
-    'Sin observaciones'         -- Una observaciÛn genÈrica para todos
+    'Sin observaciones'         -- Una observaci√≥n gen√©rica para todos
 FROM @NuevosIDs2;
 
 ------------------------------------------------------------------------------------------------------------------------
 
---6) Realizar nuevamente backup de archivo de log en otro archivo fÌsico.
+--6) Realizar nuevamente backup de archivo de log en otro archivo f√≠sico.
 BACKUP LOG gimnasio_db
 TO DISK = 'C:\BackupsSQL\gimnasio_db_log2.trn'
 WITH NAME = 'Backup del log 2 - Luego de 10 inserts';
@@ -109,11 +109,11 @@ WITH NAME = 'Backup del log 2 - Luego de 10 inserts';
 SELECT GETDATE() AS HoraBackupLog2;
 
 ------------------------------------------------------------------------------------------------------------------------
---7) Restaurar la base de datos al momento del primer backup del archivo de log. Es decir despuÈs de los primeros 10 insert.
+--7) Restaurar la base de datos al momento del primer backup del archivo de log. Es decir despu√©s de los primeros 10 insert.
 USE master; --CAMBIO DE BASE PARA EVITAR ERRORES DE BASE EN USO
 
 -- Primero debo restaurar el backup completo 
--- uso NORECOVERY para dejar la base de datos en modo "restauraciÛn",
+-- uso NORECOVERY para dejar la base de datos en modo "restauraci√≥n",
 -- lista para recibir el archivo de log.
 RESTORE DATABASE gimnasio_db
 FROM DISK = 'C:\BackupsSQL\gimnasio_db_full.bak' 
@@ -121,7 +121,7 @@ WITH NORECOVERY, REPLACE;
 
 -- Segundo, Ahora si, una vez estando el modo correcto aplico el primer archivo de log
 -- uso RECOVERY para finalizar el proceso y dejar la base de datos
--- en lÌnea y lista para usar.
+-- en l√≠nea y lista para usar.
 RESTORE LOG gimnasio_db
 FROM DISK = 'C:\BackupsSQL\gimnasio_db_log1.trn'
 WITH RECOVERY;
@@ -131,16 +131,16 @@ WITH RECOVERY;
 --8) Verificar el resultado.
 USE gimnasio_db; --Vuelvo a nuestra base
 
--- Hago una consulta para contar cu·ntos socios hay.
+-- Hago una consulta para contar cu√°ntos socios hay.
 SELECT * FROM socio;
--- Al hacer esta consulta, en la salida se puede ver que el ultimo o mas alto id que devuelve es el 85,
--- mientras que en el segundo insert que hice, ingrese socios con id del 86 al 95, los cuales no salen.
+-- Al hacer esta consulta, en la salida se puede ver que el ultimo o mas alto id que devuelve es el que estaba ultimo hasta la primer insercion,
+-- mientras que los socios que ingrese en el segundo insert no salen.
 -- esto quiere decir que se realizo correctamente la restauracion
 
 ------------------------------------------------------------------------------------------------------------------------
 
 --9) Restaurar la base de datos aplicando ambos archivos de log.
--- Seg˙n lo que yo entendi, el objetivo de este punto es restaurar la base a la ultima version que tengo
+-- Seg√∫n lo que yo entendi, el objetivo de este punto es restaurar la base a la ultima version que tengo
 -- donde hice el segundo insert.
 USE master; --CAMBIO DE BASE PARA EVITAR ERRORES DE BASE EN USO
 
@@ -150,14 +150,14 @@ RESTORE DATABASE gimnasio_db
 FROM DISK = 'C:\BackupsSQL\gimnasio_db_full.bak'
 WITH NORECOVERY, REPLACE;
 
--- Aplico el primer log, tambiÈn con NORECOVERY,
--- porque todavÌa falta aplicar el segundo log.
+-- Aplico el primer log, tambi√©n con NORECOVERY,
+-- porque todav√≠a falta aplicar el segundo log.
 RESTORE LOG gimnasio_db
 FROM DISK = 'C:\BackupsSQL\gimnasio_db_log1.trn'
 WITH NORECOVERY;
 
--- Ahora aplico el ˙ltimo log. Como este es el final
--- del proceso, uso RECOVERY para que la base de datos quede en lÌnea y funcional.
+-- Ahora aplico el √∫ltimo log. Como este es el final
+-- del proceso, uso RECOVERY para que la base de datos quede en l√≠nea y funcional.
 RESTORE LOG gimnasio_db
 FROM DISK = 'C:\BackupsSQL\gimnasio_db_log2.trn'
 WITH RECOVERY;
