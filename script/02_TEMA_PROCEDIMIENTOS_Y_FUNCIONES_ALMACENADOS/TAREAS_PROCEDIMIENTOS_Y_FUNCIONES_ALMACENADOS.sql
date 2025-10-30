@@ -2,6 +2,16 @@ USE gimnasio_db;
 GO
 
 /*
+	PROCEDIMIENTOS ALMACENADOS
+	
+	1) Realizar al menos tres procedimientos almacenados que permitan:
+	Insertar, Modificar y borrar registros de alguna de las tablas del proyecto.
+*/
+
+/*
+
+	1.a. Insertar una nueva persona
+	
   Documentación (Cumpliendo Criterio de Evaluación):
   - Nombre: sp_InsertarPersona
   - Objetivo: Da de alta una nueva persona en la tabla 'persona'.
@@ -42,4 +52,53 @@ EXEC sp_InsertarPersona
     @dni = 40111222, 
     @telefono = 3794123456, 
     @email = 'laura.gomez@mail.com';
+*/
+
+GO
+
+/*
+	1.b. Modificar una persona
+	
+  Documentación (Cumpliendo Criterio de Evaluación):
+  - Nombre: sp_ModificarPersona
+  - Objetivo: Modifica datos existentes de una persona en la tabla 'persona'.
+  - Parámetros de Entrada:
+    - @id_persona: (int) ID de la persona a modificar (Obligatorio)
+    - @nombre: (varchar) Nuevo nombre (Opcional, NULL para no cambiar)
+    - @apellido: (varchar) Nuevo apellido (Opcional, NULL para no cambiar)
+    - @dni: (bigint) Nuevo DNI (Opcional, NULL para no cambiar)
+    - @telefono: (bigint) Nuevo teléfono (Opcional, NULL para no cambiar)
+    - @email: (varchar) Nuevo email (Opcional, NULL para no cambiar)
+*/
+CREATE PROCEDURE sp_ModificarPersona
+    @id_persona int,
+    @nombre varchar(255) = NULL,
+    @apellido varchar(255) = NULL,
+    @dni bigint = NULL,
+    @telefono bigint = NULL,
+    @email varchar(200) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE persona
+    SET 
+        nombre = ISNULL(@nombre, nombre), -- Si el valor de @nombre es NULL (El usuario no pasé este paramétro) usa el valor que tenía
+        apellido = ISNULL(@apellido, apellido), -- Lo mismo
+        dni = ISNULL(@dni, dni),
+        telefono = ISNULL(@telefono, telefono),
+        email = ISNULL(@email, email)
+    WHERE 
+        id_persona = @id_persona;
+END
+GO
+
+/*
+Para ejecutar/llamar a este procedimiento sería con la siguiente sintaxis:
+
+	- Si SOLO querés cambiar el teléfono de la persona con ID = 1
+	
+	EXEC sp_ModificarPersona @id_persona = 1, @telefono = 3794999999;
+	
+	*PD: El usuario al no pasar los demás paramétros, usarán su valor que ya tenían previamente, mediante el filtro de ISNULL(@variable_que_puede_ser_nula, @valor_por_defecto) 
 */
