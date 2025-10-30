@@ -235,7 +235,7 @@ CREATE TABLE dia (
 -- RELACION ENTRE CLASE Y DIA
 ------------------------------
 CREATE TABLE clase_dia (
-  clase_id int IDENTITY(1, 1),
+  clase_id int,
   dia_id int,
   
   --CLAVES PRIMARIAS
