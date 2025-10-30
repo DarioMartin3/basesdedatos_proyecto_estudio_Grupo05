@@ -1,336 +1,398 @@
-SET IDENTITY_INSERT [dbo].[persona] ON 
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (1, N'Carlos', N'Martin', N'38211456', N'3794112233', N'carlos.martin@mail.com', 1, CAST(N'2025-09-13' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (2, N'Nahim', N'Martinez', N'40322344', N'3794566999', N'nahim.martinez@mail.com', 1, CAST(N'2025-09-13' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (3, N'Maria Jose', N'Ribas', N'39245123', N'3794556677', N'Ribas@mail.com', 1, CAST(N'2025-09-13' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (4, N'Juan', N'Mayorana', N'40122345', N'3794887799', N'juan.mayorana@mail.com', 1, CAST(N'2025-09-20' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (13, N'Pablo', N'Maidana', N'38455678', N'3813813822', N'pablo.maidana@mail.com', 1, CAST(N'2025-09-22' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (14, N'Juan', N'Camurthers', N'39543112', N'3132121222', N'juan.camurthers@mail.com', 1, CAST(N'2025-09-22' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (16, N'Lucas', N'Ramírez', N'40321123', N'3794123001', N'lucas.ramirez@mail.com', 1, CAST(N'2025-09-14' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (17, N'María', N'Gómez', N'38456789', N'3794123002', N'maria.gomez@mail.com', 1, CAST(N'2025-09-15' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (18, N'Julián', N'Fernández', N'39234567', N'3794123003', N'julian.fernandez@mail.com', 0, CAST(N'2025-09-16' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (19, N'Camila', N'Ortiz', N'40111222', N'3794123004', N'camila.ortiz@mail.com', 1, CAST(N'2025-09-17' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (20, N'Tomás', N'López', N'38765432', N'3794123005', N'tomas.lopez@mail.com', 1, CAST(N'2025-09-18' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (21, N'Sofía', N'Benítez', N'39987654', N'3794123006', N'sofia.benitez@mail.com', 1, CAST(N'2025-09-19' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (22, N'Martín', N'Acosta', N'40456789', N'3794123007', N'martin.acosta@mail.com', 1, CAST(N'2025-09-20' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (23, N'Valentina', N'Ruiz', N'40234567', N'3794123008', N'valentina.ruiz@mail.com', 1, CAST(N'2025-09-21' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (24, N'Franco', N'Torres', N'39678901', N'3794123009', N'franco.torres@mail.com', 1, CAST(N'2025-09-22' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (25, N'Julieta', N'Silva', N'40567890', N'3794123010', N'julieta.silva@mail.com', 1, CAST(N'2025-09-23' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (26, N'Maria Virginia', N'Maidana', N'40049253', N'3794532461', N'virgi@mail.com', 1, CAST(N'2025-10-12' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (27, N'Lucas', N'Gómez', N'40876321', N'3794567890', N'lucasgomez@gmail.com', 1, CAST(N'2025-10-14' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (28, N'Mariana', N'Pérez', N'39547822', N'3794332211', N'marianaperez@hotmail.com', 1, CAST(N'2025-10-16' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (29, N'Pepe', N'Lopez', N'40214996', N'3794778899', N'pepelopez@gmail.com', 1, CAST(N'2025-10-18' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (30, N'Juan', N'Perez', N'36456987', N'3794554125', N'juanperez@gmail.com', 1, CAST(N'2025-10-18' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (31, N'Federico', N'González', N'37220110', N'3794123099', N'fede.gonzalez@gmail.com', 1, CAST(N'2025-10-18' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (32, N'Camila', N'Ríos', N'42123888', N'3794789001', N'camila.rios@outlook.com', 1, CAST(N'2025-10-18' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (34, N'Juan', N'Sosa', N'38890900', N'3794556678', N'juan.sosa@hotmail.com', 1, CAST(N'2025-10-18' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (35, N'Valeria', N'Acosta', N'43567222', N'3794887766', N'valeria.acosta@yahoo.com', 1, CAST(N'2025-10-18' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (36, N'Diego', N'Romero', N'40122876', N'3794512244', N'diego.romero@gmail.com', 1, CAST(N'2025-10-19' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (37, N'Sofía', N'Maidana', N'42990122', N'3794781123', N'sofia.maidana@hotmail.com', 1, CAST(N'2025-10-19' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (40, N'Micaela', N'Ojeda', N'41789922', N'3794558877', N'mica.ojeda@gmail.com', 1, CAST(N'2025-10-20' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (41, N'Facundo', N'Navarro', N'40566731', N'3794901122', N'facu.navarro@outlook.com', 1, CAST(N'2025-10-20' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (42, N'Agustina', N'Cabrera', N'42765432', N'3794429911', N'aguscabrera@gmail.com', 1, CAST(N'2025-10-20' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (43, N'Nicolás', N'Ramírez', N'39322456', N'3794587765', N'nico.ramirez@live.com', 1, CAST(N'2025-10-20' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (44, N'Melina', N'Torres', N'43122789', N'3794880099', N'melitorres@hotmail.com', 1, CAST(N'2025-10-20' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (45, N'Ana', N'Lopez', N'45000001', N'3794100001', N'ana.lopez@email.com', 1, CAST(N'2025-08-02' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (46, N'Bruno', N'Diaz', N'45000002', N'3794100002', N'bruno.diaz@email.com', 1, CAST(N'2025-08-03' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (47, N'Carla', N'Sosa', N'45000003', N'3794100003', N'carla.sosa@email.com', 1, CAST(N'2025-08-05' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (48, N'Diego', N'Luna', N'45000004', N'3794100004', N'diego.luna@email.com', 1, CAST(N'2025-08-08' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (49, N'Elena', N'Rios', N'45000005', N'3794100005', N'elena.rios@email.com', 1, CAST(N'2025-08-10' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (50, N'Fernando', N'Paez', N'45000006', N'3794100006', N'fernando.paez@email.com', 1, CAST(N'2025-08-12' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (51, N'Gabriela', N'Mendez', N'45000007', N'3794100007', N'gabi.mendez@email.com', 1, CAST(N'2025-08-15' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (52, N'Hector', N'Vera', N'45000008', N'3794100008', N'hector.vera@email.com', 1, CAST(N'2025-08-20' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (53, N'Irene', N'Gomez', N'45000009', N'3794100009', N'irene.gomez@email.com', 1, CAST(N'2025-08-22' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (54, N'Javier', N'Nuñez', N'45000010', N'3794100010', N'javier.nunez@email.com', 1, CAST(N'2025-08-28' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (55, N'Mariano', N'Acosta', N'45000011', N'3794200001', N'mariano.acosta@email.com', 1, CAST(N'2025-04-02' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (56, N'Natalia', N'Benitez', N'45000012', N'3794200002', N'natalia.benitez@email.com', 1, CAST(N'2025-04-03' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (57, N'Oscar', N'Campos', N'45000013', N'3794200003', N'oscar.campos@email.com', 1, CAST(N'2025-04-05' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (58, N'Paula', N'Duarte', N'45000014', N'3794200004', N'paula.duarte@email.com', 1, CAST(N'2025-04-07' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (59, N'Quintin', N'Estevez', N'45000015', N'3794200005', N'quintin.estevez@email.com', 1, CAST(N'2025-04-11' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (60, N'Raquel', N'Flores', N'45000016', N'3794200006', N'raquel.flores@email.com', 1, CAST(N'2025-04-14' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (61, N'Sergio', N'Torres', N'45000017', N'3794200007', N'sergio.torres@email.com', 1, CAST(N'2025-04-18' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (62, N'Tania', N'Ibarra', N'45000018', N'3794200008', N'tania.ibarra@email.com', 1, CAST(N'2025-04-21' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (63, N'Uriel', N'Vargas', N'45000019', N'3794200009', N'uriel.vargas@email.com', 1, CAST(N'2025-04-25' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (64, N'Victoria', N'Zarate', N'45000020', N'3794200010', N'victoria.zarate@email.com', 1, CAST(N'2025-04-30' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (65, N'Lucia', N'Gimenez', N'45000021', N'3794300001', N'lucia.gimenez@email.com', 1, CAST(N'2025-06-01' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (66, N'Mateo', N'Herrera', N'45000022', N'3794300002', N'mateo.herrera@email.com', 1, CAST(N'2025-06-03' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (67, N'Nadia', N'Vega', N'45000023', N'3794300003', N'nadia.vega@email.com', 1, CAST(N'2025-06-04' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (68, N'Omar', N'Castro', N'45000024', N'3794300004', N'omar.castro@email.com', 1, CAST(N'2025-06-07' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (69, N'Pilar', N'Suarez', N'45000025', N'3794300005', N'pilar.suarez@email.com', 1, CAST(N'2025-06-10' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (70, N'Ramiro', N'Juarez', N'45000026', N'3794300006', N'ramiro.juarez@email.com', 1, CAST(N'2025-06-12' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (71, N'Sabrina', N'Rojas', N'45000027', N'3794300007', N'sabrina.rojas@email.com', 1, CAST(N'2025-06-16' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (72, N'Tiago', N'Gimenez', N'45000028', N'3794300008', N'tiago.gimenez@email.com', 1, CAST(N'2025-06-19' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (73, N'Valeria', N'Paredes', N'45000029', N'3794300009', N'vale.paredes@email.com', 1, CAST(N'2025-06-23' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (74, N'Walter', N'Sosa', N'45000030', N'3794300010', N'walter.sosa@email.com', 1, CAST(N'2025-06-28' AS Date))
-GO
-INSERT [dbo].[persona] ([id_persona], [nombre], [apellido], [dni], [telefono], [email], [estado], [fecha_alta]) VALUES (75, N'Maria', N'Sosa', N'45000000', N'3794300000', N'maria.sosa@email.com', 1, CAST(N'2025-06-28' AS Date))
-GO
-SET IDENTITY_INSERT [dbo].[persona] OFF
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (26, 3794698595, N'Esguince de tobillo grado I.
-Problema de presion alta.')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (27, 3794789012, N'No presenta problemas de salud.')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (28, 3794223344, N'Alergia al polen. Requiere ventilación adecuada durante las clases.')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (29, 3794993458, N'Ninguna')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (30, 3794859647, N'Rotura de ligamentos, pierna derecha')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (31, 3794455566, N'Seguimiento por hipertensión controlada.')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (32, 3794678122, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (34, 3794991100, N'Entrena tres veces por semana. Lesión previa en rodilla izquierda.')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (35, 3794900088, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (36, 3794992277, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (37, 3794432109, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (40, 3794776655, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (41, 3794998899, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (42, 3794791234, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (43, 3794321109, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (44, 3794445566, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (45, 3794111111, N'Ninguna')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (46, 3794222222, N'Viene a entrenar fuerza')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (47, 3794333333, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (48, 3794444444, N'Quiere probar Crossfit')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (49, 3794555555, N'Clases de relajación')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (50, 3794666666, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (51, 3794777777, N'Solo fines de semana')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (52, 3794888888, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (53, 3794999999, N'Rehabilitación de hombro')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (54, 3794101010, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (55, 3794111111, N'Socio de Abril')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (56, 3794222222, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (57, 3794333333, N'Entrenamiento funcional')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (58, 3794444444, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (59, 3794555555, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (60, 3794666666, N'Viene por Pilates')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (61, 3794777777, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (62, 3794888888, N'Interesada en Yoga y Spinning')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (63, 3794999999, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (64, 3794101010, N'Solo clases de cardio')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (65, 3794111111, N'Socio de Junio')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (66, 3794222222, N'Entrenamiento de alta intensidad')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (67, 3794333333, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (68, 3794444444, N'Solo musculación')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (69, 3794555555, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (70, 3794666666, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (71, 3794777777, N'Clases grupales')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (72, 3794888888, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (73, 3794999999, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (74, 3794101010, N'')
-GO
-INSERT [dbo].[socio] ([id_socio], [contacto_emergencia], [observaciones]) VALUES (75, 3794101019, N'')
-GO
-SET IDENTITY_INSERT [dbo].[tipo_pago] ON 
-GO
-INSERT [dbo].[tipo_pago] ([id_tipo_pago], [nombre]) VALUES (1, N'Efectivo')
-GO
-INSERT [dbo].[tipo_pago] ([id_tipo_pago], [nombre]) VALUES (2, N'Tarjeta de crédito')
-GO
-INSERT [dbo].[tipo_pago] ([id_tipo_pago], [nombre]) VALUES (3, N'Tarjeta de débito')
-GO
-INSERT [dbo].[tipo_pago] ([id_tipo_pago], [nombre]) VALUES (4, N'Transferencia')
-GO
-SET IDENTITY_INSERT [dbo].[tipo_pago] OFF
-SET IDENTITY_INSERT [dbo].[actividad] ON 
-GO
-INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (9, N'Body Pump')
-GO
-INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (10, N'Boxeo')
-GO
-INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (15, N'Ciclismo Indoor')
-GO
-INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (1, N'Crossfit')
-GO
-INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (13, N'Entrenamiento Personalizado')
-GO
-INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (5, N'Funcional')
-GO
-INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (8, N'GAP')
-GO
-INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (14, N'HIIT (Alta Intensidad)')
-GO
-INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (11, N'Kick Boxing')
-GO
-INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (2, N'Musculación')
-GO
-INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (6, N'Pilates')
-GO
-INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (3, N'Spinning')
-GO
-INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (12, N'Stretching')
-GO
-INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (7, N'Yoga')
-GO
-INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (4, N'Zumba')
-GO
-SET IDENTITY_INSERT [dbo].[actividad] OFF
-SET IDENTITY_INSERT [dbo].[actividad] OFF
-GO
-INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (1, N'dario', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', 1)
-GO
-INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (2, N'nahim', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', 1)
-GO
-INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (4, N'recep', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', 2)
-GO
-INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (13, N'pablo', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', 3)
-GO
-INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (14, N'juan', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', 2)
-GO
-INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (16, N'lramirez', N'1234', 3)
-GO
-INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (17, N'mgomez', N'1234', 3)
-GO
-INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (18, N'jfernandez', N'1234', 3)
-GO
-INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (19, N'cortiz', N'1234', 3)
-GO
-INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (20, N'tlopez', N'1234', 3)
-GO
-INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (21, N'sbenitez', N'1234', 3)
-GO
-INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (22, N'macosta', N'1234', 3)
-GO
-INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (23, N'vruiz', N'1234', 3)
-GO
-INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (24, N'ftorres', N'1234', 3)
-GO
-INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (25, N'jsilva', N'1234', 3)
-GO
-SET IDENTITY_INSERT [dbo].[clase] ON 
-GO
-INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (1, 1, 13, CAST(N'08:00:00' AS Time), CAST(N'10:00:00' AS Time), CAST(1000.00 AS Decimal(10, 2)), 35, 1)
-GO
-INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (2, 2, 17, CAST(N'06:00:00' AS Time), CAST(N'23:59:00' AS Time), CAST(2000.00 AS Decimal(10, 2)), 507, 1)
-GO
-INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (3, 3, 18, CAST(N'18:00:00' AS Time), CAST(N'19:00:00' AS Time), CAST(2200.00 AS Decimal(10, 2)), 18, 1)
-GO
-INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (4, 4, 19, CAST(N'19:15:00' AS Time), CAST(N'20:15:00' AS Time), CAST(1800.00 AS Decimal(10, 2)), 24, 1)
-GO
-INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (5, 3, 16, CAST(N'17:00:00' AS Time), CAST(N'19:00:00' AS Time), CAST(500.00 AS Decimal(10, 2)), 16, 0)
-GO
-INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (6, 6, 21, CAST(N'10:30:00' AS Time), CAST(N'11:30:00' AS Time), CAST(2100.00 AS Decimal(10, 2)), 17, 1)
-GO
-INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (7, 7, 22, CAST(N'20:30:00' AS Time), CAST(N'21:30:00' AS Time), CAST(1900.00 AS Decimal(10, 2)), 24, 1)
-GO
-INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (8, 8, 23, CAST(N'07:00:00' AS Time), CAST(N'08:00:00' AS Time), CAST(2400.00 AS Decimal(10, 2)), 22, 1)
-GO
-INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (9, 9, 24, CAST(N'11:00:00' AS Time), CAST(N'12:00:00' AS Time), CAST(2600.00 AS Decimal(10, 2)), 18, 1)
-GO
-INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (10, 10, 25, CAST(N'16:00:00' AS Time), CAST(N'17:00:00' AS Time), CAST(2000.00 AS Decimal(10, 2)), 22, 1)
-GO
-INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (11, 2, 13, CAST(N'14:25:13.4851753' AS Time), CAST(N'14:34:13' AS Time), CAST(1.00 AS Decimal(10, 2)), 0, 1)
-GO
-SET IDENTITY_INSERT [dbo].[clase] OFF
-GO
-SET IDENTITY_INSERT [dbo].[membresia_tipo] ON 
-GO
-INSERT [dbo].[membresia_tipo] ([id_tipo], [nombre], [duracion_dias]) VALUES (1, N'Diario', 1)
-GO
-INSERT [dbo].[membresia_tipo] ([id_tipo], [nombre], [duracion_dias]) VALUES (2, N'Semanal', 7)
-GO
-INSERT [dbo].[membresia_tipo] ([id_tipo], [nombre], [duracion_dias]) VALUES (3, N'Mensual', 30)
-GO
-SET IDENTITY_INSERT [dbo].[membresia_tipo] OFF
+--INSERT ROL
+INSERT INTO rol VALUES (1, 'Administrador');
+INSERT INTO rol VALUES (2, 'Recepcionista');
+INSERT INTO rol VALUES (3, 'Coach');
+--INSERT MEMBRESIA_TIPO
+INSERT INTO membresia_tipo VALUES (1, 'Diario', 1);
+INSERT INTO membresia_tipo VALUES (2, 'Semanal', 7);
+INSERT INTO membresia_tipo VALUES (3, 'Mensual', 30);
+--INSERT TIPO_PAGO
+INSERT INTO tipo_pago VALUES (1, 'Efectivo');
+INSERT INTO tipo_pago VALUES (2, 'Tarjeta de crédito');
+INSERT INTO tipo_pago VALUES (3, 'Tarjeta de débito');
+INSERT INTO tipo_pago VALUES (4, 'Transferencia');
+--INSERT DIA
+INSERT INTO dia VALUES (1, 'Lunes');
+INSERT INTO dia VALUES (2, 'Martes');
+INSERT INTO dia VALUES (3, 'Miércoles');
+INSERT INTO dia VALUES (4, 'Jueves');
+INSERT INTO dia VALUES (5, 'Viernes');
+INSERT INTO dia VALUES (6, 'Sábado');
+INSERT INTO dia VALUES (7, 'Domingo');
+--INSERT ACTIVIDAD
+INSERT INTO actividad VALUES (1, 'Crossfit');
+INSERT INTO actividad VALUES (2, 'Musculación');
+INSERT INTO actividad VALUES (3, 'Spinning');
+INSERT INTO actividad VALUES (4, 'Zumba');
+INSERT INTO actividad VALUES (5, 'Funcional');
+INSERT INTO actividad VALUES (6, 'Pilates');
+INSERT INTO actividad VALUES (7, 'Yoga');
+INSERT INTO actividad VALUES (8, 'GAP');
+INSERT INTO actividad VALUES (9, 'Body Pump');
+INSERT INTO actividad VALUES (10, 'Boxeo');
+INSERT INTO actividad VALUES (11, 'Kick Boxing');
+INSERT INTO actividad VALUES (12, 'Stretching');
+INSERT INTO actividad VALUES (13, 'Entrenamiento Personalizado');
+INSERT INTO actividad VALUES (14, 'HIIT (Alta Intensidad)');
+INSERT INTO actividad VALUES (15, 'Ciclismo Indoor');
+--INSERT PERSONA
+INSERT INTO persona VALUES ('Carlos', 'Martin', 38211456, 3794112233, 'carlos.martin@mail.com', '2025-09-13', 1);
+INSERT INTO persona VALUES ('Nahim', 'Martinez', 40322344, 3794566999, 'nahim.martinez@mail.com', '2025-09-13', 1);
+INSERT INTO persona VALUES ('Maria Jose', 'Ribas', 39245123, 3794556677, 'Ribas@mail.com', '2025-09-13', 1);
+INSERT INTO persona VALUES ('Juan', 'Mayorana', 40122345, 3794887799, 'juan.mayorana@mail.com', '2025-09-20', 1);
+INSERT INTO persona VALUES ('Pablo', 'Maidana', 38455678, 3813813822, 'pablo.maidana@mail.com', '2025-09-22', 1);
+INSERT INTO persona VALUES ('Juan', 'Camurthers', 39543112, 3132121222, 'juan.camurthers@mail.com', '2025-09-22', 1);
+INSERT INTO persona VALUES ('Lucas', 'Ramírez', 40321123, 3794123001, 'lucas.ramirez@mail.com', '2025-09-14', 1);
+INSERT INTO persona VALUES ('María', 'Gómez', 38456789, 3794123002, 'maria.gomez@mail.com', '2025-09-15', 1);
+INSERT INTO persona VALUES ('Julián', 'Fernández', 39234567, 3794123003, 'julian.fernandez@mail.com', '2025-09-16', 0);
+INSERT INTO persona VALUES ('Camila', 'Ortiz', 40111222, 3794123004, 'camila.ortiz@mail.com', '2025-09-17', 1);
+INSERT INTO persona VALUES ('Tomás', 'López', 38765432, 3794123005, 'tomas.lopez@mail.com', '2025-09-18', 1);
+INSERT INTO persona VALUES ('Sofía', 'Benítez', 39987654, 3794123006, 'sofia.benitez@mail.com', '2025-09-19', 1);
+INSERT INTO persona VALUES ('Martín', 'Acosta', 40456789, 3794123007, 'martin.acosta@mail.com', '2025-09-20', 1);
+INSERT INTO persona VALUES ('Valentina', 'Ruiz', 40234567, 3794123008, 'valentina.ruiz@mail.com', '2025-09-21', 1);
+INSERT INTO persona VALUES ('Franco', 'Torres', 39678901, 3794123009, 'franco.torres@mail.com', '2025-09-22', 1);
+INSERT INTO persona VALUES ('Julieta', 'Silva', 40567890, 3794123010, 'julieta.silva@mail.com', '2025-09-23', 1);
+INSERT INTO persona VALUES ('Maria Virginia', 'Maidana', 40049253, 3794532461, 'virgi@mail.com', '2025-10-12', 1);
+INSERT INTO persona VALUES ('Lucas', 'Gómez', 40876321, 3794567890, 'lucasgomez@gmail.com', '2025-10-14', 1);
+INSERT INTO persona VALUES ('Mariana', 'Pérez', 39547822, 3794332211, 'marianaperez@hotmail.com', '2025-10-16', 1);
+INSERT INTO persona VALUES ('Pepe', 'Lopez', 40214996, 3794778899, 'pepelopez@gmail.com', '2025-10-18', 1);
+INSERT INTO persona VALUES ('Juan', 'Perez', 36456987, 3794554125, 'juanperez@gmail.com', '2025-10-18', 1);
+INSERT INTO persona VALUES ('Federico', 'González', 37220110, 3794123099, 'fede.gonzalez@gmail.com', '2025-10-18', 1);
+INSERT INTO persona VALUES ('Camila', 'Ríos', 42123888, 3794789001, 'camila.rios@outlook.com', '2025-10-18', 1);
+INSERT INTO persona VALUES ('Juan', 'Sosa', 38890900, 3794556678, 'juan.sosa@hotmail.com', '2025-10-18', 1);
+INSERT INTO persona VALUES ('Valeria', 'Acosta', 43567222, 3794887766, 'valeria.acosta@yahoo.com', '2025-10-18', 1);
+INSERT INTO persona VALUES ('Diego', 'Romero', 40122876, 3794512244, 'diego.romero@gmail.com', '2025-10-19', 1);
+INSERT INTO persona VALUES ('Sofía', 'Maidana', 42990122, 3794781123, 'sofia.maidana@hotmail.com', '2025-10-19', 1);
+INSERT INTO persona VALUES ('Micaela', 'Ojeda', 41789922, 3794558877, 'mica.ojeda@gmail.com', '2025-10-20', 1);
+INSERT INTO persona VALUES ('Facundo', 'Navarro', 40566731, 3794901122, 'facu.navarro@outlook.com', '2025-10-20', 1);
+INSERT INTO persona VALUES ('Agustina', 'Cabrera', 42765432, 3794429911, 'aguscabrera@gmail.com', '2025-10-20', 1);
+INSERT INTO persona VALUES ('Nicolás', 'Ramírez', 39322456, 3794587765, 'nico.ramirez@live.com', '2025-10-20', 1);
+INSERT INTO persona VALUES ('Melina', 'Torres', 43122789, 3794880099, 'melitorres@hotmail.com', '2025-10-20', 1);
+INSERT INTO persona VALUES ('Ana', 'Lopez', 45000001, 3794100001, 'ana.lopez@email.com', '2025-08-02', 1);
+INSERT INTO persona VALUES ('Bruno', 'Diaz', 45000002, 3794100002, 'bruno.diaz@email.com', '2025-08-03', 1);
+INSERT INTO persona VALUES ('Carla', 'Sosa', 45000003, 3794100003, 'carla.sosa@email.com', '2025-08-05', 1);
+INSERT INTO persona VALUES ('Diego', 'Luna', 45000004, 3794100004, 'diego.luna@email.com', '2025-08-08', 1);
+INSERT INTO persona VALUES ('Elena', 'Rios', 45000005, 3794100005, 'elena.rios@email.com', '2025-08-10', 1);
+INSERT INTO persona VALUES ('Fernando', 'Paez', 45000006, 3794100006, 'fernando.paez@email.com', '2025-08-12', 1);
+INSERT INTO persona VALUES ('Gabriela', 'Mendez', 45000007, 3794100007, 'gabi.mendez@email.com', '2025-08-15', 1);
+INSERT INTO persona VALUES ('Hector', 'Vera', 45000008, 3794100008, 'hector.vera@email.com', '2025-08-20', 1);
+INSERT INTO persona VALUES ('Irene', 'Gomez', 45000009, 3794100009, 'irene.gomez@email.com', '2025-08-22', 1);
+INSERT INTO persona VALUES ('Javier', 'Nuñez', 45000010, 3794100010, 'javier.nunez@email.com', '2025-08-28', 1);
+INSERT INTO persona VALUES ('Mariano', 'Acosta', 45000011, 3794200001, 'mariano.acosta@email.com', '2025-04-02', 1);
+INSERT INTO persona VALUES ('Natalia', 'Benitez', 45000012, 3794200002, 'natalia.benitez@email.com', '2025-04-03', 1);
+INSERT INTO persona VALUES ('Oscar', 'Campos', 45000013, 3794200003, 'oscar.campos@email.com', '2025-04-05', 1);
+INSERT INTO persona VALUES ('Paula', 'Duarte', 45000014, 3794200004, 'paula.duarte@email.com', '2025-04-07', 1);
+INSERT INTO persona VALUES ('Quintin', 'Estevez', 45000015, 3794200005, 'quintin.estevez@email.com', '2025-04-11', 1);
+INSERT INTO persona VALUES ('Raquel', 'Flores', 45000016, 3794200006, 'raquel.flores@email.com', '2025-04-14', 1);
+INSERT INTO persona VALUES ('Sergio', 'Torres', 45000017, 3794200007, 'sergio.torres@email.com', '2025-04-18', 1);
+INSERT INTO persona VALUES ('Tania', 'Ibarra', 45000018, 3794200008, 'tania.ibarra@email.com', '2025-04-21', 1);
+INSERT INTO persona VALUES ('Uriel', 'Vargas', 45000019, 3794200009, 'uriel.vargas@email.com', '2025-04-25', 1);
+INSERT INTO persona VALUES ('Victoria', 'Zarate', 45000020, 3794200010, 'victoria.zarate@email.com', '2025-04-30', 1);
+INSERT INTO persona VALUES ('Lucia', 'Gimenez', 45000021, 3794300001, 'lucia.gimenez@email.com', '2025-06-01', 1);
+INSERT INTO persona VALUES ('Mateo', 'Herrera', 45000022, 3794300002, 'mateo.herrera@email.com', '2025-06-03', 1);
+INSERT INTO persona VALUES ('Nadia', 'Vega', 45000023, 3794300003, 'nadia.vega@email.com', '2025-06-04', 1);
+INSERT INTO persona VALUES ('Omar', 'Castro', 45000024, 3794300004, 'omar.castro@email.com', '2025-06-07', 1);
+INSERT INTO persona VALUES ('Pilar', 'Suarez', 45000025, 3794300005, 'pilar.suarez@email.com', '2025-06-10', 1);
+INSERT INTO persona VALUES ('Ramiro', 'Juarez', 45000026, 3794300006, 'ramiro.juarez@email.com', '2025-06-12', 1);
+INSERT INTO persona VALUES ('Sabrina', 'Rojas', 45000027, 3794300007, 'sabrina.rojas@email.com', '2025-06-16', 1);
+INSERT INTO persona VALUES ('Tiago', 'Gimenez', 45000028, 3794300008, 'tiago.gimenez@email.com', '2025-06-19', 1);
+INSERT INTO persona VALUES ('Valeria', 'Paredes', 45000029, 3794300009, 'vale.paredes@email.com', '2025-06-23', 1);
+INSERT INTO persona VALUES ('Walter', 'Sosa', 45000030, 3794300010, 'walter.sosa@email.com', '2025-06-28', 1);
+INSERT INTO persona VALUES ('Maria', 'Sosa', 45000000, 3794300000, 'maria.sosa@email.com', '2025-06-28', 1);
+INSERT INTO persona VALUES ('Juan', 'Perez', 30123456, 111111, 'juan.perez@email.com', '2025-10-30', 1);
+INSERT INTO persona VALUES ('Ana', 'Gomez', 31123457, 222222, 'ana.gomez@email.com', '2025-10-30', 1);
+INSERT INTO persona VALUES ('Luis', 'Martinez', 32123458, 333333, 'luis.martinez@email.com', '2025-10-30', 1);
+INSERT INTO persona VALUES ('Maria', 'Rodriguez', 33123459, 444444, 'maria.rodriguez@email.com', '2025-10-30', 1);
+INSERT INTO persona VALUES ('Carlos', 'Lopez', 34123450, 555555, 'carlos.lopez@email.com', '2025-10-30', 1);
+INSERT INTO persona VALUES ('Laura', 'Sanchez', 35123451, 666666, 'laura.sanchez@email.com', '2025-10-30', 1);
+INSERT INTO persona VALUES ('Pedro', 'Gonzalez', 36123452, 777777, 'pedro.gonzalez@email.com', '2025-10-30', 1);
+INSERT INTO persona VALUES ('Sofia', 'Fernandez', 37123453, 888888, 'sofia.fernandez@email.com', '2025-10-30', 1);
+INSERT INTO persona VALUES ('Diego', 'Diaz', 38123454, 999999, 'diego.diaz@email.com', '2025-10-30', 1);
+INSERT INTO persona VALUES ('Valeria', 'Moreno', 39123455, 101010, 'valeria.moreno@email.com', '2025-10-30', 1);
+INSERT INTO persona VALUES ('Jorge', 'Ramirez', 40123456, 111112, 'jorge.ramirez@email.com', '2025-10-30', 1);
+INSERT INTO persona VALUES ('Lucia', 'Acosta', 41123457, 222223, 'lucia.acosta@email.com', '2025-10-30', 1);
+INSERT INTO persona VALUES ('Martin', 'Garcia', 42123458, 333334, 'martin.garcia@email.com', '2025-10-30', 1);
+INSERT INTO persona VALUES ('Camila', 'Alvarez', 43123459, 444445, 'camila.alvarez@email.com', '2025-10-30', 1);
+INSERT INTO persona VALUES ('Nicolas', 'Torres', 44123450, 555556, 'nicolas.torres@email.com', '2025-10-30', 1);
+INSERT INTO persona VALUES ('Julieta', 'Ruiz', 45123451, 666667, 'julieta.ruiz@email.com', '2025-10-30', 1);
+INSERT INTO persona VALUES ('Matias', 'Gimenez', 46123452, 777778, 'matias.gimenez@email.com', '2025-10-30', 1);
+INSERT INTO persona VALUES ('Paula', 'Sosa', 47123453, 888889, 'paula.sosa@email.com', '2025-10-30', 1);
+INSERT INTO persona VALUES ('Federico', 'Benitez', 48123454, 999990, 'federico.benitez@email.com', '2025-10-30', 1);
+INSERT INTO persona VALUES ('Agustina', 'Pereyra', 49123455, 101011, 'agustina.pereyra@email.com', '2025-10-30', 1);
+--INSERT USUARIO
+INSERT INTO usuario VALUES (1, 'dario', 'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', 1);
+INSERT INTO usuario VALUES (2, 'nahim', 'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', 1);
+INSERT INTO usuario VALUES (4, 'recep', 'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', 2);
+INSERT INTO usuario VALUES (13, 'pablo', 'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', 3);
+INSERT INTO usuario VALUES (14, 'juan', 'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', 2);
+INSERT INTO usuario VALUES (16, 'lramirez', '1234', 3);
+INSERT INTO usuario VALUES (17, 'mgomez', '1234', 3);
+INSERT INTO usuario VALUES (18, 'jfernandez', '1234', 3);
+INSERT INTO usuario VALUES (19, 'cortiz', '1234', 3);
+INSERT INTO usuario VALUES (20, 'tlopez', '1234', 3);
+INSERT INTO usuario VALUES (21, 'sbenitez', '1234', 3);
+INSERT INTO usuario VALUES (22, 'macosta', '1234', 3);
+INSERT INTO usuario VALUES (23, 'vruiz', '1234', 3);
+INSERT INTO usuario VALUES (24, 'ftorres', '1234', 3);
+INSERT INTO usuario VALUES (25, 'jsilva', '1234', 3);
+--INSERT SOCIO
+INSERT INTO socio VALUES (26, 3794698595, 'Esguince de tobillo grado I.  Problema de presion alta.');
+INSERT INTO socio VALUES (27, 3794789012, 'No presenta problemas de salud.');
+INSERT INTO socio VALUES (28, 3794223344, 'Alergia al polen. Requiere ventilación adecuada durante las clases.');
+INSERT INTO socio VALUES (29, 3794993458, 'Ninguna');
+INSERT INTO socio VALUES (30, 3794859647, 'Rotura de ligamentos, pierna derecha');
+INSERT INTO socio VALUES (31, 3794455566, 'Seguimiento por hipertensión controlada.');
+INSERT INTO socio VALUES (32, 3794678122, '');
+INSERT INTO socio VALUES (34, 3794991100, 'Entrena tres veces por semana. Lesión previa en rodilla izquierda.');
+INSERT INTO socio VALUES (35, 3794900088, '');
+INSERT INTO socio VALUES (36, 3794992277, '');
+INSERT INTO socio VALUES (37, 3794432109, '');
+INSERT INTO socio VALUES (40, 3794776655, '');
+INSERT INTO socio VALUES (41, 3794998899, '');
+INSERT INTO socio VALUES (42, 3794791234, '');
+INSERT INTO socio VALUES (43, 3794321109, '');
+INSERT INTO socio VALUES (44, 3794445566, '');
+INSERT INTO socio VALUES (45, 3794111111, 'Ninguna');
+INSERT INTO socio VALUES (46, 3794222222, 'Viene a entrenar fuerza');
+INSERT INTO socio VALUES (47, 3794333333, '');
+INSERT INTO socio VALUES (48, 3794444444, 'Quiere probar Crossfit');
+INSERT INTO socio VALUES (49, 3794555555, 'Clases de relajación');
+INSERT INTO socio VALUES (50, 3794666666, '');
+INSERT INTO socio VALUES (51, 3794777777, 'Solo fines de semana');
+INSERT INTO socio VALUES (52, 3794888888, '');
+INSERT INTO socio VALUES (53, 3794999999, 'Rehabilitación de hombro');
+INSERT INTO socio VALUES (54, 3794101010, '');
+INSERT INTO socio VALUES (55, 3794111111, 'Socio de Abril');
+INSERT INTO socio VALUES (56, 3794222222, '');
+INSERT INTO socio VALUES (57, 3794333333, 'Entrenamiento funcional');
+INSERT INTO socio VALUES (58, 3794444444, '');
+INSERT INTO socio VALUES (59, 3794555555, '');
+INSERT INTO socio VALUES (60, 3794666666, 'Viene por Pilates');
+INSERT INTO socio VALUES (61, 3794777777, '');
+INSERT INTO socio VALUES (62, 3794888888, 'Interesada en Yoga y Spinning');
+INSERT INTO socio VALUES (63, 3794999999, '');
+INSERT INTO socio VALUES (64, 3794101010, 'Solo clases de cardio');
+INSERT INTO socio VALUES (65, 3794111111, 'Socio de Junio');
+INSERT INTO socio VALUES (66, 3794222222, 'Entrenamiento de alta intensidad');
+INSERT INTO socio VALUES (67, 3794333333, '');
+INSERT INTO socio VALUES (68, 3794444444, 'Solo musculación');
+INSERT INTO socio VALUES (69, 3794555555, '');
+INSERT INTO socio VALUES (70, 3794666666, '');
+INSERT INTO socio VALUES (71, 3794777777, 'Clases grupales');
+INSERT INTO socio VALUES (72, 3794888888, '');
+INSERT INTO socio VALUES (73, 3794999999, '');
+INSERT INTO socio VALUES (74, 3794101010, '');
+INSERT INTO socio VALUES (75, 3794101019, '');
+INSERT INTO socio VALUES (76, 123456789, 'Rotura de ligamentos');
+INSERT INTO socio VALUES (77, 123456789, ' ');
+INSERT INTO socio VALUES (78, 123456789, ' ');
+INSERT INTO socio VALUES (79, 123456789, 'Desviacion en la columna');
+INSERT INTO socio VALUES (80, 123456789, ' ');
+INSERT INTO socio VALUES (81, 123456789, ' ');
+INSERT INTO socio VALUES (82, 123456789, ' ');
+INSERT INTO socio VALUES (83, 123456789, 'Dolores de hombro derecho');
+INSERT INTO socio VALUES (84, 123456789, ' ');
+INSERT INTO socio VALUES (85, 123456789, ' ');
+INSERT INTO socio VALUES (86, 987654321, 'Lesion femoral');
+INSERT INTO socio VALUES (87, 987654321, ' ');
+INSERT INTO socio VALUES (88, 987654321, ' ');
+INSERT INTO socio VALUES (89, 987654321, ' ');
+INSERT INTO socio VALUES (90, 987654321, 'Entrenamiento liviano');
+INSERT INTO socio VALUES (91, 987654321, ' ');
+INSERT INTO socio VALUES (92, 987654321, ' ');
+INSERT INTO socio VALUES (93, 987654321, ' ');
+INSERT INTO socio VALUES (94, 987654321, ' ');
+INSERT INTO socio VALUES (95, 987654321, 'Entrenamiento personalizado');
+
+--INSERT CLASE
+INSERT INTO clase VALUES (1, 1, 13, 1000.00, '08:00:00', '10:00:00', 35);
+INSERT INTO clase VALUES (2, 2, 17, 2000.00, '06:00:00', '23:59:00', 507);
+INSERT INTO clase VALUES (3, 3, 18, 2200.00, '18:00:00', '19:00:00', 18);
+INSERT INTO clase VALUES (4, 4, 19, 1800.00, '19:15:00', '20:15:00', 24);
+INSERT INTO clase VALUES (5, 3, 16, 500.00, '17:00:00', '19:00:00', 16);
+INSERT INTO clase VALUES (6, 6, 21, 2100.00, '10:30:00', '11:30:00', 17);
+INSERT INTO clase VALUES (7, 7, 22, 1900.00, '20:30:00', '21:30:00', 24);
+INSERT INTO clase VALUES (8, 8, 23, 2400.00, '07:00:00', '08:00:00', 22);
+INSERT INTO clase VALUES (9, 9, 24, 2600.00, '11:00:00', '12:00:00', 18);
+INSERT INTO clase VALUES (10, 10, 25, 2000.00, '16:00:00', '17:00:00', 22);
+INSERT INTO clase VALUES (11, 2, 13, 1.00, '14:25:13', '14:34:13', 0);
+
+--INSERT CLASE_DIA
+INSERT INTO clase_dia VALUES (1, 1);
+INSERT INTO clase_dia VALUES (1, 3);
+INSERT INTO clase_dia VALUES (1, 5);
+INSERT INTO clase_dia VALUES (2, 1);
+INSERT INTO clase_dia VALUES (2, 2);
+INSERT INTO clase_dia VALUES (2, 3);
+INSERT INTO clase_dia VALUES (2, 4);
+INSERT INTO clase_dia VALUES (2, 5);
+INSERT INTO clase_dia VALUES (2, 6);
+INSERT INTO clase_dia VALUES (3, 1);
+INSERT INTO clase_dia VALUES (3, 3);
+INSERT INTO clase_dia VALUES (3, 5);
+INSERT INTO clase_dia VALUES (4, 2);
+INSERT INTO clase_dia VALUES (4, 4);
+INSERT INTO clase_dia VALUES (4, 6);
+INSERT INTO clase_dia VALUES (5, 1);
+INSERT INTO clase_dia VALUES (5, 2);
+INSERT INTO clase_dia VALUES (5, 3);
+INSERT INTO clase_dia VALUES (5, 4);
+INSERT INTO clase_dia VALUES (5, 5);
+INSERT INTO clase_dia VALUES (5, 6);
+INSERT INTO clase_dia VALUES (5, 7);
+INSERT INTO clase_dia VALUES (6, 2);
+INSERT INTO clase_dia VALUES (6, 4);
+INSERT INTO clase_dia VALUES (6, 6);
+INSERT INTO clase_dia VALUES (7, 1);
+INSERT INTO clase_dia VALUES (7, 3);
+INSERT INTO clase_dia VALUES (7, 5);
+INSERT INTO clase_dia VALUES (8, 2);
+INSERT INTO clase_dia VALUES (8, 4);
+INSERT INTO clase_dia VALUES (8, 6);
+INSERT INTO clase_dia VALUES (9, 1);
+INSERT INTO clase_dia VALUES (9, 3);
+INSERT INTO clase_dia VALUES (9, 5);
+INSERT INTO clase_dia VALUES (10, 2);
+INSERT INTO clase_dia VALUES (10, 4);
+INSERT INTO clase_dia VALUES (10, 6);
+INSERT INTO clase_dia VALUES (11, 1);
+
+--INSERT MEMBRESIA
+INSERT INTO membresia VALUES (10, 14, 3, 26, '2025-10-16', 1);
+INSERT INTO membresia VALUES (15, 14, 3, 27, '2025-10-16', 1);
+INSERT INTO membresia VALUES (16, 1, 3, 28, '2025-09-10', 0);
+INSERT INTO membresia VALUES (17, 2, 2, 29, '2025-10-18', 0);
+INSERT INTO membresia VALUES (18, 2, 3, 30, '2025-10-18', 1);
+INSERT INTO membresia VALUES (19, 1, 2, 28, '2025-09-10', 0);
+INSERT INTO membresia VALUES (20, 1, 1, 28, '2025-10-18', 0);
+INSERT INTO membresia VALUES (21, 1, 2, 31, '2025-10-18', 0);
+INSERT INTO membresia VALUES (22, 1, 1, 32, '2025-10-18', 0);
+INSERT INTO membresia VALUES (23, 1, 3, 34, '2025-10-18', 1);
+INSERT INTO membresia VALUES (24, 14, 2, 36, '2025-10-19', 0);
+INSERT INTO membresia VALUES (25, 14, 1, 37, '2025-10-19', 0);
+INSERT INTO membresia VALUES (27, 1, 3, 35, '2025-10-19', 1);
+INSERT INTO membresia VALUES (28, 1, 1, 32, '2025-10-20', 0);
+INSERT INTO membresia VALUES (29, 1, 1, 40, '2025-10-20', 0);
+INSERT INTO membresia VALUES (30, 1, 1, 41, '2025-10-20', 0);
+INSERT INTO membresia VALUES (31, 1, 2, 42, '2025-10-20', 0);
+INSERT INTO membresia VALUES (32, 1, 1, 43, '2025-10-20', 0);
+INSERT INTO membresia VALUES (33, 1, 2, 44, '2025-10-20', 0);
+INSERT INTO membresia VALUES (34, 2, 1, 26, '2025-10-22', 0);
+INSERT INTO membresia VALUES (35, 4, 3, 45, '2025-08-02', 0);
+INSERT INTO membresia VALUES (36, 14, 3, 46, '2025-08-03', 0);
+INSERT INTO membresia VALUES (37, 4, 1, 47, '2025-08-05', 0);
+INSERT INTO membresia VALUES (38, 14, 2, 48, '2025-08-08', 0);
+INSERT INTO membresia VALUES (39, 4, 3, 49, '2025-08-10', 0);
+INSERT INTO membresia VALUES (40, 14, 3, 50, '2025-08-12', 0);
+INSERT INTO membresia VALUES (41, 4, 2, 51, '2025-08-15', 0);
+INSERT INTO membresia VALUES (42, 14, 3, 52, '2025-08-20', 0);
+INSERT INTO membresia VALUES (43, 4, 3, 53, '2025-08-22', 0);
+INSERT INTO membresia VALUES (44, 14, 3, 54, '2025-08-28', 0);
+INSERT INTO membresia VALUES (45, 4, 3, 55, '2025-04-02', 0);
+INSERT INTO membresia VALUES (46, 14, 2, 56, '2025-04-03', 0);
+INSERT INTO membresia VALUES (47, 4, 3, 57, '2025-04-05', 0);
+INSERT INTO membresia VALUES (48, 14, 3, 58, '2025-04-07', 0);
+INSERT INTO membresia VALUES (49, 4, 2, 59, '2025-04-11', 0);
+INSERT INTO membresia VALUES (50, 14, 3, 60, '2025-04-14', 0);
+INSERT INTO membresia VALUES (51, 4, 1, 61, '2025-04-18', 0);
+INSERT INTO membresia VALUES (52, 14, 3, 62, '2025-04-21', 0);
+INSERT INTO membresia VALUES (53, 4, 3, 63, '2025-04-25', 0);
+INSERT INTO membresia VALUES (54, 14, 2, 64, '2025-04-30', 0);
+INSERT INTO membresia VALUES (55, 4, 3, 65, '2025-06-01', 0);
+INSERT INTO membresia VALUES (56, 14, 3, 66, '2025-06-03', 0);
+INSERT INTO membresia VALUES (57, 4, 1, 67, '2025-06-04', 0);
+INSERT INTO membresia VALUES (58, 14, 3, 68, '2025-06-07', 0);
+INSERT INTO membresia VALUES (59, 4, 2, 69, '2025-06-10', 0);
+INSERT INTO membresia VALUES (60, 14, 3, 70, '2025-06-12', 0);
+INSERT INTO membresia VALUES (61, 4, 3, 71, '2025-06-16', 0);
+INSERT INTO membresia VALUES (62, 14, 1, 72, '2025-06-19', 0);
+INSERT INTO membresia VALUES (63, 4, 3, 73, '2025-06-23', 0);
+INSERT INTO membresia VALUES (64, 14, 3, 74, '2025-06-28', 0);
+INSERT INTO membresia VALUES (65, 14, 3, 75, '2025-06-28', 0);
+
+--INSERT MEMBRESIA_CLASE
+INSERT INTO membresia_clase VALUES (10, 1);
+INSERT INTO membresia_clase VALUES (15, 1);
+INSERT INTO membresia_clase VALUES (15, 2);
+INSERT INTO membresia_clase VALUES (16, 1);
+INSERT INTO membresia_clase VALUES (16, 2);
+INSERT INTO membresia_clase VALUES (16, 3);
+INSERT INTO membresia_clase VALUES (17, 1);
+INSERT INTO membresia_clase VALUES (17, 2);
+INSERT INTO membresia_clase VALUES (17, 3);
+INSERT INTO membresia_clase VALUES (18, 6);
+INSERT INTO membresia_clase VALUES (18, 7);
+INSERT INTO membresia_clase VALUES (18, 8);
+INSERT INTO membresia_clase VALUES (19, 1);
+INSERT INTO membresia_clase VALUES (20, 3);
+INSERT INTO membresia_clase VALUES (21, 4);
+INSERT INTO membresia_clase VALUES (21, 6);
+INSERT INTO membresia_clase VALUES (22, 4);
+INSERT INTO membresia_clase VALUES (22, 6);
+INSERT INTO membresia_clase VALUES (23, 3);
+INSERT INTO membresia_clase VALUES (23, 4);
+INSERT INTO membresia_clase VALUES (24, 6);
+INSERT INTO membresia_clase VALUES (24, 7);
+INSERT INTO membresia_clase VALUES (25, 4);
+INSERT INTO membresia_clase VALUES (25, 6);
+INSERT INTO membresia_clase VALUES (27, 11);
+INSERT INTO membresia_clase VALUES (28, 6);
+INSERT INTO membresia_clase VALUES (29, 1);
+INSERT INTO membresia_clase VALUES (29, 2);
+INSERT INTO membresia_clase VALUES (30, 6);
+INSERT INTO membresia_clase VALUES (30, 7);
+INSERT INTO membresia_clase VALUES (31, 3);
+INSERT INTO membresia_clase VALUES (31, 4);
+INSERT INTO membresia_clase VALUES (32, 3);
+INSERT INTO membresia_clase VALUES (32, 4);
+INSERT INTO membresia_clase VALUES (33, 2);
+INSERT INTO membresia_clase VALUES (33, 3);
+INSERT INTO membresia_clase VALUES (34, 2);
+INSERT INTO membresia_clase VALUES (35, 4);
+INSERT INTO membresia_clase VALUES (36, 2);
+INSERT INTO membresia_clase VALUES (37, 3);
+INSERT INTO membresia_clase VALUES (38, 1);
+INSERT INTO membresia_clase VALUES (39, 7);
+INSERT INTO membresia_clase VALUES (40, 2);
+INSERT INTO membresia_clase VALUES (41, 10);
+INSERT INTO membresia_clase VALUES (42, 8);
+INSERT INTO membresia_clase VALUES (43, 6);
+INSERT INTO membresia_clase VALUES (44, 1);
+INSERT INTO membresia_clase VALUES (44, 2);
+INSERT INTO membresia_clase VALUES (45, 1);
+INSERT INTO membresia_clase VALUES (46, 4);
+INSERT INTO membresia_clase VALUES (47, 5);
+INSERT INTO membresia_clase VALUES (48, 9);
+INSERT INTO membresia_clase VALUES (49, 2);
+INSERT INTO membresia_clase VALUES (50, 6);
+INSERT INTO membresia_clase VALUES (51, 9);
+INSERT INTO membresia_clase VALUES (52, 3);
+INSERT INTO membresia_clase VALUES (52, 7);
+INSERT INTO membresia_clase VALUES (53, 2);
+INSERT INTO membresia_clase VALUES (54, 4);
+INSERT INTO membresia_clase VALUES (55, 7);
+INSERT INTO membresia_clase VALUES (56, 1);
+INSERT INTO membresia_clase VALUES (56, 10);
+INSERT INTO membresia_clase VALUES (57, 7);
+INSERT INTO membresia_clase VALUES (58, 2);
+INSERT INTO membresia_clase VALUES (59, 8);
+INSERT INTO membresia_clase VALUES (60, 1);
+INSERT INTO membresia_clase VALUES (60, 9);
+INSERT INTO membresia_clase VALUES (61, 3);
+INSERT INTO membresia_clase VALUES (61, 4);
+INSERT INTO membresia_clase VALUES (62, 8);
+INSERT INTO membresia_clase VALUES (63, 6);
+INSERT INTO membresia_clase VALUES (63, 7);
+INSERT INTO membresia_clase VALUES (64, 2);
+INSERT INTO membresia_clase VALUES (65, 1);
+INSERT INTO membresia_clase VALUES (65, 2);
+INSERT INTO membresia_clase VALUES (65, 3);
+INSERT INTO membresia_clase VALUES (65, 4);
+
+--INSERT PAGO
+
+--INSERT PAGO_DETALLE
+
+
+
+
