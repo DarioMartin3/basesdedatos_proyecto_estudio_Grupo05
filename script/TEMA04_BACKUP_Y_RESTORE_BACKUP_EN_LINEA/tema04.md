@@ -79,9 +79,9 @@ RESTORE DATABASE gimnasio_db
 FROM DISK = 'C:\BackupsSQL\gimnasio_db_full.bak' 
 WITH NORECOVERY, REPLACE;
 ```
-> **Nota:** `RESTORE DATABASE` recupera los datos. destruye el presente y reconstruye la base a como estaba en esa copia
-> **Nota:** `WITH NORECOVERY` deja la base de datos inaccesible, esperando más archivos de restauración. es como que se deja "en proceso"
-> **Nota:** `WITH REPLACE` sobrescribe la base de datos actual.
+> **Nota:** `RESTORE DATABASE` recupera los datos. destruye el presente y reconstruye la base a como estaba en esa copia.
+ `WITH NORECOVERY` deja la base de datos inaccesible, esperando más archivos de restauración. es como que se deja "en proceso".
+ `WITH REPLACE` sobrescribe la base de datos actual.
 
 ### Paso B: Aplicar el Log y Finalizar: Se aplicó el primer archivo de log y se finalizó el  proceso.
 ```sql
