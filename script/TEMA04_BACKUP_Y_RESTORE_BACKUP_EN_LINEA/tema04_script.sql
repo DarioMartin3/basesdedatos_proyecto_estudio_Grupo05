@@ -32,7 +32,14 @@ WITH NAME = 'Backup full gimnasio_db'
 
 --3) Generar 10 inserts sobre una tabla de referencia.
 -- Inserto 10 nuevas personas
-INSERT INTO persona (nombre, apellido, dni, telefono, email) VALUES
+
+-- Declaramos la variable tabla para guardar los IDs generados, para hacer el insert de manera dinamica
+-- y no tener problemas con el ingreso del lote luego
+DECLARE @NuevosIDs TABLE (id INT);
+
+INSERT INTO persona (nombre, apellido, dni, telefono, email) 
+OUTPUT inserted.id_persona INTO @NuevosIDs --Capturo los IDs generados por los nuevos socios
+VALUES
 ('Juan', 'Perez', 30123456, 111111, 'juan.perez@email.com'),
 ('Ana', 'Gomez', 31123457, 222222, 'ana.gomez@email.com'),
 ('Luis', 'Martinez', 32123458, 333333, 'luis.martinez@email.com'),
@@ -45,17 +52,13 @@ INSERT INTO persona (nombre, apellido, dni, telefono, email) VALUES
 ('Valeria', 'Moreno', 39123455, 101010, 'valeria.moreno@email.com');
 
 -- Como id_socio es clave foránea de persona, inserto los socios correspondientes.
-INSERT INTO socio (id_socio, contacto_emergencia, observaciones) VALUES
-(76, 123456789, 'Rotura de ligamentos'),
-(77, 123456789, ' '),
-(78, 123456789, ' '),
-(79, 123456789, 'Desviacion en la columna'),
-(80, 123456789, ' '),
-(81, 123456789, ' '),
-(82, 123456789, ' '),
-(83, 123456789, 'Dolores de hombro derecho'),
-(84, 123456789, ' '),
-(85, 123456789, ' ');
+-- Inserto los 10 socios de una sola vez, usando los IDs que capture en la variable.
+INSERT INTO socio (id_socio, contacto_emergencia, observaciones)
+SELECT
+    id,                         -- El id dinámico de la variable
+    123456789,                  -- El contacto de emergencia
+    'Sin observaciones'         -- Una observación genérica para todos
+FROM @NuevosIDs;
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -70,7 +73,13 @@ SELECT GETDATE() AS HoraBackupLog1;
 
 --5) Generar otros 10 insert sobre la tabla de referencia.
 -- Inserto otras 10 personas
-INSERT INTO persona (nombre, apellido, dni, telefono, email) VALUES
+
+-- Creo otra variable para insertar los nuevos 10 socios tambien de manera dinamica
+DECLARE @NuevosIDs2 TABLE (id INT);
+
+INSERT INTO persona (nombre, apellido, dni, telefono, email) 
+OUTPUT inserted.id_persona INTO @NuevosIDs2 --Capturo los IDs generados por los nuevos socios
+VALUES
 ('Jorge', 'Ramirez', 40123456, 111112, 'jorge.ramirez@email.com'),
 ('Lucia', 'Acosta', 41123457, 222223, 'lucia.acosta@email.com'),
 ('Martin', 'Garcia', 42123458, 333334, 'martin.garcia@email.com'),
@@ -82,18 +91,13 @@ INSERT INTO persona (nombre, apellido, dni, telefono, email) VALUES
 ('Federico', 'Benitez', 48123454, 999990, 'federico.benitez@email.com'),
 ('Agustina', 'Pereyra', 49123455, 101011, 'agustina.pereyra@email.com');
 
--- Inserto los 10 socios correspondientes
-INSERT INTO socio (id_socio, contacto_emergencia, observaciones) VALUES
-(86, 987654321, 'Lesion femoral'),
-(87, 987654321, ' '),
-(88, 987654321, ' '),
-(89, 987654321, ' '),
-(90, 987654321, 'Entrenamiento liviano'),
-(91, 987654321, ' '),
-(92, 987654321, ' '),
-(93, 987654321, ' '),
-(94, 987654321, ' '),
-(95, 987654321, 'Entrenamiento personalizado');
+-- Inserto los 10 socios correspondientes de manera dinamica
+INSERT INTO socio (id_socio, contacto_emergencia, observaciones)
+SELECT
+    id,                         -- El id dinámico de la variable
+    123456789,                  -- El contacto de emergencia
+    'Sin observaciones'         -- Una observación genérica para todos
+FROM @NuevosIDs2;
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -105,7 +109,6 @@ WITH NAME = 'Backup del log 2 - Luego de 10 inserts';
 SELECT GETDATE() AS HoraBackupLog2;
 
 ------------------------------------------------------------------------------------------------------------------------
-
 --7) Restaurar la base de datos al momento del primer backup del archivo de log. Es decir después de los primeros 10 insert.
 USE master; --CAMBIO DE BASE PARA EVITAR ERRORES DE BASE EN USO
 
