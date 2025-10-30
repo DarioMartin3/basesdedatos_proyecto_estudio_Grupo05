@@ -17,12 +17,30 @@ WHERE name = 'gimnasio_db';
 ```
 La salida de este comando fue `SIMPLE`, lo cual no es adecuado para backups de log.
 
+> **Nota:** `sys.databases` vista del sistema que contiene información sobre todas las bases de datos del servidor. `name` devuelve el nombre de la base de datos. `recovery_model_desc` muestra el modelo de recuperación actual (SIMPLE, FULL o BULK_LOGGED)
+
+## Comparativa de Modelos de Recuperación en SQL Server usados en este trabajo
+
+| Característica | SIMPLE | FULL |
+|----------------|---------|------|
+| **Registro de transacciones** | Solo se registra lo minimo y necesario para completar la operacion, el log se limpia automáticamente al terminar la transaccion. | Se registran **todas** las transacciones. |
+| **Tamaño del log de transacciones** | Pequeño (se limpia automáticamente). | Puede crecer mucho si no se hacen backups de log ya que el log no se limpia automáticamente como en el **SIMPLE**. | 
+| **Posibilidad de restaurar a un punto específico en el tiempo** | ❌ No se puede. | ✅ Sí, se puede restaurar a cualquier punto exacto. | 
+| **Uso típico** | Bases de datos pequeñas o de prueba, donde no se necesita recuperación avanzada. | Sistemas críticos donde la pérdida de datos no es aceptable. |
+| **Backups de log permitidos** | ❌ No. | ✅ Sí. |
+| **Rendimiento** | Alto (menos sobrecarga de log). El servidor no escribe tanto en el log por eso trabaja más rápido | Menor rendimiento (más escritura en log). Ya que cada detalle de la operación de resgistra en el log | 
+
+> **Resumen:**  
+> - **SIMPLE:** rápido pero con menor capacidad de recuperación.  
+> - **FULL:** más seguro, permite restauraciones exactas en el tiempo.  
+
+
 ### Configuración del Modelo FULL
 ```sql
 ALTER DATABASE gimnasio_db
 SET RECOVERY FULL;
 ```
-Este comando modifica la propiedad de la base de datos para que comience a registrar cada transacción en su archivo de log, habilitando la capacidad de restauración a un punto en el tiempo.
+> **Nota:** `SET RECOVERY FULL` Este comando modifica la propiedad de la base de datos para que comience a registrar cada transacción en su archivo de log, habilitando la capacidad de restauración a un punto en el tiempo.
 
 ## 2. Creación del Backup Completo (Full)
 Se creó un backup completo como punto de partida. Este archivo `.bak` es la "fotografía" inicial y completa de la base de datos.
@@ -32,7 +50,7 @@ BACKUP DATABASE gimnasio_db
 TO DISK = 'C:\BackupsSQL\gimnasio_db_full.bak'
 WITH NAME = 'Backup full gimnasio_db';
 ```
-> **Nota:** `BACKUP DATABASE` es la instrucción principal para crear una copia de seguridad completa de la base de datos especificada.
+> **Nota:** `BACKUP DATABASE` es el comando principal para crear una copia de seguridad completa de la base de datos especificada. `TO DISK` ruta donde se guardará la copia. `WITH NAME` escribe un nombre descriptivo dentro del archivo de backup.
 
 ## 3. Simulación de Cambios y Backup de Log
 
@@ -44,6 +62,7 @@ BACKUP LOG gimnasio_db
 TO DISK = 'C:\BackupsSQL\gimnasio_db_log1.trn';
 ```
 > **Nota:** `BACKUP LOG` solo copia las transacciones registradas desde el último backup, no toda la base de datos.
+Este archivo `.trn` guarda todas las transacciones ocurridas luego de la copia `.bak`.
 
 ### Segundo Lote de Cambios
 Se repitió el proceso:
@@ -60,7 +79,8 @@ RESTORE DATABASE gimnasio_db
 FROM DISK = 'C:\BackupsSQL\gimnasio_db_full.bak' 
 WITH NORECOVERY, REPLACE;
 ```
-> **Nota:** `WITH NORECOVERY` es la clave aquí. Deja la base de datos inaccesible, esperando más archivos de restauración.
+> **Nota:** `RESTORE DATABASE` recupera los datos. destruye el presente y reconstruye la base a como estaba en esa copia
+> **Nota:** `WITH NORECOVERY` deja la base de datos inaccesible, esperando más archivos de restauración. es como que se deja "en proceso"
 > **Nota:** `WITH REPLACE` sobrescribe la base de datos actual.
 
 ### Paso B: Aplicar el Log y Finalizar: Se aplicó el primer archivo de log y se finalizó el  proceso.
@@ -69,7 +89,7 @@ RESTORE LOG gimnasio_db
 FROM DISK = 'C:\BackupsSQL\gimnasio_db_log1.trn'
 WITH RECOVERY;
 ```
-> **Nota:** `WITH RECOVERY` esta opción "cierra" la restauración y pone la base de datos en línea y funcional.
+> **Nota:** `WITH RECOVERY` esta opción "cierra" la restauración y pone la base de datos en línea y funcional, lista para usarse.
 
 Verificación: Una consulta SELECT * FROM socio; mostró que solo estaban presentes los socios hasta el ultimo id_socio del primer insert, confirmando que la restauración fue exitosa.
 ## 5. Restauración Completa Aplicando Todos los Logs
