@@ -102,3 +102,36 @@ Para ejecutar/llamar a este procedimiento sería con la siguiente sintaxis:
 	
 	*PD: El usuario al no pasar los demás paramétros, usarán su valor que ya tenían previamente, mediante el filtro de ISNULL(@variable_que_puede_ser_nula, @valor_por_defecto) 
 */
+
+
+GO
+/*
+	1.c. Eliminar una persona
+	
+  Documentación (Cumpliendo Criterio de Evaluación):
+  - Nombre: sp_BorrarPersona (Borrado Lógico)
+  - Objetivo: Desactiva una persona en la tabla 'persona' (borrado lógico).
+  - Parámetros de Entrada:
+    - @id_persona: (int) ID de la persona a desactivar (Obligatorio)
+  - Notas: Esto no borra el registro físicamente, solo cambia 'estado' a 0.
+*/
+CREATE PROCEDURE sp_BorrarPersona
+    @id_persona int
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- La ACCIÓN (Borrado Lógico)
+    UPDATE persona
+    SET 
+        estado = 0 -- 0 significa "Inactivo" o "Borrado"
+    WHERE 
+        id_persona = @id_persona;
+END
+GO
+
+/*
+Para ejecutar/llamar a este procedimiento sería con la siguiente sintaxis:
+
+	EXEC sp_BorrarPersona @id_persona = 1;
+*/
