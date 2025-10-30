@@ -234,3 +234,103 @@ GO
 INSERT [dbo].[tipo_pago] ([id_tipo_pago], [nombre]) VALUES (4, N'Transferencia')
 GO
 SET IDENTITY_INSERT [dbo].[tipo_pago] OFF
+SET IDENTITY_INSERT [dbo].[actividad] ON 
+GO
+INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (9, N'Body Pump')
+GO
+INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (10, N'Boxeo')
+GO
+INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (15, N'Ciclismo Indoor')
+GO
+INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (1, N'Crossfit')
+GO
+INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (13, N'Entrenamiento Personalizado')
+GO
+INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (5, N'Funcional')
+GO
+INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (8, N'GAP')
+GO
+INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (14, N'HIIT (Alta Intensidad)')
+GO
+INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (11, N'Kick Boxing')
+GO
+INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (2, N'Musculación')
+GO
+INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (6, N'Pilates')
+GO
+INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (3, N'Spinning')
+GO
+INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (12, N'Stretching')
+GO
+INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (7, N'Yoga')
+GO
+INSERT [dbo].[actividad] ([id_actividad], [nombre]) VALUES (4, N'Zumba')
+GO
+SET IDENTITY_INSERT [dbo].[actividad] OFF
+SET IDENTITY_INSERT [dbo].[actividad] OFF
+GO
+INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (1, N'dario', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', 1)
+GO
+INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (2, N'nahim', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', 1)
+GO
+INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (4, N'recep', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', 2)
+GO
+INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (13, N'pablo', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', 3)
+GO
+INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (14, N'juan', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', 2)
+GO
+INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (16, N'lramirez', N'1234', 3)
+GO
+INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (17, N'mgomez', N'1234', 3)
+GO
+INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (18, N'jfernandez', N'1234', 3)
+GO
+INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (19, N'cortiz', N'1234', 3)
+GO
+INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (20, N'tlopez', N'1234', 3)
+GO
+INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (21, N'sbenitez', N'1234', 3)
+GO
+INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (22, N'macosta', N'1234', 3)
+GO
+INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (23, N'vruiz', N'1234', 3)
+GO
+INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (24, N'ftorres', N'1234', 3)
+GO
+INSERT [dbo].[usuario] ([id_usuario], [username], [password], [rol_id]) VALUES (25, N'jsilva', N'1234', 3)
+GO
+SET IDENTITY_INSERT [dbo].[clase] ON 
+GO
+INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (1, 1, 13, CAST(N'08:00:00' AS Time), CAST(N'10:00:00' AS Time), CAST(1000.00 AS Decimal(10, 2)), 35, 1)
+GO
+INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (2, 2, 17, CAST(N'06:00:00' AS Time), CAST(N'23:59:00' AS Time), CAST(2000.00 AS Decimal(10, 2)), 507, 1)
+GO
+INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (3, 3, 18, CAST(N'18:00:00' AS Time), CAST(N'19:00:00' AS Time), CAST(2200.00 AS Decimal(10, 2)), 18, 1)
+GO
+INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (4, 4, 19, CAST(N'19:15:00' AS Time), CAST(N'20:15:00' AS Time), CAST(1800.00 AS Decimal(10, 2)), 24, 1)
+GO
+INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (5, 3, 16, CAST(N'17:00:00' AS Time), CAST(N'19:00:00' AS Time), CAST(500.00 AS Decimal(10, 2)), 16, 0)
+GO
+INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (6, 6, 21, CAST(N'10:30:00' AS Time), CAST(N'11:30:00' AS Time), CAST(2100.00 AS Decimal(10, 2)), 17, 1)
+GO
+INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (7, 7, 22, CAST(N'20:30:00' AS Time), CAST(N'21:30:00' AS Time), CAST(1900.00 AS Decimal(10, 2)), 24, 1)
+GO
+INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (8, 8, 23, CAST(N'07:00:00' AS Time), CAST(N'08:00:00' AS Time), CAST(2400.00 AS Decimal(10, 2)), 22, 1)
+GO
+INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (9, 9, 24, CAST(N'11:00:00' AS Time), CAST(N'12:00:00' AS Time), CAST(2600.00 AS Decimal(10, 2)), 18, 1)
+GO
+INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (10, 10, 25, CAST(N'16:00:00' AS Time), CAST(N'17:00:00' AS Time), CAST(2000.00 AS Decimal(10, 2)), 22, 1)
+GO
+INSERT [dbo].[clase] ([id_clase], [actividad_id], [usuario_id], [hora_desde], [hora_hasta], [precio], [cupo], [estado]) VALUES (11, 2, 13, CAST(N'14:25:13.4851753' AS Time), CAST(N'14:34:13' AS Time), CAST(1.00 AS Decimal(10, 2)), 0, 1)
+GO
+SET IDENTITY_INSERT [dbo].[clase] OFF
+GO
+SET IDENTITY_INSERT [dbo].[membresia_tipo] ON 
+GO
+INSERT [dbo].[membresia_tipo] ([id_tipo], [nombre], [duracion_dias]) VALUES (1, N'Diario', 1)
+GO
+INSERT [dbo].[membresia_tipo] ([id_tipo], [nombre], [duracion_dias]) VALUES (2, N'Semanal', 7)
+GO
+INSERT [dbo].[membresia_tipo] ([id_tipo], [nombre], [duracion_dias]) VALUES (3, N'Mensual', 30)
+GO
+SET IDENTITY_INSERT [dbo].[membresia_tipo] OFF
