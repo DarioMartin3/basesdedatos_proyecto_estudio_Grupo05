@@ -1,0 +1,4 @@
+Tema: Backup y Restore en Línea
+Asignatura: Bases de Datos I (FaCENA - UNNE)
+Descripción del Procedimiento
+Este documento detalla el proceso implementado para ejecutar y validar una estrategia de backup y restore en SQL Server sobre la base de datos gimnasio_db. El objetivo es demostrar cómo realizar copias de seguridad mientras la base de datos está en uso y cómo restaurar la información a puntos específicos en el tiempo.
