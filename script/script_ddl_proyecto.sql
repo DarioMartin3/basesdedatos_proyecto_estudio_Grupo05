@@ -190,7 +190,7 @@ CREATE TABLE pago (
   id_pago int IDENTITY(1, 1),
   socio_id int,
   tipo_pago_id int,
-  fecha date,
+  fecha date CONSTRAINT DF_pago_fecha DEFAULT GETDATE(),
   total decimal,
   estado BIT DEFAULT 1,
 
