@@ -143,7 +143,7 @@ CREATE TABLE membresia (
   usuario_id int,
   tipo_id int,
   socio_id int,
-  fecha_inicio date,
+  fecha_inicio date CONSTRAINT DF_membresia_fecha_inicio DEFAULT GETDATE(),
   estado BIT,
 
   -- CLAVES PRIMARIAS
