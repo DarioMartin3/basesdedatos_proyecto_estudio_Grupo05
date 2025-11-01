@@ -115,7 +115,7 @@ CREATE TABLE clase (
   CONSTRAINT FK_clase_usuario FOREIGN KEY (usuario_id) REFERENCES usuario(id_usuario),
 
   --RESTRICCIONES CHECK
-  CONSTRAINT CK_clase_cupo CHECK (cupo > 0)
+  CONSTRAINT CK_clase_cupo CHECK (cupo >=0)
 )
 
 ------------------------------
