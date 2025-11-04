@@ -1,4 +1,4 @@
-# 📘 Procedimientos y Funciones Almacenadas en Bases de Datos
+# 📘 Procedimientos y Funciones Almacenadas
 
 ## 1. Introducción
 
