@@ -1,14 +1,20 @@
 import pyodbc, random, datetime
 from itertools import islice
+from conf_script.conf import TOTAL_ROWS_PAGO_DETALLE, BATCH_PAGO_DETALLE, BD_HOST, DB_NAME
 
 # Conexión: ajusta DRIVER/SERVER/DB/USER/PWD
 cn = pyodbc.connect(
     "DRIVER={ODBC Driver 17 for SQL Server};"
-    "SERVER=localhost\\SQLEXPRESS;DATABASE=gimnasio_db_2;Trusted_Connection=yes;",
+    f"SERVER={BD_HOST};DATABASE={DB_NAME};Trusted_Connection=yes;",
     autocommit=False
 )
 cur = cn.cursor()
 cur.fast_executemany = True
+
+TOTAL_ROWS = TOTAL_ROWS_PAGO_DETALLE
+BATCH = BATCH_PAGO_DETALLE
+
+sql = "INSERT INTO dbo.pago_detalle (membresia_id, clase_id, pago_id) VALUES (?,?,?)"
 
 def fetch_valid_catalogs():
     pago = [row[0] for row in cur.execute("SELECT id_pago FROM dbo.pago").fetchall()]
@@ -17,8 +23,7 @@ def fetch_valid_catalogs():
     if not membresia or not clase or not pago:
         raise RuntimeError("Faltan filas en membresia o clase.")
     return membresia, clase, pago
-TOTAL_ROWS = 10_000
-BATCH = 5_000
+
 
 def gen_rows(n):
     membresia, clase, pago = fetch_valid_catalogs()
@@ -28,7 +33,7 @@ def gen_rows(n):
         pago_id = random.choice(pago)
         yield (membresia_id, clase_id, pago_id)
 
-sql = "INSERT INTO dbo.pago_detalle (membresia_id, clase_id, pago_id) VALUES (?,?,?)"
+
 
 def batched(iterable, size):
     while True:

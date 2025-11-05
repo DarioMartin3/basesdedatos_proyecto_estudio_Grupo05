@@ -1,14 +1,26 @@
 import pyodbc, random, datetime
 from itertools import islice
+from conf_script.conf import DB_HOST, DB_NAME, TOTAL_ROWS_MEMBRESIA_CLASE, BATCH_MEMBRESIA_CLASE
 
 # Conexión: ajusta DRIVER/SERVER/DB/USER/PWD
 cn = pyodbc.connect(
     "DRIVER={ODBC Driver 17 for SQL Server};"
-    "SERVER=localhost\\SQLEXPRESS;DATABASE=gimnasio_db_2;Trusted_Connection=yes;",
+    f"SERVER={DB_HOST};DATABASE={DB_NAME};Trusted_Connection=yes;",
     autocommit=False
 )
 cur = cn.cursor()
 cur.fast_executemany = True
+
+TOTAL_ROWS = TOTAL_ROWS_MEMBRESIA_CLASE
+BATCH = BATCH_MEMBRESIA_CLASE
+
+sql = """INSERT INTO dbo.membresia_clase (membresia_id, clase_id) 
+SELECT ?, ?
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM dbo.membresia_clase WITH (UPDLOCK, HOLDLOCK)
+  WHERE membresia_id = ? AND clase_id = ?
+);"""
 
 def fetch_valid_catalogs():
     membresia = [row[0] for row in cur.execute("SELECT id_membresia FROM dbo.membresia").fetchall()]
@@ -19,8 +31,7 @@ def fetch_valid_catalogs():
 
 
 
-TOTAL_ROWS = 10_000
-BATCH = 5_000
+
 
 def gen_rows(n):
     membresia, clase = fetch_valid_catalogs()
@@ -29,13 +40,7 @@ def gen_rows(n):
         clase_id  = random.choice(clase)
         yield (membresia_id, clase_id, membresia_id, clase_id)
 
-sql = """INSERT INTO dbo.membresia_clase (membresia_id, clase_id) 
-SELECT ?, ?
-WHERE NOT EXISTS (
-  SELECT 1
-  FROM dbo.membresia_clase WITH (UPDLOCK, HOLDLOCK)
-  WHERE membresia_id = ? AND clase_id = ?
-);"""
+
 
 def batched(iterable, size):
     while True:

@@ -1,14 +1,22 @@
 import pyodbc, random, datetime
 from itertools import islice
+from conf_script.conf import DB_HOST, DB_NAME, DAYS_START_PAGO, MONTHS_START_PAGO, YEARS_START_PAGO, DAYS_PAGO, TOTAL_ROWS_PAGO, BATCH_PAGO
 
 # Conexión: ajusta DRIVER/SERVER/DB/USER/PWD
 cn = pyodbc.connect(
     "DRIVER={ODBC Driver 17 for SQL Server};"
-    "SERVER=localhost\\SQLEXPRESS;DATABASE=gimnasio_db_2;Trusted_Connection=yes;",
+    f"SERVER={DB_HOST};DATABASE={DB_NAME};Trusted_Connection=yes;",
     autocommit=False
 )
 cur = cn.cursor()
 cur.fast_executemany = True
+
+START = datetime.date(YEARS_START_PAGO, MONTHS_START_PAGO, DAYS_START_PAGO)
+DAYS  = DAYS_PAGO
+TOTAL_ROWS = TOTAL_ROWS_PAGO
+BATCH = BATCH_PAGO
+
+sql = "INSERT INTO dbo.pago (socio_id, tipo_pago_id, fecha, total, estado) VALUES (?,?,?,?,?)"
 
 # Traer catálogos válidos para FKs
 def fetch_valid_catalogs():
@@ -18,10 +26,7 @@ def fetch_valid_catalogs():
         raise RuntimeError("Faltan filas en socio o tipo_pago.")
     return socios, tipos
 
-START = datetime.date(2017,1,1)
-DAYS  = 2920
-TOTAL_ROWS = 10_000
-BATCH = 5_000
+
 
 def gen_rows(n):
     socios, tipos = fetch_valid_catalogs()
@@ -33,7 +38,7 @@ def gen_rows(n):
         estado   = 1 if random.randrange(100) < 92 else 0
         yield (socio_id, tipo_id, fecha, total, estado)
 
-sql = "INSERT INTO dbo.pago (socio_id, tipo_pago_id, fecha, total, estado) VALUES (?,?,?,?,?)"
+
 
 def batched(iterable, size):
     while True:
