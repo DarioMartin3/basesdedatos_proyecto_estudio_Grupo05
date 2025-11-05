@@ -1,11 +1,11 @@
 import pyodbc, random, datetime
 from itertools import islice
-from conf_script.conf import TOTAL_ROWS_PAGO_DETALLE, BATCH_PAGO_DETALLE, BD_HOST, DB_NAME
+from conf_script.conf import TOTAL_ROWS_PAGO_DETALLE, BATCH_PAGO_DETALLE, DB_HOST, DB_NAME
 
 # Conexión: ajusta DRIVER/SERVER/DB/USER/PWD
 cn = pyodbc.connect(
     "DRIVER={ODBC Driver 17 for SQL Server};"
-    f"SERVER={BD_HOST};DATABASE={DB_NAME};Trusted_Connection=yes;",
+    f"SERVER={DB_HOST}\\SQLEXPRESS;DATABASE={DB_NAME};Trusted_Connection=yes;",
     autocommit=False
 )
 cur = cn.cursor()

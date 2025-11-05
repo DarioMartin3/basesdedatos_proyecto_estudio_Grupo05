@@ -1,5 +1,5 @@
 DB_HOST = "localhost"
-DB_NAME = "mi_base"
+DB_NAME = "gimnasio_db_2"
 
 #----------- conf para el archivo de carga masiva de membresia_clase_insert.py -----------
 #total de filas a insertar

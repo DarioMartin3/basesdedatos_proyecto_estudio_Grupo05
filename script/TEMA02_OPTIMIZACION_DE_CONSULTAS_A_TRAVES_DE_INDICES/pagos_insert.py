@@ -5,7 +5,7 @@ from conf_script.conf import DB_HOST, DB_NAME, DAYS_START_PAGO, MONTHS_START_PAG
 # Conexión: ajusta DRIVER/SERVER/DB/USER/PWD
 cn = pyodbc.connect(
     "DRIVER={ODBC Driver 17 for SQL Server};"
-    f"SERVER={DB_HOST};DATABASE={DB_NAME};Trusted_Connection=yes;",
+    f"SERVER={DB_HOST}\\SQLEXPRESS;DATABASE={DB_NAME};Trusted_Connection=yes;",
     autocommit=False
 )
 cur = cn.cursor()
