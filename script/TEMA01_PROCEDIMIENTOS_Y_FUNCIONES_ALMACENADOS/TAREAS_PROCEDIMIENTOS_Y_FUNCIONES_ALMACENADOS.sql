@@ -135,3 +135,56 @@ Para ejecutar/llamar a este procedimiento sería con la siguiente sintaxis:
 
 	EXEC sp_BorrarPersona @id_persona = 1;
 */
+
+/*
+	FUNCIONES ALMACENADAS
+	
+	Desarrollar al menos tres funciones almacenadas. Por ej: calcular la edad, etc.
+*/
+
+USE gimnasio_db;
+GO
+
+/*
+  Documentación (Cumpliendo Criterio de Evaluación):
+  - Nombre: fn_GetNombreCompleto
+  - Objetivo: Devuelve el nombre completo de una persona en formato "Apellido, Nombre".
+  - Parámetros de Entrada:
+    - @id_persona: (int) El ID de la persona a consultar.
+  - Retorno: VARCHAR(511) - (255 del apellido + 2 + 255 del nombre)
+*/
+CREATE FUNCTION fn_GetNombreCompleto
+(
+    @id_persona int
+)
+RETURNS VARCHAR(511) -- La suma de los varchar de nombre y apellido
+AS
+BEGIN
+    -- 1. Declaramos la "caja" (variable) de retorno
+    DECLARE @NombreCompleto VARCHAR(511);
+
+    -- 2. Hacemos el cálculo (la consulta)
+    SELECT @NombreCompleto = apellido + ', ' + nombre
+    FROM persona
+    WHERE id_persona = @id_persona;
+
+    -- 3. Devolvemos el valor
+    RETURN @NombreCompleto;
+END
+GO
+
+/*
+Para ejecutar/llamar a esta función sería con la siguiente sintaxis:
+
+	-- Obtenemos el listado de todos los socios activos
+SELECT 
+    id_socio,
+    dbo.fn_GetNombreCompleto(id_socio) AS NombreSocio, -- ¡Acá la usamos!
+    contacto_emergencia
+FROM 
+    socio
+INNER JOIN 
+    persona ON socio.id_socio = persona.id_persona
+WHERE
+    persona.estado = 1;
+*/
