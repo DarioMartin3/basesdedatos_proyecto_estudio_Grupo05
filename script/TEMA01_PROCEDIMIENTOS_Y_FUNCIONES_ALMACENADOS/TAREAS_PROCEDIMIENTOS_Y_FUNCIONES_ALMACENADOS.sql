@@ -251,8 +251,8 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Inserta persona
-    INSERT INTO persona (nombre, apellido, dni, telefono, email, estado)
-    VALUES (@nombre, @apellido, @dni, @telefono, @email, @estado);
+    INSERT INTO persona (nombre, apellido, dni, telefono, email)
+    VALUES (@nombre, @apellido, @dni, @telefono, @email);
 
     -- Retorna ID generado
     SET @id_persona = SCOPE_IDENTITY();

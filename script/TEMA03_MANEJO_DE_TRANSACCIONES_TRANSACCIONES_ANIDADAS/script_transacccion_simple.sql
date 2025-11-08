@@ -5,59 +5,48 @@ Actualizar los datos solamente si toda la operación es completada con éxito.
 
 Insertamos socios, membresias, pagos 
 */
+--Declaro las variables para almacenar los ids generados
+DECLARE 
+    @id_persona   INT,
+    @id_membresia INT,
+    @id_pago      INT,
+    @total_pago   DECIMAL(10,2),
+    @id_clase     INT = 2; --id de la clase en la que el socio se va a inscribir
+
 BEGIN TRY
     BEGIN TRANSACTION;
 
-    --Insertamos una persona en la tabla Personas
-    DECLARE @id_clase INT = 2; -- Variable para almacenar el ID de la clase a la que se inscribe el socio     
-
-    DECLARE @id_persona INT; -- Variable para almacenar el ID de la persona
-    INSERT INTO persona (nombre, apellido, dni, telefono, email, estado)
-    VALUES ('Lucas', 'Fernández', 40231567, 3795127845, 'lucas.fernandez@mail.com', 1);
-
-    SET @id_persona = SCOPE_IDENTITY(); -- Guardamos el ID de la persona insertada
-
-    --Insertamos un socio en la tabla Socios    
-    INSERT INTO socio (id_socio, contacto_emergencia, observaciones)
-    VALUES (@id_persona, 3794678512, 'Lesión leve en hombro izquierdo. Hipertrofia muscular en seguimiento.');
+    --Insertamos una persona y socio mediante un proceso almacenado
+    EXEC dbo.sp_CrearPersonaYSocio
+    @nombre = 'Lucas',
+    @apellido = 'Fernández',
+    @dni = 40231567,
+    @telefono = 3795127845,
+    @email = 'lucas.fernandez@mail.com',
+    @contacto_emergencia = 3794678512,
+    @observaciones = N'Lesión leve en hombro izquierdo. Hipertrofia muscular en seguimiento.',
+    @id_persona = @id_persona OUTPUT; 
 
     --Insertamos una membresia
-    DECLARE @id_membresia INT; -- Variable para almacenar el ID de la membresía
+    EXEC dbo.sp_CrearMembresia
+        @usuario_id = 14,
+        @tipo_id = 3,
+        @socio_id = @id_persona,
+        @id_membresia = @id_membresia OUTPUT;
 
-    INSERT INTO membresia (usuario_id, tipo_id, socio_id, estado)
-    VALUES (14, 3, @id_persona, 1);
+    
+    --Insetertamos la relacion entre membresia y clase, y descontamos el cupo 
+    EXEC dbo.sp_AsignarClaseADescontarCupo
+        @id_membresia = @id_membresia,
+        @id_clase = @id_clase;
 
-    SET @id_membresia = SCOPE_IDENTITY(); -- Guardamos el ID de la membresía insertada
-
-    --Insetertamos la relacion entre membresia y clase
-    INSERT INTO membresia_clase (membresia_id, clase_id)
-    VALUES (@id_membresia, @id_clase);
-
-    --Update de las del cupo de la clase    
-    UPDATE clase 
-    SET cupo = cupo - 1
-    WHERE id_clase = @id_clase;    
-
-    --Insertamos un pago
-    DECLARE @total_pago DECIMAL(10,2);
-    DECLARE @id_pago INT;
-
-    --Calculamos el total a pagar ya que es un valor derivado de la membresia y la clase
-    SELECT 
-    @total_pago = SUM(c.precio) * mt.duracion_dias
-    FROM membresia m
-    JOIN membresia_tipo mt ON m.tipo_id = mt.id_tipo
-    JOIN membresia_clase mc ON m.id_membresia = mc.membresia_id
-    JOIN clase c ON mc.clase_id = c.id_clase
-    WHERE m.id_membresia = @id_membresia
-    GROUP BY mt.duracion_dias;
-
-    INSERT INTO pago (socio_id, tipo_pago_id, total, estado)
-    VALUES (@id_persona, 1,  @total_pago, 1);
-    SET @id_pago = SCOPE_IDENTITY(); -- Guardamos el ID del pago insertado
-    --Insetertamos un pago detalle
-    INSERT INTO pago_detalle (pago_id, membresia_id, clase_id)
-    VALUES (@id_pago, @id_membresia, @id_clase);
+    --Insertamos un pago y pago detalle, dentro del mismo procedimiento se calcula el total que se debe pagar
+    EXEC dbo.sp_RegistrarPago
+        @socio_id = @id_persona,
+        @id_membresia = @id_membresia,
+        @id_clase = @id_clase,
+        @id_pago = @id_pago OUTPUT,
+        @total = @total_pago OUTPUT;    
 
     COMMIT TRANSACTION;--Si todo sale bien, confirmamos los cambios
     PRINT 'Transacción completada con éxito';
