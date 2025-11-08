@@ -188,3 +188,181 @@ INNER JOIN
 WHERE
     persona.estado = 1;
 */
+
+/*
+  FN: fn_TotalMembresia
+  PROPÓSITO:
+    Calcula el total a pagar de una membresía multiplicando
+    la suma de precios de las clases asociadas por la duración (días)
+    definida en el tipo de membresía.
+
+  PARÁMETROS:
+    @id_membresia INT -> ID de la membresía a calcular
+
+  RETORNO:
+    DECIMAL(10,2) -> Total calculado. Devuelve 0.00 si no hay datos.
+*/
+CREATE FUNCTION fn_TotalMembresia(@id_membresia INT)
+RETURNS DECIMAL(10,2)
+AS
+BEGIN
+    DECLARE @total DECIMAL(10,2);
+
+    SELECT @total = SUM(c.precio) * mt.duracion_dias
+    FROM membresia m
+    JOIN membresia_tipo mt ON m.tipo_id = mt.id_tipo
+    JOIN membresia_clase mc ON m.id_membresia = mc.membresia_id
+    JOIN clase c ON mc.clase_id = c.id_clase
+    WHERE m.id_membresia = @id_membresia
+    GROUP BY mt.duracion_dias;
+
+    RETURN ISNULL(@total, 0.00);  
+END;
+GO
+
+/*
+  SP: sp_CrearPersonaYSocio
+  PROPÓSITO:
+    Inserta una persona y su correspondiente socio.
+
+  PARÁMETROS DE ENTRADA:
+    @nombre NVARCHAR(100)
+    @apellido NVARCHAR(100)
+    @dni INT
+    @telefono BIGINT
+    @email NVARCHAR(150)
+    @estado BIT
+    @contacto_emergencia BIGINT
+    @observaciones NVARCHAR(400)
+
+  PARÁMETROS DE SALIDA:
+    @id_persona INT OUTPUT -> ID generado en persona
+
+  TABLAS ESCRITAS:
+    persona, socio
+*/
+CREATE PROCEDURE sp_CrearPersonaYSocio
+    @nombre NVARCHAR(100), @apellido NVARCHAR(100), @dni INT,
+    @telefono BIGINT, @email NVARCHAR(150), @estado BIT,
+    @contacto_emergencia BIGINT, @observaciones NVARCHAR(400),
+    @id_persona INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Inserta persona
+    INSERT INTO persona (nombre, apellido, dni, telefono, email, estado)
+    VALUES (@nombre, @apellido, @dni, @telefono, @email, @estado);
+
+    -- Retorna ID generado
+    SET @id_persona = SCOPE_IDENTITY();
+
+    -- Inserta socio vinculado a la persona creada
+    INSERT INTO socio (id_socio, contacto_emergencia, observaciones)
+    VALUES (@id_persona, @contacto_emergencia, @observaciones);
+END;
+GO
+
+/*
+  SP: sp_CrearMembresia
+  PROPÓSITO:
+    Crea una membresía activa para un socio.
+
+  ENTRADAS:
+    @usuario_id INT -> Usuario interno que registra
+    @tipo_id INT -> Tipo de membresía
+    @socio_id INT -> Socio destinatario
+
+  SALIDA:
+    @id_membresia INT OUTPUT -> ID generado en membresia
+
+  TABLAS ESCRITAS:
+    membresia
+*/
+CREATE PROCEDURE sp_CrearMembresia
+    @usuario_id INT, @tipo_id INT, @socio_id INT, @id_membresia INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO membresia (usuario_id, tipo_id, socio_id, estado)
+    VALUES (@usuario_id, @tipo_id, @socio_id, 1);
+
+    SET @id_membresia = SCOPE_IDENTITY();
+END;
+GO
+
+/*
+  SP: sp_AsignarClaseADescontarCupo
+  PROPÓSITO:
+    Vincula una clase a una membresía y descuenta 1 del cupo de la clase.
+
+  ENTRADAS:
+    @id_membresia INT
+    @id_clase INT
+
+  TABLAS ESCRITAS:
+    membresia_clase, clase
+*/
+CREATE PROCEDURE sp_AsignarClaseADescontarCupo
+    @id_membresia INT, @id_clase INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Relaciona membresía con clase
+    INSERT INTO membresia_clase (membresia_id, clase_id)
+    VALUES (@id_membresia, @id_clase);
+
+    -- Descuenta 1 del cupo de la clase
+    UPDATE clase
+    SET cupo = cupo - 1
+    WHERE id_clase = @id_clase;
+END;
+GO
+
+/*
+  SP: sp_RegistrarPago
+  PROPÓSITO:
+    Calcula el total con fn_TotalMembresia, inserta el pago y su detalle.
+
+  ENTRADAS:
+    @socio_id INT
+    @id_membresia INT
+    @id_clase INT
+
+  SALIDAS:
+    @id_pago INT OUTPUT -> ID generado en pago
+    @total   DECIMAL(10,2) OUTPUT -> Total calculado
+
+  TABLAS LEÍDAS:
+    membresia, membresia_tipo, membresia_clase, clase  (vía la función)
+
+  TABLAS ESCRITAS:
+    pago, pago_detalle
+*/
+CREATE PROCEDURE sp_RegistrarPago
+    @socio_id INT, @id_membresia INT, @id_clase INT,
+    @id_pago INT OUTPUT, @total DECIMAL(10,2) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Calcula total usando la función
+    SET @total = dbo.fn_TotalMembresia(@id_membresia);
+
+    -- Inserta pago principal
+    INSERT INTO pago (socio_id, tipo_pago_id, total, estado)
+    VALUES (@socio_id, 1, @total, 1);
+
+    SET @id_pago = SCOPE_IDENTITY();
+
+    -- Inserta detalle de pago
+    INSERT INTO pago_detalle (pago_id, membresia_id, clase_id)
+    VALUES (@id_pago, @id_membresia, @id_clase);
+END;
+GO
+
+
+
+
