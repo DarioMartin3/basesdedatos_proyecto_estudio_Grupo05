@@ -84,6 +84,19 @@ La continuidad operativa depende de una estrategia de copias de seguridad alinea
 
 - Referencias del proyecto: `script/TEMA04_BACKUP_Y_RESTORE_BACKUP_EN_LINEA/tema04_script.sql`.
 
+## CAPÍTULO III: METODOLOGIA SEGUIDA
+
+Lo primero que hicimos en este trabajo fue definir el tema que ibamos a trabajar, y con ello su respectivo modelo de datos, siempre intentando seguir con las formas normales dadas en la materia.
+Una vez tuvimos los temas, realizamos una división de los mismos, un tema cada uno para investigarlos. Siempre manteniendo una comunicacion entre nosotros, ya sea por nuestro grupo de WhatsApp o mediante llamadas en discord para debatir.
+
+Las herramientas que utilizamos:
+-SQL SERVER
+-SQL SERVER MANAGMENT EXPRESS (SSMS).
+-GITHUB como nuestro repositorio remoto
+-GIT para llevar un control de versiones
+-DISCORD para debates
+-WHATSAPP para comunicación
+
 ## CAPÍTULO IV: DESARROLLO DEL TEMA / PRESENTACIÓN DE RESULTADOS
 
 ### Diagrama relacional
