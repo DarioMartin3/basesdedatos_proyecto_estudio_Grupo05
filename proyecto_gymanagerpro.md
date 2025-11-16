@@ -144,3 +144,14 @@ Este capítulo expone la interpretación de los resultados presentados, evaluand
 
 - Backup y restore: La práctica demostró capacidad de recuperar el estado exacto tras lotes de inserciones mediante cadena Full + Logs. Garantiza continuidad y recuperabilidad ante incidentes, alineado con objetivos de disponibilidad.
 La secuencia implementada confirma que el cambio al modelo FULL y la correcta toma de backups de log habilitan recuperación en el tiempo sin pérdida de transacciones intermedias. Una correcta configuración de modo restauración FULL y backup logs nos ayuda a proteger mejor los datos y poder volver a momentos especificos en el tiempo.
+
+
+## CAPÍTULO VI: BIBLIOGRAFÍA
+
+Formato principal (APA). Si la página no muestra fecha explícita de actualización, se utiliza (s.f.) = "sin fecha".
+
+1. Microsoft Corporation. (Última actualizacion: 26/08/2025). Back up and restore of SQL Server databases. Microsoft Learn. https://learn.microsoft.com/es-es/sql/relational-databases/backup-restore/back-up-and-restore-of-sql-server-databases?view=sql-server-ver17
+
+2. Microsoft Corporation. (Última actualizacion: 08/26/2025). Recovery models (SQL Server). Microsoft Learn. https://learn.microsoft.com/en-us/sql/relational-databases/backup-restore/recovery-models-sql-server?view=sql-server-ver17
+
+3. Microsoft Corporation. (Última actualizacion: 08/10/2023). Dispositivos de respaldo (SQL Server). Microsoft Learn. https://learn.microsoft.com/en-us/sql/relational-databases/backup-restore/backup-devices-sql-server?view=sql-server-ver17
