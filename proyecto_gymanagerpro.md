@@ -105,3 +105,53 @@ Las herramientas que utilizamos:
 ### Diccionario de datos
 
 Acceso al documento [PDF](https://github.com/DarioMartin3/basesdedatos_proyecto_estudio_Grupo05/blob/main/doc/diccionario_datos.pdf) del diccionario de datos.
+
+### Tema 4: Backup y restore (backup en línea) — Desarrollo y resultados
+
+Este apartado presenta de forma objetiva los pasos ejecutados, artefactos generados y verificaciones realizadas para implementar backup en línea y restauración a puntos específicos en SQL Server sobre la base `gimnasio_db`.
+
+- Base de datos: `gimnasio_db`.
+- Modelo de recuperación inicial: `SIMPLE` (consulta a `sys.databases`).
+- Cambio aplicado: `SET RECOVERY FULL` para habilitar backups de log.
+
+Resultados por etapa
+- Verificación del modelo: `SELECT name, recovery_model_desc FROM sys.databases WHERE name = 'gimnasio_db';` devolvió `SIMPLE`; se configuró `FULL` y quedó confirmado al volver a consultar.
+- Backup completo (Full): generado en `C:\BackupsSQL\gimnasio_db_full.bak` con `WITH NAME = 'Backup full gimnasio_db'`.
+- Primer lote de inserciones: 10 registros en `persona` y sus correspondientes 10 en `socio` ya que para insertar socios, primero necesitamos insertar personas.
+- Backup de log 1: `C:\BackupsSQL\gimnasio_db_log1.trn`. Se registró la hora con `SELECT GETDATE()`.
+- Segundo lote de inserciones: +10 `persona` y +10 `socio` adicionales (total insertado: 20 personas y 20 socios).
+- Backup de log 2: `C:\BackupsSQL\gimnasio_db_log2.trn`. Nuevamente se hace un backup del log y tambien se registró la hora con `SELECT GETDATE()`.
+
+Secuencias de restauración y validación
+- Restauración A (punto intermedio):
+   - `RESTORE DATABASE ... FROM '...full.bak' WITH NORECOVERY, REPLACE`.
+   - `RESTORE LOG ... FROM '...log1.trn' WITH RECOVERY`.
+   - Validación: consulta a `socio` mostró únicamente los registros correspondientes al primer lote (10 socios), evidenciando recuperación al punto tras el primer log.
+- Restauración B (último estado):
+   - `RESTORE DATABASE ... WITH NORECOVERY` → `RESTORE LOG ...log1.trn WITH NORECOVERY` → `RESTORE LOG ...log2.trn WITH RECOVERY`.
+   - Validación: consultas mostraron los 20 registros insertados, confirmando aplicación completa de la cadena de backups (Full + Log1 + Log2).
+
+Artefactos y consultas relevantes:
+- Archivos generados: `gimnasio_db_full.bak`, `gimnasio_db_log1.trn`, `gimnasio_db_log2.trn` en `C:\BackupsSQL`.
+- Consultas/Comandos clave utilizados: ver `tema04_script.sql` para secuencia completa (`ALTER DATABASE ... SET RECOVERY FULL`, `BACKUP DATABASE`, `BACKUP LOG`, `RESTORE DATABASE ... WITH NORECOVERY/RECOVERY`, `RESTORE LOG`).
+- Tablas afectadas en pruebas: `persona`, `socio`.
+
+
+## CAPÍTULO V: CONCLUSIONES
+
+Este capítulo expone la interpretación de los resultados presentados, evaluando el grado de cumplimiento de los objetivos y el aporte de cada tema al diseño integral de la base de datos para la gestión de gimnasios.
+
+
+- Backup y restore: La práctica demostró capacidad de recuperar el estado exacto tras lotes de inserciones mediante cadena Full + Logs. Garantiza continuidad y recuperabilidad ante incidentes, alineado con objetivos de disponibilidad.
+La secuencia implementada confirma que el cambio al modelo FULL y la correcta toma de backups de log habilitan recuperación en el tiempo sin pérdida de transacciones intermedias. Una correcta configuración de modo restauración FULL y backup logs nos ayuda a proteger mejor los datos y poder volver a momentos especificos en el tiempo.
+
+
+## CAPÍTULO VI: BIBLIOGRAFÍA
+
+Formato principal (APA). Si la página no muestra fecha explícita de actualización, se utiliza (s.f.) = "sin fecha".
+
+1. Microsoft Corporation. (Última actualizacion: 26/08/2025). Back up and restore of SQL Server databases. Microsoft Learn. https://learn.microsoft.com/es-es/sql/relational-databases/backup-restore/back-up-and-restore-of-sql-server-databases?view=sql-server-ver17
+
+2. Microsoft Corporation. (Última actualizacion: 08/26/2025). Recovery models (SQL Server). Microsoft Learn. https://learn.microsoft.com/en-us/sql/relational-databases/backup-restore/recovery-models-sql-server?view=sql-server-ver17
+
+3. Microsoft Corporation. (Última actualizacion: 08/10/2023). Dispositivos de respaldo (SQL Server). Microsoft Learn. https://learn.microsoft.com/en-us/sql/relational-databases/backup-restore/backup-devices-sql-server?view=sql-server-ver17
