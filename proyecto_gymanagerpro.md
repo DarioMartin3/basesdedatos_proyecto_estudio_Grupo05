@@ -135,3 +135,12 @@ Artefactos y consultas relevantes:
 - Archivos generados: `gimnasio_db_full.bak`, `gimnasio_db_log1.trn`, `gimnasio_db_log2.trn` en `C:\BackupsSQL`.
 - Consultas/Comandos clave utilizados: ver `tema04_script.sql` para secuencia completa (`ALTER DATABASE ... SET RECOVERY FULL`, `BACKUP DATABASE`, `BACKUP LOG`, `RESTORE DATABASE ... WITH NORECOVERY/RECOVERY`, `RESTORE LOG`).
 - Tablas afectadas en pruebas: `persona`, `socio`.
+
+
+## CAPÍTULO V: CONCLUSIONES
+
+Este capítulo expone la interpretación de los resultados presentados, evaluando el grado de cumplimiento de los objetivos y el aporte de cada tema al diseño integral de la base de datos para la gestión de gimnasios.
+
+
+- Backup y restore: La práctica demostró capacidad de recuperar el estado exacto tras lotes de inserciones mediante cadena Full + Logs. Garantiza continuidad y recuperabilidad ante incidentes, alineado con objetivos de disponibilidad.
+La secuencia implementada confirma que el cambio al modelo FULL y la correcta toma de backups de log habilitan recuperación en el tiempo sin pérdida de transacciones intermedias. Una correcta configuración de modo restauración FULL y backup logs nos ayuda a proteger mejor los datos y poder volver a momentos especificos en el tiempo.
