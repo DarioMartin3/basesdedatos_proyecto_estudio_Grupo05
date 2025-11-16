@@ -243,7 +243,7 @@ GO
 */
 CREATE PROCEDURE sp_CrearPersonaYSocio
     @nombre NVARCHAR(100), @apellido NVARCHAR(100), @dni INT,
-    @telefono BIGINT, @email NVARCHAR(150), @estado BIT,
+    @telefono BIGINT, @email NVARCHAR(150), 
     @contacto_emergencia BIGINT, @observaciones NVARCHAR(400),
     @id_persona INT OUTPUT
 AS
