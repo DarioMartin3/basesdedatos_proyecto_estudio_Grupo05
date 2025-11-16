@@ -2,91 +2,74 @@
 Transacción anidada para insertar una persona, un socio, una membresía y un pago.
 Transaccion que se completa con exito.
 */
+DECLARE 
+    @id_persona   INT,
+    @id_membresia INT,
+    @id_pago      INT,
+    @total_pago   DECIMAL(10,2),
+    @id_clase     INT = 2; --id de la clase en la que el socio se va a inscribir
 
 BEGIN TRY
-    BEGIN TRANSACTION; -- Transacción principal  el @@TRANCOUNT = 1
+    BEGIN TRANSACTION Trans_Principal;  -- @@TRANCOUNT = 1
 
-    --Insertamos una persona en la tabla Personas
-    DECLARE @id_clase INT = 2;-- Variable para almacenar el ID de la clase a la que se inscribe el socio
-    DECLARE @id_persona INT;-- Variable para almacenar el ID de la persona
+    -- Insertamos persona y socio
+    EXEC dbo.sp_CrearPersonaYSocio
+        @nombre = 'Valentina',
+        @apellido = 'Acostandez',
+        @dni = 40741562,
+        @telefono = 3794456712,
+        @email = 'valentina.acosta@mail.com',
+        @contacto_emergencia = 3794678512,
+        @observaciones = N'Lesión leve en hombro izquierdo. Hipertrofia muscular en seguimiento.',
+        @id_persona = @id_persona OUTPUT; 
 
-    INSERT INTO persona (nombre, apellido, dni, telefono, email, estado)
-    VALUES ('Valentina', 'Acosta', 40741562, 3794456712, 'valentina.acosta@mail.com', 1);
+    PRINT 'Persona y socio insertados. Iniciando transacción secundaria...';
 
-    SET @id_persona = SCOPE_IDENTITY();-- Guardamos el ID de la persona insertada
+    BEGIN TRY
+        -- Transacción interna (anidada)
+        BEGIN TRANSACTION Trans_Secundaria;   -- @@TRANCOUNT = 2
 
-    --Insertamos un socio en la tabla Socios    
-    INSERT INTO socio (id_socio, contacto_emergencia, observaciones)
-    VALUES (@id_persona, 3794678512, 'Lesión leve en hombro izquierdo. Hipertrofia muscular en seguimiento.');
+        -- 2) Membresía
+        EXEC dbo.sp_CrearMembresia
+            @usuario_id   = 14,
+            @tipo_id      = 3,
+            @socio_id     = @id_persona,
+            @id_membresia = @id_membresia OUTPUT;
 
+        -- 3) Clase y cupo
+        EXEC dbo.sp_AsignarClaseADescontarCupo
+            @id_membresia = @id_membresia,
+            @id_clase     = @id_clase;
 
+        -- 4) Pago + detalle
+        EXEC dbo.sp_RegistrarPago
+            @socio_id     = @id_persona,
+            @id_membresia = @id_membresia,
+            @id_clase     = @id_clase,
+            @id_pago      = @id_pago OUTPUT,
+            @total        = @total_pago OUTPUT;
 
-    -- Ahora intentamos insertar la membresía y el pago
-    BEGIN TRANSACTION; -- Subtransacción  el @@TRANCOUNT = 2
-        DECLARE @id_membresia INT;-- Variable para almacenar el ID de la membresía
-        DECLARE @total_pago DECIMAL(10,2);-- Variable para almacenar el total a pagar
-        DECLARE @id_pago INT;-- Variable para almacenar el ID del pago
+        PRINT 'Subtransacción (membresía/pago) completada correctamente.';
 
-        -- Insertamos la membresía
-        INSERT INTO membresia (usuario_id, tipo_id, socio_id, estado)
-        VALUES (14, 3, @id_persona, 1);
+        COMMIT TRANSACTION Trans_Secundaria;  -- @@TRANCOUNT = 1
+    END TRY
+    BEGIN CATCH
+        PRINT 'Error dentro de la transacción secundaria(membresía/pago). Se revierte todo.';
 
-        SET @id_membresia = SCOPE_IDENTITY();-- Guardamos el ID de la membresía insertada
+        IF @@TRANCOUNT > 0
+            ROLLBACK TRANSACTION Trans_Principal; 
+        THROW;
+    END CATCH;
 
-        -- Insertamos la relación membresía-clase
-        INSERT INTO membresia_clase (membresia_id, clase_id)
-        VALUES (@id_membresia, @id_clase);
-
-        -- Update Descuento de cupo
-        UPDATE clase 
-        SET cupo = cupo - 1
-        WHERE id_clase = @id_clase;
-
-        -- Calcular total
-        SELECT 
-            @total_pago = SUM(c.precio) * mt.duracion_dias
-        FROM membresia m
-        JOIN membresia_tipo mt ON m.tipo_id = mt.id_tipo
-        JOIN membresia_clase mc ON m.id_membresia = mc.membresia_id
-        JOIN clase c ON mc.clase_id = c.id_clase
-        WHERE m.id_membresia = @id_membresia
-        GROUP BY mt.duracion_dias;
-
-        -- Insertamos el Pago
-        INSERT INTO pago (socio_id, tipo_pago_id, total, estado)
-        VALUES (@id_persona, 1, @total_pago, 1);
-
-        SET @id_pago = SCOPE_IDENTITY();-- Guardamos el ID del pago insertado
-
-        -- Insertamos el Detalle pago
-        INSERT INTO pago_detalle (pago_id, membresia_id, clase_id)
-        VALUES (@id_pago, @id_membresia, @id_clase);
-
-        PRINT 'Transacción secundaria (membresía/pago) completada correctamente.';
-        COMMIT TRANSACTION;-- Si todo sale bien, confirmamos los cambios de la subtransacción  el @@TRANCOUNT = 1
-
-
-        COMMIT TRANSACTION;-- Si todo sale bien, confirmamos los cambios de la transacción principal  el @@TRANCOUNT = 0
-        PRINT 'Transacción completa guardada.';
-     
+    COMMIT TRANSACTION Trans_Principal;       -- @@TRANCOUNT = 0
+    PRINT 'Transacción anidada completada correctamente.';
 END TRY
 BEGIN CATCH
-    PRINT 'Error crítico.';
-    IF (@@TRANCOUNT > 0)
-    BEGIN
-        PRINT 'Se revirtio toda la transaccion';
+    PRINT 'Error crítico en la transacción principal.';
+    IF @@TRANCOUNT > 0
         ROLLBACK TRANSACTION;
-    END
-    PRINT 'Error en transaccion! No se guardaron los cambios: ' + ERROR_MESSAGE();
+    PRINT 'Error: ' + ERROR_MESSAGE();
 END CATCH;
-
---VERIFICAR LOS DATOS EN LAS TABLAS INVOLUCRADAS PARA ASEGUR
-SELECT * FROM persona WHERE id_persona = @id_persona;
-SELECT * FROM socio WHERE id_socio = @id_persona;
-SELECT * FROM membresia WHERE id_membresia = @id_membresia;
-SELECT * FROM membresia_clase WHERE membresia_id = @id_membresia;
-SELECT * FROM pago WHERE id_pago = @id_pago;
-SELECT * FROM pago_detalle WHERE pago_id = @id_pago;
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /*
@@ -95,102 +78,187 @@ Provocamos un error en la insercion de persona/socio para ver el manejo de error
 Ejemplo utilizaremos un numero de telefono que ya existe y al tener restriccion de unico, provocara un error.
 */
 
+DECLARE 
+    @id_persona   INT,
+    @id_membresia INT,
+    @id_pago      INT,
+    @total_pago   DECIMAL(10,2),
+    @id_clase     INT = 2; --id de la clase en la que el socio se va a inscribir
+
 BEGIN TRY
-    -- Inicia la transacción externa 
-    BEGIN TRANSACTION; -- @@TRANCOUNT ahora es 1
+    BEGIN TRANSACTION Trans_Principal;  -- @@TRANCOUNT = 1
 
-    --Insertamos una persona en la tabla Personas
-    DECLARE @id_clase INT = 2;
-    DECLARE @id_persona INT;
+    -- Insertamos persona y socio
+    EXEC dbo.sp_CrearPersonaYSocio
+        @nombre = 'Carla',
+        @apellido = 'Benítez',
+        @dni = 40321987,
+        @telefono = 3794456712,
+        @email = 'carla.benitez@mail.com',
+        @contacto_emergencia = 3794678512,
+        @observaciones = N'Lesión leve en hombro izquierdo. Hipertrofia muscular en seguimiento.',
+        @id_persona = @id_persona OUTPUT; 
 
-    INSERT INTO persona (nombre, apellido, dni, telefono, email, estado)
-    VALUES ('Carla', 'Benítez', 40321987, 3794456712, 'carla.benitez@mail.com', 1);
+    PRINT 'Persona y socio insertados. Iniciando transacción secundaria...';
 
-    SET @id_persona = SCOPE_IDENTITY();
+    BEGIN TRY
+        -- Transacción interna (anidada)
+        BEGIN TRANSACTION Trans_Secundaria;   -- @@TRANCOUNT = 2
 
-    --Insertamos un socio en la tabla Socios     
-    INSERT INTO socio (id_socio, contacto_emergencia, observaciones)
-    VALUES (@id_persona, 3794678512, 'Lesión leve en hombro izquierdo...');
+        -- 2) Membresía
+        EXEC dbo.sp_CrearMembresia
+            @usuario_id   = 14,
+            @tipo_id      = 3,
+            @socio_id     = @id_persona,
+            @id_membresia = @id_membresia OUTPUT;
 
-    PRINT 'Persona y Socio insertados. Iniciando subtransacción...';
+        -- 3) Clase y cupo
+        EXEC dbo.sp_AsignarClaseADescontarCupo
+            @id_membresia = @id_membresia,
+            @id_clase     = @id_clase;
 
-    -- Inicia la transacción interna 
-    BEGIN TRANSACTION; -- @@TRANCOUNT ahora es 2
-    
-        DECLARE @id_membresia INT;
-        DECLARE @total_pago DECIMAL(10,2);
-        DECLARE @id_pago INT;
+        -- 4) Pago + detalle
+        EXEC dbo.sp_RegistrarPago
+            @socio_id     = @id_persona,
+            @id_membresia = @id_membresia,
+            @id_clase     = @id_clase,
+            @id_pago      = @id_pago OUTPUT,
+            @total        = @total_pago OUTPUT;
 
-        -- Insertamos la membresía
-        INSERT INTO membresia (usuario_id, tipo_id, socio_id, estado)
-        VALUES (14, 3, @id_persona, 1);
-        SET @id_membresia = SCOPE_IDENTITY();
+        PRINT 'Subtransacción (membresía/pago) completada correctamente.';
 
-        -- Insertamos la relación membresía-clase
-        INSERT INTO membresia_clase (membresia_id, clase_id)
-        VALUES (@id_membresia, @id_clase);
+        COMMIT TRANSACTION Trans_Secundaria;  -- @@TRANCOUNT = 1
+    END TRY
+    BEGIN CATCH
+        PRINT 'Error dentro de la transacción secundaria(membresía/pago). Se revierte todo.';
 
-        -- Update Descuento de cupo
-        UPDATE clase 
-        SET cupo = cupo - 1
-        WHERE id_clase = @id_clase;
+        IF @@TRANCOUNT > 0
+            ROLLBACK TRANSACTION Trans_Principal; 
+        THROW;
+    END CATCH;
 
-        -- Calcular total
-        SELECT 
-            @total_pago = SUM(c.precio) * mt.duracion_dias
-        FROM membresia m
-        JOIN membresia_tipo mt ON m.tipo_id = mt.id_tipo
-        JOIN membresia_clase mc ON m.id_membresia = mc.membresia_id
-        JOIN clase c ON mc.clase_id = c.id_clase
-        WHERE m.id_membresia = @id_membresia
-        GROUP BY mt.duracion_dias;
-
-        -- Insertamos el Pago
-        INSERT INTO pago (socio_id, tipo_pago_id, total, estado)
-        VALUES (@id_persona, 1, @total_pago, 1);
-        SET @id_pago = SCOPE_IDENTITY();
-
-        -- Insertamos el Detalle pago
-        INSERT INTO pago_detalle (pago_id, membresia_id, clase_id)
-        VALUES (@id_pago, @id_membresia, @id_clase);
-        
-    -- Confirma la transacción interna.
-    -- ESTO NO GUARDA NADA, solo decrementa el contador.
-    COMMIT TRANSACTION; -- @@TRANCOUNT ahora es 1
-    PRINT 'Subtransacción (membresía/pago) completada internamente.';
-    
-    COMMIT TRANSACTION; --Guardamos todo @@TRANCOUNT ahora es 0
-    PRINT 'Transacción completa guardada (principal y anidada).';
-    
+    COMMIT TRANSACTION Trans_Principal;       -- @@TRANCOUNT = 0
+    PRINT 'Transacción anidada completada correctamente.';
 END TRY
 BEGIN CATCH
-    PRINT '¡Error detectado!';
-    -- Si @@TRANCOUNT es > 0, significa que una transacción está activa.
-    IF (@@TRANCOUNT > 0)
-    BEGIN
-        -- Este ROLLBACK revierte TODO, sin importar si el error        
-        PRINT 'Revirtiendo TODA la transacción...';
-        
-        ROLLBACK TRANSACTION; 
-    END
+    PRINT 'Error crítico en la transacción principal.';
+    IF @@TRANCOUNT > 0
+        ROLLBACK TRANSACTION;
+    PRINT 'Error: ' + ERROR_MESSAGE();
+END CATCH;
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/*
+Transacción anidada para insertar una persona, un socio, una membresía y un pago.
+Provocamos un error en al actualizar la clase con cupo 0 ya que viola la restriccion para ver el manejo de errores,
+y ver como actua el savepoint.
+Ejemplo utilizaremos un numero de telefono que ya existe y al tener restriccion de unico, provocara un error.
+*/
+
+DECLARE 
+    @id_persona   INT,
+    @id_membresia INT,
+    @id_pago      INT,
+    @total_pago   DECIMAL(10,2),
+    @id_clase     INT = 11; --id de la clase en la que el socio se va a inscribir
+
+    
+BEGIN TRY
+    BEGIN TRANSACTION Trans_Principal;  -- @@TRANCOUNT = 1
+
+    -- Insertamos persona y socio
+    EXEC dbo.sp_CrearPersonaYSocio
+        @nombre = 'Juan',
+        @apellido = 'Cardozo',
+        @dni = 40999999,
+        @telefono = 3794999999,
+        @email = 'juan.cardozo@mail.com',
+        @contacto_emergencia = 3794678512,
+        @observaciones = N'Lesión leve en hombro izquierdo. Hipertrofia muscular en seguimiento.',
+        @id_persona = @id_persona OUTPUT; 
+
+    PRINT 'Persona y socio insertados. Iniciando transacción secundaria...';
+
+    BEGIN TRY
+        -- Transacción interna (anidada)
+        BEGIN TRANSACTION Trans_Secundaria;   -- @@TRANCOUNT = 2
+
+        -- 2) Membresía
+        EXEC dbo.sp_CrearMembresia
+            @usuario_id   = 14,
+            @tipo_id      = 3,
+            @socio_id     = @id_persona,
+            @id_membresia = @id_membresia OUTPUT;
+
+        -- 3) Clase y cupo
+        EXEC dbo.sp_AsignarClaseADescontarCupo
+            @id_membresia = @id_membresia,
+            @id_clase     = @id_clase;
+
+        -- 4) Pago + detalle
+        EXEC dbo.sp_RegistrarPago
+            @socio_id     = @id_persona,
+            @id_membresia = @id_membresia,
+            @id_clase     = @id_clase,
+            @id_pago      = @id_pago OUTPUT,
+            @total        = @total_pago OUTPUT;
+
+        PRINT 'Subtransacción (membresía/pago) completada correctamente.';
+
+        COMMIT TRANSACTION Trans_Secundaria;  -- @@TRANCOUNT = 1
+    END TRY
+    BEGIN CATCH
+        PRINT 'Error dentro de la transacción secundaria(membresía/pago). Se revierte todo.';
+
+        IF @@TRANCOUNT > 0
+            ROLLBACK TRANSACTION Trans_Principal; 
+        THROW;
+    END CATCH;
+
+    COMMIT TRANSACTION Trans_Principal;       -- @@TRANCOUNT = 0
+    PRINT 'Transacción anidada completada correctamente.';
+END TRY
+BEGIN CATCH
+    PRINT 'Error crítico en la transacción principal.';
+    IF @@TRANCOUNT > 0
+        ROLLBACK TRANSACTION;
     PRINT 'Error: ' + ERROR_MESSAGE();
 END CATCH;
 
 --VERIFICAR LOS DATOS EN LAS TABLAS INVOLUCRADAS PARA ASEGUR
-SELECT * FROM persona WHERE id_persona = @id_persona;
-SELECT * FROM socio WHERE id_socio = @id_persona;
-SELECT * FROM membresia WHERE id_membresia = @id_membresia;
-SELECT * FROM membresia_clase WHERE membresia_id = @id_membresia;
-SELECT * FROM pago WHERE id_pago = @id_pago;
-SELECT * FROM pago_detalle WHERE pago_id = @id_pago;
+SELECT TOP 1
+    p.id_persona,
+    CONCAT(p.nombre, ' ', p.apellido) AS NombreCompleto,
+    p.dni,
+    p.email,
+    p.telefono,
+    s.contacto_emergencia,
+    s.observaciones, 
+    m.id_membresia,
+    m.tipo_id,
+    m.fecha_inicio, 
+    DATEADD(DAY, mt.duracion_dias, m.fecha_inicio) AS FechaFin,
+    pa.id_pago,
+    pa.fecha,   
+    pa.total 
+FROM persona p 
+JOIN socio s ON p.id_persona = s.id_socio 
+LEFT JOIN Membresia m ON p.id_persona = m.socio_id
+LEFT JOIN membresia_tipo mt ON mt.id_tipo = m.tipo_id
+LEFT JOIN pago_detalle pd ON m.id_membresia = pd.membresia_id 
+LEFT JOIN pago pa ON pa.id_pago = pd.pago_id
+ORDER BY p.id_persona DESC
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /*
-Conclusion:
-Al trabajar con transacciones anidadas , el objetivo es la modularidad, 
-Si ocurre un fallo en una subtransacción y se ejecuta un ROLLBACK, 
-esta acción revierte toda la transacción principal, no solo esa parte. 
-Este comportamiento de "todo o nada" asegura la consistencia atómica del proceso completo. Los COMMIT internos solo decrementan el contador @@TRANCOUNT; 
-solo el COMMIT externo confirma permanentemente el trabajo.
+Conclusión:
+Las transacciones anidadas permiten dividir un proceso complejo en secciones lógicas, 
+pero en SQL Server no funcionan como transacciones independientes. Los COMMIT internos 
+solo disminuyen el @@TRANCOUNT, mientras que el único COMMIT efectivo es el externo. 
+Si ocurre un error en una subtransacción y se ejecuta un ROLLBACK sin un savepoint, 
+toda la transacción completa se revierte, garantizando la atomicidad del proceso. 
+Para lograr control parcial de errores dentro de una transacción anidada, es necesario 
+utilizar SAVE TRANSACTION, que habilita regresar a un punto exacto sin perder todo el 
+trabajo previo. Esto permite modularidad sin comprometer la integridad de los datos.
 /*

@@ -18,14 +18,14 @@ BEGIN TRY
 
     --Insertamos una persona y socio mediante un proceso almacenado
     EXEC dbo.sp_CrearPersonaYSocio
-    @nombre = 'Lucas',
-    @apellido = 'Fernández',
-    @dni = 40231567,
-    @telefono = 3795127845,
-    @email = 'lucas.fernandez@mail.com',
-    @contacto_emergencia = 3794678512,
-    @observaciones = N'Lesión leve en hombro izquierdo. Hipertrofia muscular en seguimiento.',
-    @id_persona = @id_persona OUTPUT; 
+        @nombre = 'Lucas',
+        @apellido = 'Fernández',
+        @dni = 40231567,
+        @telefono = 3795127845,
+        @email = 'lucas.fernandez@mail.com',
+        @contacto_emergencia = 3794678512,
+        @observaciones = N'Lesión leve en hombro izquierdo. Hipertrofia muscular en seguimiento.',
+        @id_persona = @id_persona OUTPUT; 
 
     --Insertamos una membresia
     EXEC dbo.sp_CrearMembresia
@@ -56,14 +56,6 @@ BEGIN CATCH
     -- Manejo de errores
     PRINT 'Error en transaccion! No se guardaron los cambios: ' + ERROR_MESSAGE();
 END CATCH;
-
---VERIFICAR LOS DATOS EN LAS TABLAS INVOLUCRADAS PARA ASEGUR
-SELECT * FROM persona WHERE id_persona = @id_persona;
-SELECT * FROM socio WHERE id_socio = @id_persona;
-SELECT * FROM membresia WHERE id_membresia = @id_membresia;
-SELECT * FROM membresia_clase WHERE membresia_id = @id_membresia;
-SELECT * FROM pago WHERE id_pago = @id_pago;
-SELECT * FROM pago_detalle WHERE pago_id = @id_pago;
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /*Tarea 2:
@@ -87,14 +79,14 @@ BEGIN TRY
 
     --Insertamos una persona y socio mediante un proceso almacenado
     EXEC dbo.sp_CrearPersonaYSocio
-    @nombre = 'Maria',
-    @apellido = 'Saucedo',
-    @dni = 40231567,
-    @telefono = 379392134,
-    @email = 'maria.saucedo@mail.com',
-    @contacto_emergencia = 3794678512,
-    @observaciones = N'Lesión leve en hombro izquierdo. Hipertrofia muscular en seguimiento.',
-    @id_persona = @id_persona OUTPUT; 
+        @nombre = 'Maria',
+        @apellido = 'Saucedo',
+        @dni = 40231567,
+        @telefono = 379392134,
+        @email = 'maria.saucedo@mail.com',
+        @contacto_emergencia = 3794678512,
+        @observaciones = N'Lesión leve en hombro izquierdo. Hipertrofia muscular en seguimiento.',
+        @id_persona = @id_persona OUTPUT; 
 
     --Insertamos una membresia
     EXEC dbo.sp_CrearMembresia
@@ -127,12 +119,28 @@ BEGIN CATCH
 END CATCH;
 
 --VERIFICAR LOS DATOS EN LAS TABLAS INVOLUCRADAS PARA ASEGUR
-SELECT * FROM persona WHERE id_persona = @id_persona;
-SELECT * FROM socio WHERE id_socio = @id_persona;
-SELECT * FROM membresia WHERE id_membresia = @id_membresia;
-SELECT * FROM membresia_clase WHERE membresia_id = @id_membresia;
-SELECT * FROM pago WHERE id_pago = @id_pago;
-SELECT * FROM pago_detalle WHERE pago_id = @id_pago;
+SELECT TOP 1
+    p.id_persona,
+    CONCAT(p.nombre, ' ', p.apellido) AS NombreCompleto,
+    p.dni,
+    p.email,
+    p.telefono,
+    s.contacto_emergencia,
+    s.observaciones, 
+    m.id_membresia,
+    m.tipo_id,
+    m.fecha_inicio, 
+    DATEADD(DAY, mt.duracion_dias, m.fecha_inicio) AS FechaFin,
+    pa.id_pago,
+    pa.fecha,   
+    pa.total 
+FROM persona p 
+JOIN socio s ON p.id_persona = s.id_socio 
+LEFT JOIN Membresia m ON p.id_persona = m.socio_id
+LEFT JOIN membresia_tipo mt ON mt.id_tipo = m.tipo_id
+LEFT JOIN pago_detalle pd ON m.id_membresia = pd.membresia_id 
+LEFT JOIN pago pa ON pa.id_pago = pd.pago_id
+ORDER BY p.id_persona DESC
 
 /*Conclusion
 Una trasaccion es un conjunto de operaciones que se ejecutan como una unidad lógica de trabajo.
