@@ -1,4 +1,4 @@
- # **Informe: Optimización de consultas por período mediante índices en SQL Server**
+ # **Informe: Optimización de consultas por período mediante índices**
 
 ## Introducción
 
@@ -22,6 +22,18 @@ WHERE fecha >= '2024-01-01' AND fecha < '2024-03-01';
 ```
 
 La prueba se aplicó sobre una tabla con más de 1 millón de filas.
+
+## Conceptos clave evaluados
+
+- **Índice Clustered:** Define el orden físico de los datos en la tabla. Existe solo uno por tabla y suele implementarse sobre la columna de búsqueda más frecuente (en este caso, `fecha`). Transforma búsquedas secuenciales (Table Scan) en búsquedas binarias (Index Seek).
+
+- **Índice NonClustered:** Estructura secundaria que indexa columnas específicas sin afectar el orden físico de la tabla. Permite optimizar distintos patrones de consulta simultáneamente. Puede incluir múltiples índices por tabla.
+
+- **Columnas Incluidas (INCLUDE):** Funcionalidad que añade columnas al índice nonclustered sin incluirlas en la clave de búsqueda. Habilita índices cubrientes (covering index) que satisfacen toda la consulta sin acceso a la tabla base.
+
+- **Logical Reads:** Número de páginas de búfer consultadas. Métrica principal de eficiencia en SQL Server; menor valor indica mejor rendimiento de I/O.
+
+- **Mediciones en frío:** Técnica que limpia caché (`DBCC FREEPROCCACHE`, `DBCC DROPCLEANBUFFERS`) para evaluar rendimiento sin beneficio de datos residentes en memoria.
 
 ## Metodología
 

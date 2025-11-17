@@ -106,6 +106,87 @@ Las herramientas que utilizamos:
 
 Acceso al documento [PDF](https://github.com/DarioMartin3/basesdedatos_proyecto_estudio_Grupo05/blob/main/doc/diccionario_datos.pdf) del diccionario de datos.
 
+### Desarrollo TEMA 2 "Optimización de consultas por período mediante índices"
+
+Este apartado resume los pasos ejecutados, mediciones realizadas y artefactos obtenidos durante el análisis de rendimiento de una consulta filtrada por rango de fechas en SQL Server sobre la tabla pago.
+
+#### Consulta evaluada
+
+```sql
+SELECT socio_id, tipo_pago_id, fecha, total, estado
+FROM dbo.pago
+WHERE fecha >= '2024-01-01' AND fecha < '2024-03-01';
+```
+
+#### Metodología aplicada
+
+Se activaron métricas de rendimiento mediante:
+- `SET STATISTICS IO ON;` y `SET STATISTICS TIME ON;`
+
+Se capturaron planes de ejecución reales desde SQL Server Management Studio.
+
+Para obtener mediciones en frío se utilizaron:
+- `DBCC FREEPROCCACHE;` y `DBCC DROPCLEANBUFFERS;`
+
+Se ejecutó la misma consulta bajo tres esquemas de indexación:
+
+- Sin índice sobre fecha
+- Índice clustered sobre la columna fecha
+- Índice nonclustered con INCLUDE (socio_id, tipo_pago_id, total, estado)
+
+#### Resultados obtenidos por escenario
+
+##### 1. Sin índice (Table Scan)
+
+| Métrica         | Valor          |
+| --------------- | -------------- |
+| Lecturas lógicas | 5209          |
+| CPU             | 250 ms         |
+| Tiempo total    | 487 ms         |
+| Plan            | Table Scan     |
+
+Observación: escaneo completo de la tabla.
+
+##### 2. Índice Clustered en fecha
+
+| Métrica         | Valor          |
+| --------------- | -------------- |
+| Lecturas lógicas | 112           |
+| CPU             | 16 ms          |
+| Tiempo          | 155 ms         |
+| Plan            | Index Seek     |
+
+Observación: mejora significativa (~98% menos lecturas).
+
+##### 3. Índice Nonclustered con INCLUDE (índice cubriente)
+
+| Métrica         | Valor              |
+| --------------- | ------------------ |
+| Lecturas lógicas | 93                |
+| CPU             | 0 ms               |
+| Tiempo          | 176 ms             |
+| Plan            | Index Seek (Covering) |
+
+Observación: reducción adicional gracias a que el índice cubre toda la consulta.
+
+#### Artefactos y elementos evaluados
+
+**Métricas:**
+- Lecturas lógicas
+- Tiempos CPU
+- Tiempo total
+
+**Comandos auxiliares:**
+- `SET STATISTICS IO/TIME` (medición)
+- `DBCC FREEPROCCACHE` y `DBCC DROPCLEANBUFFERS` (mediciones en frío)
+
+**Objeto principal evaluado:** tabla `pago`
+
+
+Acceso a la carpeta correspondiente:
+[Ver carpeta](https://github.com/DarioMartin3/basesdedatos_proyecto_estudio_Grupo05/tree/main/script/TEMA02_OPTIMIZACION_DE_CONSULTAS_A_TRAVES_DE_INDICES)
+
+
 ### Desarrollo TEMA 3 "Manejo de transacciones (simples y anidadas)"
 Acceso a la carpeta correspondiente:  
 [Ver carpeta](https://github.com/DarioMartin3/basesdedatos_proyecto_estudio_Grupo05/tree/main/script/TEMA03_MANEJO_DE_TRANSACCIONES_TRANSACCIONES_ANIDADAS)
@@ -165,3 +246,12 @@ Formato principal (APA). Si la página no muestra fecha explícita de actualizac
 4. Microsoft Corporation. (2025). Transacciones (Transact-SQL). Microsoft Learn. https://learn.microsoft.com/es-es/sql/t-sql/language-elements/transactions-transact-sql?view=sql-server-ver17
 
 5. DataCamp. (2025). Tutorial de Transacciones SQL. DataCamp. https://www.datacamp.com/es/tutorial/sql-transactions
+
+6. Microsoft Corporation. (Última actualización: 02/01/2025). Guía de diseño y arquitectura de índices – SQL Server. Microsoft Learn. https://learn.microsoft.com/es-mx/sql/relational-databases/sql-server-index-design-guide?view=sql-server-ver17
+
+7. Microsoft Corporation. (Última actualización: 02/01/2025). Índices agrupados y no agrupados (Clustered and Nonclustered Indexes). Microsoft Learn. https://learn.microsoft.com/es-mx/sql/relational-databases/indexes/clustered-and-nonclustered-indexes-described?view=sql-server-ver17
+
+8. Microsoft Corporation. (Última actualización: 02/01/2025). SET STATISTICS IO (Transact-SQL) – SQL Server. Microsoft Learn. https://learn.microsoft.com/es-mx/sql/t-sql/statements/set-statistics-io-transact-sql?view=sql-server-ver17
+
+9. Microsoft Corporation. (Última actualización: 02/01/2025). Índices con columnas incluidas (Included Columns). Microsoft Learn. https://learn.microsoft.com/es-mx/sql/relational-databases/indexes/create-indexes-with-included-columns?view=sql-server-ver17
+
