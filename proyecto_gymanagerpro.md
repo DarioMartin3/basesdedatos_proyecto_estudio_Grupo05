@@ -5,7 +5,7 @@
 **Asignatura**: Bases de Datos I (FaCENA-UNNE)
 
 **Integrantes**:
- * Gonzales, Facundo Nicolas 
+ * Gonzalez, Facundo Nicolas 
  * Maidana, Pablo Gaston
  * Martín, Carlos Dario
  * Martinez Castro, Gustavo Nahim
@@ -254,4 +254,8 @@ Formato principal (APA). Si la página no muestra fecha explícita de actualizac
 8. Microsoft Corporation. (Última actualización: 02/01/2025). SET STATISTICS IO (Transact-SQL) – SQL Server. Microsoft Learn. https://learn.microsoft.com/es-mx/sql/t-sql/statements/set-statistics-io-transact-sql?view=sql-server-ver17
 
 9. Microsoft Corporation. (Última actualización: 02/01/2025). Índices con columnas incluidas (Included Columns). Microsoft Learn. https://learn.microsoft.com/es-mx/sql/relational-databases/indexes/create-indexes-with-included-columns?view=sql-server-ver17
+
+10. Microsoft Corporation. (Última actualización: 18/07/2025). Funciones definidas por el usuario. Microsoft Learn. https://learn.microsoft.com/es-es/sql/relational-databases/user-defined-functions/user-defined-functions?view=sql-server-ver17
+
+11. Microsoftt Corporation. (Última actualización: 02/01/2025). Procedimientos almacenados (motor de base de datos). Microsoft Learn. https://learn.microsoft.com/es-es/sql/relational-databases/stored-procedures/stored-procedures-database-engine?view=sql-server-ver17
 
