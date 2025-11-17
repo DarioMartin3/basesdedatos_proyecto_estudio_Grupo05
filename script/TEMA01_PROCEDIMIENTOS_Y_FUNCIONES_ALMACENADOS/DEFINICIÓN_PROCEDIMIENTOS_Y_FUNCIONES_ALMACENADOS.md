@@ -1,7 +1,7 @@
 # **Procedimientos Almacenados y Funciones Definidas por el Usuario en SQL Server**
 
 Asignatura: Bases de Datos I  
-Tema: TEMA01 - Implementación de Lógica de Negocio en el Servidor  
+Tema: TEMA01 - Procedimientos Almacenados y Funciones Definidas por el Usuario  
 Fuente Principal: Documentación Oficial de Microsoft (SQL Server 2022)
 
 ## **1. Introducción**
