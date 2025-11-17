@@ -90,8 +90,8 @@ Lo primero que hicimos en este trabajo fue definir el tema que ibamos a trabajar
 Una vez tuvimos los temas, realizamos una división de los mismos, un tema cada uno para investigarlos. Siempre manteniendo una comunicacion entre nosotros, ya sea por nuestro grupo de WhatsApp o mediante llamadas en discord para debatir.
 
 Las herramientas que utilizamos:
--SQL SERVER
--SQL SERVER MANAGMENT EXPRESS (SSMS).
+-SQL SERVER EXPRESS.
+-SQL SERVER MANAGMENT STUDIO (SSMS).
 -GITHUB como nuestro repositorio remoto
 -GIT para llevar un control de versiones
 -DISCORD para debates
@@ -105,6 +105,11 @@ Las herramientas que utilizamos:
 ### Diccionario de datos
 
 Acceso al documento [PDF](https://github.com/DarioMartin3/basesdedatos_proyecto_estudio_Grupo05/blob/main/doc/diccionario_datos.pdf) del diccionario de datos.
+
+### Desarrollo TEMA 3 "Manejo de transacciones (simples y anidadas)"
+Acceso a la carpeta correspondiente:  
+[Ver carpeta](https://github.com/DarioMartin3/basesdedatos_proyecto_estudio_Grupo05/tree/main/script/TEMA03_MANEJO_DE_TRANSACCIONES_TRANSACCIONES_ANIDADAS)
+
 
 ### Tema 4: Backup y restore (backup en línea) — Desarrollo y resultados
 
@@ -139,8 +144,9 @@ Artefactos y consultas relevantes:
 
 ## CAPÍTULO V: CONCLUSIONES
 
-Este capítulo expone la interpretación de los resultados presentados, evaluando el grado de cumplimiento de los objetivos y el aporte de cada tema al diseño integral de la base de datos para la gestión de gimnasios.
-
+El desarrollo de este proyecto permitió aplicar de manera integrada los principales conceptos y herramientas avanzadas de administración de bases de datos en SQL Server. La implementación de procedimientos y funciones almacenadas demostró la importancia de encapsular lógica de negocio directamente en el servidor, proporcionando mayor consistencia, reutilización y eficiencia en las operaciones críticas. Asimismo, el análisis de indexación evidenció el impacto directo que tienen los índices en el rendimiento de consultas, especialmente en escenarios con grandes volúmenes de datos; la comparación entre búsquedas secuenciales, índices clustered y nonclustered cubrientes permitió identificar configuraciones óptimas según los patrones de acceso.
+El estudio de transacciones simples y anidadas reforzó la comprensión del modelo ACID y la necesidad de garantizar atomicidad en procesos complejos. A través de la experimentación con @@TRANCOUNT, ROLLBACK y SAVEPOINTS, se verificó el comportamiento real de SQL Server frente a errores internos y la importancia de modularizar operaciones sin perder coherencia en la integridad de los datos. Complementariamente, la implementación de una estrategia de backup y restore en línea, bajo el modelo de recuperación FULL, expuso los mecanismos que permiten recuperar la base a estados específicos en el tiempo, validando la cadena de restauración mediante archivos .bak y .trn.
+En conjunto, el proyecto consolidó una visión completa y práctica sobre cómo diseñar, administrar y proteger una base de datos profesional. El uso coordinado de rutinas almacenadas, índices adecuados, transacciones correctamente estructuradas y estrategias de respaldo robustas constituye la base para construir sistemas confiables, eficientes y preparados para operar en entornos reales con altas exigencias de disponibilidad y consistencia.
 
 - Backup y restore: La práctica demostró capacidad de recuperar el estado exacto tras lotes de inserciones mediante cadena Full + Logs. Garantiza continuidad y recuperabilidad ante incidentes, alineado con objetivos de disponibilidad.
 La secuencia implementada confirma que el cambio al modelo FULL y la correcta toma de backups de log habilitan recuperación en el tiempo sin pérdida de transacciones intermedias. Una correcta configuración de modo restauración FULL y backup logs nos ayuda a proteger mejor los datos y poder volver a momentos especificos en el tiempo.
@@ -155,3 +161,7 @@ Formato principal (APA). Si la página no muestra fecha explícita de actualizac
 2. Microsoft Corporation. (Última actualizacion: 08/26/2025). Recovery models (SQL Server). Microsoft Learn. https://learn.microsoft.com/en-us/sql/relational-databases/backup-restore/recovery-models-sql-server?view=sql-server-ver17
 
 3. Microsoft Corporation. (Última actualizacion: 08/10/2023). Dispositivos de respaldo (SQL Server). Microsoft Learn. https://learn.microsoft.com/en-us/sql/relational-databases/backup-restore/backup-devices-sql-server?view=sql-server-ver17
+
+4. Microsoft Corporation. (2025). Transacciones (Transact-SQL). Microsoft Learn. https://learn.microsoft.com/es-es/sql/t-sql/language-elements/transactions-transact-sql?view=sql-server-ver17
+
+5. DataCamp. (2025). Tutorial de Transacciones SQL. DataCamp. https://www.datacamp.com/es/tutorial/sql-transactions
