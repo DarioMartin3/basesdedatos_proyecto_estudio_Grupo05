@@ -29,14 +29,35 @@ El comportamiento clave es el de **"todo o nada" absoluto**:
 
 Este mecanismo asegura que si un subproceso falla, todo el trabajo se deshace, garantizando la consistencia atómica de la operación completa.
 
-## Comparación (Corregida)
+## Comparación 
 
-| Aspecto | Transacción simple | Transacción anidada  |
-|:---|:---|:---|
-| Nivel de control | Total ("Todo o Nada") | **Total ("Todo o Nada")** |
-| Estructura | Un único bloque | Múltiples niveles |
-| Propósito | Atomicidad de un bloque | **Modularidad** (SPs llamando a SPs) |
-| Manejo de errores | Reversión total | **Reversión total** (desde cualquier nivel) |
+| Aspecto | Transacción simple | Transacción anidada |
+|--------|--------------------|----------------------|
+| Cantidad de niveles | Un solo nivel | Múltiples niveles lógicos |
+| `@@TRANCOUNT` | 0 → 1 → 0 | 0 → 1 → 2 → … → 0 |
+| Confirmación (`COMMIT`) | Confirma inmediatamente | Solo decrementa `@@TRANCOUNT`; la confirmación real ocurre cuando vuelve a 0 |
+| Reversión (`ROLLBACK`) | Revierte toda la transacción | Revierte toda la cadena, sin importar el nivel |
+| Modularidad | Baja | Alta (SP llamando a SP) |
+| Aislamiento de errores | No | Parcial con `SAVEPOINT`, pero no separa transacciones reales |
+| Riesgos principales | Olvidar ROLLBACK en errores | Pensar que una subtransacción es independiente |
+| Uso típico | Bloques simples | Procesos complejos y modularizados |
+
+## Errores comunes al trabajar con transacciones anidadas
+
+### 1. Creer que una transacción interna es independiente
+Cualquier `ROLLBACK`, ya sea interno o externo, revierte toda la transacción completa.
+
+### 2. Pensar que `COMMIT` interno confirma los cambios
+El `COMMIT` interno solo reduce `@@TRANCOUNT`; no confirma nada por sí mismo.
+
+### 3. No usar bloques `TRY/CATCH`
+Si ocurre un error sin manejo adecuado, la transacción queda abierta y bloquea la sesión.
+
+### 4. Usar `SAVEPOINT` como si fuera una subtransacción real
+El savepoint permite volver a un punto seguro, pero no aísla transacciones internas frente al rollback global.
+
+### 5. Hacer `ROLLBACK` dentro de un procedimiento almacenado
+Esto revierte toda la transacción, incluso si el SP fue llamado dentro de otra transacción mayor.
 
 ## Conclusión
 Las transacciones simples garantizan la ejecución completa o nula de un conjunto de operaciones, asegurando la coherencia de los datos.
