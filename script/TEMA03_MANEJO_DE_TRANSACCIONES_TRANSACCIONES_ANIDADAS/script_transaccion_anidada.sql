@@ -150,8 +150,7 @@ END CATCH;
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /*
 Transacción anidada para insertar una persona, un socio, una membresía y un pago.
-Provocamos un error en al actualizar la clase con cupo 0 ya que viola la restriccion para ver el manejo de errores,
-y ver como actua el savepoint.
+Provocamos un error en al actualizar la clase con cupo 0 ya que viola la restriccion para ver el manejo de errores.
 Ejemplo utilizaremos un numero de telefono que ya existe y al tener restriccion de unico, provocara un error.
 */
 
