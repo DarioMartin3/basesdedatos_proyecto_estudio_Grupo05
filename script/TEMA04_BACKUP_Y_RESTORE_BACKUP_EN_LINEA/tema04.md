@@ -92,13 +92,42 @@ WITH RECOVERY;
 > **Nota:** `WITH RECOVERY` esta opción "cierra" la restauración y pone la base de datos en línea y funcional, lista para usarse.
 
 Verificación: Una consulta SELECT * FROM socio; mostró que solo estaban presentes los socios hasta el ultimo id_socio del primer insert, confirmando que la restauración fue exitosa.
+
 ## 5. Restauración Completa Aplicando Todos los Logs
-Finalmente, se demostró cómo recuperar todo el trabajo, restaurando la base de datos a su estado más reciente.
+Finalmente, se demostró cómo recuperar todo el trabajo, restaurando la base de datos a su estado más reciente aplicando la cadena completa de backups.
 
-El proceso fue similar, pero aplicando toda la cadena de backups:
+### Paso A: Restaurar la Base Completa (modo NORECOVERY)
+Se restaura el backup completo (`.bak`) y se deja la base en estado de restauración para aplicar logs.
 
-1. `RESTORE DATABASE ... WITH NORECOVERY;` (Usando el archivo `.bak`)
-2. `RESTORE LOG ... WITH NORECOVERY;` (Usando el primer archivo `.trn`)
-3. `RESTORE LOG ... WITH RECOVERY;` (Usando el segundo archivo `.trn` para finalizar)
+```sql
+RESTORE DATABASE gimnasio_db
+FROM DISK = 'C:\BackupsSQL\gimnasio_db_full.bak'
+WITH NORECOVERY, REPLACE;
+```
+> Nota: `NORECOVERY` mantiene la base inaccesible y lista para continuar aplicando archivos de log. `REPLACE` sobrescribe la base actual.
 
-La verificación final con `SELECT` mostró los 20 registros agregados en los inserts, confirmando que todos los datos fueron recuperados exitosamente.
+### Paso B: Aplicar el Primer Log (mantener NORECOVERY)
+Se aplica el primer archivo de log (`gimnasio_db_log1.trn`) manteniendo la base en modo restauración para continuar con el segundo log.
+
+```sql
+RESTORE LOG gimnasio_db
+FROM DISK = 'C:\BackupsSQL\gimnasio_db_log1.trn'
+WITH NORECOVERY;
+```
+> Nota: Se usa `NORECOVERY` porque aún falta aplicar el segundo log.
+
+### Paso C: Aplicar el Segundo Log (finalizar con RECOVERY)
+Se aplica el último log y se cierra la restauración para poner la base en línea.
+
+```sql
+RESTORE LOG gimnasio_db
+FROM DISK = 'C:\BackupsSQL\gimnasio_db_log2.trn'
+WITH RECOVERY;
+```
+> Nota: `WITH RECOVERY` finaliza el proceso de restauración y deja la base accesible para consultas.
+
+### Verificación
+Con la base ya en línea, se verificó que estén presentes todos los registros insertados en ambos lotes (20 personas y 20 socios en total).
+Verificación: Una consulta SELECT * FROM socio
+
+La verificación mostró 20 registros en `socio`, confirmando que se aplicó correctamente la cadena completa (Full + Log1 + Log2) y que la base quedó en su estado más reciente.
