@@ -222,6 +222,8 @@ Artefactos y consultas relevantes:
 - Consultas/Comandos clave utilizados: ver `tema04_script.sql` para secuencia completa (`ALTER DATABASE ... SET RECOVERY FULL`, `BACKUP DATABASE`, `BACKUP LOG`, `RESTORE DATABASE ... WITH NORECOVERY/RECOVERY`, `RESTORE LOG`).
 - Tablas afectadas en pruebas: `persona`, `socio`.
 
+Acceso a la carpeta correspondiente:  
+[Ver carpeta](https://github.com/DarioMartin3/basesdedatos_proyecto_estudio_Grupo05/tree/main/script/TEMA04_BACKUP_Y_RESTORE_BACKUP_EN_LINEA)
 
 ## CAPÍTULO V: CONCLUSIONES
 
