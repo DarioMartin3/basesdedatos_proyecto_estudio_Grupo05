@@ -32,33 +32,18 @@ WITH NAME = 'Backup full gimnasio_db'
 
 --3) Generar 10 inserts sobre una tabla de referencia.
 -- Inserto 10 nuevas personas
-
--- Declaramos la variable para guardar los IDs generados, para hacer el insert de manera dinamica
--- y no tener problemas con el ingreso del lote luego
-DECLARE @NuevosIDs TABLE (id INT);
-
-INSERT INTO persona (nombre, apellido, dni, telefono, email) 
-OUTPUT inserted.id_persona INTO @NuevosIDs --Capturo los IDs generados por las nuevas personas para los socios
-VALUES
-('Juan', 'Perez', 30123456, 111111, 'juan.perez@email.com'),
-('Ana', 'Gomez', 31123457, 222222, 'ana.gomez@email.com'),
-('Luis', 'Martinez', 32123458, 333333, 'luis.martinez@email.com'),
-('Maria', 'Rodriguez', 33123459, 444444, 'maria.rodriguez@email.com'),
-('Carlos', 'Lopez', 34123450, 555555, 'carlos.lopez@email.com'),
-('Laura', 'Sanchez', 35123451, 666666, 'laura.sanchez@email.com'),
-('Pedro', 'Gonzalez', 36123452, 777777, 'pedro.gonzalez@email.com'),
-('Sofia', 'Fernandez', 37123453, 888888, 'sofia.fernandez@email.com'),
-('Diego', 'Diaz', 38123454, 999999, 'diego.diaz@email.com'),
-('Valeria', 'Moreno', 39123455, 101010, 'valeria.moreno@email.com');
-
--- Como id_socio es clave foránea de persona, inserto los socios correspondientes.
--- Inserto los 10 socios de una sola vez, usando los IDs que capture en la variable.
-INSERT INTO socio (id_socio, contacto_emergencia, observaciones)
-SELECT
-    id,                         -- El id dinámico de la variable
-    123456789,                  -- El contacto de emergencia
-    'Sin observaciones'         -- Una observación genérica para todos
-FROM @NuevosIDs;
+-- Reemplazado por llamadas al procedimiento almacenado sp_CrearPersonaYSocio
+DECLARE @id_persona INT;
+EXEC sp_CrearPersonaYSocio @nombre='Juan',   @apellido='Perez',      @dni=30123456, @telefono=111111, @email='juan.perez@email.com',      @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Ana',    @apellido='Gomez',      @dni=31123457, @telefono=222222, @email='ana.gomez@email.com',       @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Luis',   @apellido='Martinez',   @dni=32123458, @telefono=333333, @email='luis.martinez@email.com',   @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Maria',  @apellido='Rodriguez',  @dni=33123459, @telefono=444444, @email='maria.rodriguez@email.com', @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Carlos', @apellido='Lopez',      @dni=34123450, @telefono=555555, @email='carlos.lopez@email.com',    @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Laura',  @apellido='Sanchez',    @dni=35123451, @telefono=666666, @email='laura.sanchez@email.com',   @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Pedro',  @apellido='Gonzalez',   @dni=36123452, @telefono=777777, @email='pedro.gonzalez@email.com',  @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Sofia',  @apellido='Fernandez',  @dni=37123453, @telefono=888888, @email='sofia.fernandez@email.com', @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Diego',  @apellido='Diaz',       @dni=38123454, @telefono=999999, @email='diego.diaz@email.com',      @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Valeria',@apellido='Moreno',     @dni=39123455, @telefono=101010, @email='valeria.moreno@email.com',  @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -73,31 +58,18 @@ SELECT GETDATE() AS HoraBackupLog1;
 
 --5) Generar otros 10 insert sobre la tabla de referencia.
 -- Inserto otras 10 personas
-
--- Creo otra variable para insertar los nuevos 10 socios tambien de manera dinamica
-DECLARE @NuevosIDs2 TABLE (id INT);
-
-INSERT INTO persona (nombre, apellido, dni, telefono, email) 
-OUTPUT inserted.id_persona INTO @NuevosIDs2 --Capturo los IDs generados por las nuevas personas para los socios
-VALUES
-('Jorge', 'Ramirez', 40123456, 111112, 'jorge.ramirez@email.com'),
-('Lucia', 'Acosta', 41123457, 222223, 'lucia.acosta@email.com'),
-('Martin', 'Garcia', 42123458, 333334, 'martin.garcia@email.com'),
-('Camila', 'Alvarez', 43123459, 444445, 'camila.alvarez@email.com'),
-('Nicolas', 'Torres', 44123450, 555556, 'nicolas.torres@email.com'),
-('Julieta', 'Ruiz', 45123451, 666667, 'julieta.ruiz@email.com'),
-('Matias', 'Gimenez', 46123452, 777778, 'matias.gimenez@email.com'),
-('Paula', 'Sosa', 47123453, 888889, 'paula.sosa@email.com'),
-('Federico', 'Benitez', 48123454, 999990, 'federico.benitez@email.com'),
-('Agustina', 'Pereyra', 49123455, 101011, 'agustina.pereyra@email.com');
-
--- Inserto los 10 socios correspondientes de manera dinamica
-INSERT INTO socio (id_socio, contacto_emergencia, observaciones)
-SELECT
-    id,                         -- El id dinámico de la variable
-    123456789,                  -- El contacto de emergencia
-    'Sin observaciones'         -- Una observación genérica para todos
-FROM @NuevosIDs2;
+-- Reemplazado por llamadas al procedimiento almacenado sp_CrearPersonaYSocio
+DECLARE @id_persona2 INT;
+EXEC sp_CrearPersonaYSocio @nombre='Jorge',    @apellido='Ramirez',  @dni=40123456, @telefono=111112, @email='jorge.ramirez@email.com',    @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Lucia',    @apellido='Acosta',   @dni=41123457, @telefono=222223, @email='lucia.acosta@email.com',     @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Martin',   @apellido='Garcia',   @dni=42123458, @telefono=333334, @email='martin.garcia@email.com',     @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Camila',   @apellido='Alvarez',  @dni=43123459, @telefono=444445, @email='camila.alvarez@email.com',    @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Nicolas',  @apellido='Torres',   @dni=44123450, @telefono=555556, @email='nicolas.torres@email.com',    @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Julieta',  @apellido='Ruiz',     @dni=45123451, @telefono=666667, @email='julieta.ruiz@email.com',      @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Matias',   @apellido='Gimenez',  @dni=46123452, @telefono=777778, @email='matias.gimenez@email.com',    @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Paula',    @apellido='Sosa',     @dni=47123453, @telefono=888889, @email='paula.sosa@email.com',        @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Federico', @apellido='Benitez',  @dni=48123454, @telefono=999990, @email='federico.benitez@email.com',  @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Agustina', @apellido='Pereyra',  @dni=49123455, @telefono=101011, @email='agustina.pereyra@email.com',  @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
 
 ------------------------------------------------------------------------------------------------------------------------
 
