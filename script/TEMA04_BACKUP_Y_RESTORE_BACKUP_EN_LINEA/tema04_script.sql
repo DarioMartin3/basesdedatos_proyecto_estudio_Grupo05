@@ -34,16 +34,16 @@ WITH NAME = 'Backup full gimnasio_db'
 -- Inserto 10 nuevas personas
 -- Reemplazado por llamadas al procedimiento almacenado sp_CrearPersonaYSocio
 DECLARE @id_persona INT;
-EXEC sp_CrearPersonaYSocio @nombre='Juan',   @apellido='Perez',      @dni=30123456, @telefono=111111, @email='juan.perez@email.com',      @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
-EXEC sp_CrearPersonaYSocio @nombre='Ana',    @apellido='Gomez',      @dni=31123457, @telefono=222222, @email='ana.gomez@email.com',       @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
-EXEC sp_CrearPersonaYSocio @nombre='Luis',   @apellido='Martinez',   @dni=32123458, @telefono=333333, @email='luis.martinez@email.com',   @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
-EXEC sp_CrearPersonaYSocio @nombre='Maria',  @apellido='Rodriguez',  @dni=33123459, @telefono=444444, @email='maria.rodriguez@email.com', @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
-EXEC sp_CrearPersonaYSocio @nombre='Carlos', @apellido='Lopez',      @dni=34123450, @telefono=555555, @email='carlos.lopez@email.com',    @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
-EXEC sp_CrearPersonaYSocio @nombre='Laura',  @apellido='Sanchez',    @dni=35123451, @telefono=666666, @email='laura.sanchez@email.com',   @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
-EXEC sp_CrearPersonaYSocio @nombre='Pedro',  @apellido='Gonzalez',   @dni=36123452, @telefono=777777, @email='pedro.gonzalez@email.com',  @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
-EXEC sp_CrearPersonaYSocio @nombre='Sofia',  @apellido='Fernandez',  @dni=37123453, @telefono=888888, @email='sofia.fernandez@email.com', @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
-EXEC sp_CrearPersonaYSocio @nombre='Diego',  @apellido='Diaz',       @dni=38123454, @telefono=999999, @email='diego.diaz@email.com',      @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
-EXEC sp_CrearPersonaYSocio @nombre='Valeria',@apellido='Moreno',     @dni=39123455, @telefono=101010, @email='valeria.moreno@email.com',  @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Juan',    @apellido='Perez',     @dni=50111222, @telefono=1110001, @email='juan.perez@demo.com',        @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Ana',     @apellido='Gomez',     @dni=50111223, @telefono=1110002, @email='ana.gomez@demo.com',         @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Luis',    @apellido='Martinez',  @dni=50111224, @telefono=1110003, @email='luis.martinez@demo.com',     @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Maria',   @apellido='Rodriguez', @dni=50111225, @telefono=1110004, @email='maria.rodriguez@demo.com',   @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Carlos',  @apellido='Lopez',     @dni=50111226, @telefono=1110005, @email='carlos.lopez@demo.com',      @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Laura',   @apellido='Sanchez',   @dni=50111227, @telefono=1110006, @email='laura.sanchez@demo.com',     @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Pedro',   @apellido='Gonzalez',  @dni=50111228, @telefono=1110007, @email='pedro.gonzalez@demo.com',    @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Sofia',   @apellido='Fernandez', @dni=50111229, @telefono=1110008, @email='sofia.fernandez@demo.com',   @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Diego',   @apellido='Diaz',      @dni=50111230, @telefono=1110009, @email='diego.diaz@demo.com',        @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Valeria', @apellido='Moreno',    @dni=50111231, @telefono=1110010, @email='valeria.moreno@demo.com',    @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona OUTPUT;
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -60,16 +60,16 @@ SELECT GETDATE() AS HoraBackupLog1;
 -- Inserto otras 10 personas
 -- Reemplazado por llamadas al procedimiento almacenado sp_CrearPersonaYSocio
 DECLARE @id_persona2 INT;
-EXEC sp_CrearPersonaYSocio @nombre='Jorge',    @apellido='Ramirez',  @dni=40123456, @telefono=111112, @email='jorge.ramirez@email.com',    @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
-EXEC sp_CrearPersonaYSocio @nombre='Lucia',    @apellido='Acosta',   @dni=41123457, @telefono=222223, @email='lucia.acosta@email.com',     @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
-EXEC sp_CrearPersonaYSocio @nombre='Martin',   @apellido='Garcia',   @dni=42123458, @telefono=333334, @email='martin.garcia@email.com',     @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
-EXEC sp_CrearPersonaYSocio @nombre='Camila',   @apellido='Alvarez',  @dni=43123459, @telefono=444445, @email='camila.alvarez@email.com',    @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
-EXEC sp_CrearPersonaYSocio @nombre='Nicolas',  @apellido='Torres',   @dni=44123450, @telefono=555556, @email='nicolas.torres@email.com',    @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
-EXEC sp_CrearPersonaYSocio @nombre='Julieta',  @apellido='Ruiz',     @dni=45123451, @telefono=666667, @email='julieta.ruiz@email.com',      @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
-EXEC sp_CrearPersonaYSocio @nombre='Matias',   @apellido='Gimenez',  @dni=46123452, @telefono=777778, @email='matias.gimenez@email.com',    @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
-EXEC sp_CrearPersonaYSocio @nombre='Paula',    @apellido='Sosa',     @dni=47123453, @telefono=888889, @email='paula.sosa@email.com',        @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
-EXEC sp_CrearPersonaYSocio @nombre='Federico', @apellido='Benitez',  @dni=48123454, @telefono=999990, @email='federico.benitez@email.com',  @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
-EXEC sp_CrearPersonaYSocio @nombre='Agustina', @apellido='Pereyra',  @dni=49123455, @telefono=101011, @email='agustina.pereyra@email.com',  @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Jorge',     @apellido='Ramirez',  @dni=60111222, @telefono=2110001, @email='jorge.ramirez@demo.com',     @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Lucia',     @apellido='Acosta',   @dni=60111223, @telefono=2110002, @email='lucia.acosta@demo.com',       @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Martin',    @apellido='Garcia',   @dni=60111224, @telefono=2110003, @email='martin.garcia@demo.com',      @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Camila',    @apellido='Alvarez',  @dni=60111225, @telefono=2110004, @email='camila.alvarez@demo.com',     @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Nicolas',   @apellido='Torres',   @dni=60111226, @telefono=2110005, @email='nicolas.torres@demo.com',     @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Julieta',   @apellido='Ruiz',     @dni=60111227, @telefono=2110006, @email='julieta.ruiz@demo.com',       @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Matias',    @apellido='Gimenez',  @dni=60111228, @telefono=2110007, @email='matias.gimenez@demo.com',     @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Paula',     @apellido='Sosa',     @dni=60111229, @telefono=2110008, @email='paula.sosa@demo.com',         @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Federico',  @apellido='Benitez',  @dni=60111230, @telefono=2110009, @email='federico.benitez@demo.com',   @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
+EXEC sp_CrearPersonaYSocio @nombre='Agustina',  @apellido='Pereyra',  @dni=60111231, @telefono=2113010, @email='agustina.pereyra@demo.com',    @contacto_emergencia=123456789, @observaciones='Sin observaciones', @id_persona=@id_persona2 OUTPUT;
 
 ------------------------------------------------------------------------------------------------------------------------
 
