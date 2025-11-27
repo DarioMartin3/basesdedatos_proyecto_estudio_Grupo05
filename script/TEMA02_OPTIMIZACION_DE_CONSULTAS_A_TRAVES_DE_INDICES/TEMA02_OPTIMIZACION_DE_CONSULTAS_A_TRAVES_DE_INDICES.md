@@ -85,9 +85,9 @@ El índice nonclustered incluía las columnas necesarias (INCLUDE), convirtiendo
 
 | Escenario              | Logical Reads | CPU Time | Tiempo Total | Plan                  |
 | ---------------------- | ------------- | -------- | ------------ | --------------------- |
-| Sin índice             | 5209          | 250 ms   | 487 ms       | Table Scan            |
-| Clustered por fecha    | 112           | 16 ms    | 155 ms       | Index Seek            |
-| NonClustered + INCLUDE | **93**        | **0 ms** | 176 ms       | Index Seek (Covering) |
+| Sin índice             | 5209          | 250 ms   | 770 ms       | Table Scan            |
+| Clustered por fecha    | 657           | 94 ms    | 546 ms       | Index Seek            |
+| NonClustered + INCLUDE | **547**        | **110 ms** | 446 ms       | Index Seek (Covering) |
 
 ## Conclusión
 

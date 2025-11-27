@@ -5,7 +5,7 @@ DBCC FREEPROCCACHE;
 DBCC DROPCLEANBUFFERS;
 
 DECLARE @desde DATETIME = '2024-01-01',
-        @hasta DATETIME = '2024-03-01';
+        @hasta DATETIME = '2025-03-01';
 
 SET STATISTICS IO ON;
 SET STATISTICS TIME ON;
@@ -18,14 +18,6 @@ OPTION (RECOMPILE);
 SET STATISTICS IO OFF;
 SET STATISTICS TIME OFF;
 
--- 2.1 Quitar la PK actual (si existe con ese nombre)
-ALTER TABLE dbo.pago DROP CONSTRAINT PK_pago;
-GO
-
--- 2.2 Volver a crear la PK como **NONCLUSTERED**
-ALTER TABLE dbo.pago
-ADD CONSTRAINT PK_pago PRIMARY KEY NONCLUSTERED (id_pago);
-GO
 
 -- 2.3 Crear el **CLUSTERED** por fecha
 DBCC FREEPROCCACHE;
@@ -36,7 +28,7 @@ ON dbo.pago(fecha);
 GO
 
 DECLARE @desde DATETIME = '2024-01-01',
-        @hasta DATETIME = '2024-03-01';
+        @hasta DATETIME = '2025-03-01';
 
 SET STATISTICS IO ON;
 SET STATISTICS TIME ON;
@@ -63,9 +55,9 @@ ON dbo.pago(fecha)
 INCLUDE (socio_id, tipo_pago_id, total, estado);
 GO
 
--- Medición con índice covering
+-- Mediciï¿½n con ï¿½ndice covering
 DECLARE @desde DATETIME = '2024-01-01',
-        @hasta DATETIME = '2024-03-01';
+        @hasta DATETIME = '2025-03-01';
 SET STATISTICS IO ON;
 SET STATISTICS TIME ON;
 
