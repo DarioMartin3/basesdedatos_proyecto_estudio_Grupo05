@@ -105,6 +105,8 @@ USE gimnasio_db; --Vuelvo a nuestra base
 
 -- Hago una consulta para contar cuántos socios hay.
 SELECT * FROM socio;
+
+SELECT * FROM persona ORDER BY id_persona DESC;
 -- Al hacer esta consulta, en la salida se puede ver que el ultimo o mas alto id que devuelve es el que estaba ultimo hasta la primer insercion,
 -- mientras que los socios que ingrese en el segundo insert no salen.
 -- esto quiere decir que se realizo correctamente la restauracion
